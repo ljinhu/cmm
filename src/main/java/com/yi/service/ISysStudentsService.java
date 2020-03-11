@@ -22,4 +22,11 @@ public interface ISysStudentsService extends IService<SysStudents> {
     Page<SysStudents> findByPage(SysStudents sysStudents,Page<SysStudents> page);
 
     Rest save(SysStudents sysStudents, SysUser sysUser,String[] roleIds);
+
+    /**
+     * 检查学号是否重复
+     * @param no
+     * @return
+     */
+    Rest checkNo(String no);
 }

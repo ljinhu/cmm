@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.yi.common.bean.Rest;
 import com.yi.common.util.ShiroUtil;
+import com.yi.entity.SysClass;
 import com.yi.entity.SysStudents;
 import com.yi.entity.SysUser;
 import com.yi.entity.SysUserRole;
@@ -50,11 +51,11 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
         return sysStudentsPage;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public Rest save(SysStudents sysStudents, SysUser sysUser, String[] roleIds) {
         //如果sysStudents含有id，时修改，不再保存user即家长信息了
-        if(!StringUtils.isNotEmpty(sysStudents.getId())){
+        if (!StringUtils.isNotEmpty(sysStudents.getId())) {
             sysUser.setCreateTime(new Date());
             sysUser.setPassword(ShiroUtil.md51024Pwd(sysUser.getPassword(), sysUser.getUserName()));
             //保存用户
@@ -73,5 +74,21 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
         }
         this.insertOrUpdate(sysStudents);
         return Rest.ok("保存成功");
+    }
+
+    @Override
+    public Rest checkNo(String no) {
+        if (StringUtils.isEmpty(no)) {
+            return Rest.ok();
+        }
+        Wrapper<SysStudents> wrapper = new EntityWrapper<>();
+        wrapper.eq("no", no);
+        int i = this.selectCount(wrapper);
+        //查到多于0条数据，说明已经有存在学号为no的，重复
+        if (i > 0) {
+            return Rest.ok();
+        }
+
+        return Rest.failure("学号重复");
     }
 }

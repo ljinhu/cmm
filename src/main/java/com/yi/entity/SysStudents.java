@@ -21,6 +21,8 @@ public class SysStudents {
     /** 学生id */
     @TableId(type = IdType.UUID)
     private String id;
+    /**学号**/
+    private String no;
 
     /** 学生姓名 */
     private String name;
@@ -48,6 +50,12 @@ public class SysStudents {
     /** 家长名称 */
     @TableField(value = "PARENT_NAME")
     private String parentName;
+    @TableField(value = "CLASS_NAME")
+    private String className;
+    private String grade;
+    @TableField(value = "CHARGE_UNAME")
+    private String chargeUname;
+
 
     public String getCreatedBy() {
         return createdBy;
@@ -119,5 +127,37 @@ public class SysStudents {
 
     public void setParentName(String parentName) {
         this.parentName = parentName;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getChargeUname() {
+        return chargeUname;
+    }
+
+    public void setChargeUname(String chargeUname) {
+        this.chargeUname = chargeUname;
+    }
+
+    public String getNo() {
+        return no;
+    }
+
+    public void setNo(String no) {
+        this.no = no;
     }
 }

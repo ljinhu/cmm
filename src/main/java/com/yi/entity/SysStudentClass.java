@@ -6,39 +6,35 @@ import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 
 /**
- * @Author: gwt
- * @Date: 2020/2/23 18:12
+ * @Author:
+ * @Date: 2020/3/10 22:31
  * @Description: 
  */
-@TableName("SYS_TEACHER_CLASS")
-public class SysTeacherClass {
+@TableName("SYS_STUDENT_CLASS")
+public class SysStudentClass {
 
     /** 主键 */
     @TableId(type = IdType.UUID)
     private String id;
-
     /** 教师用户ID 教师用户ID */
-    @TableField(value = "USER_ID")
-    private String userId;
+    @TableField(value = "STU_ID")
+    private String stuId;
 
     /** 班级ID 班级ID */
-    @TableField(value = "CLASS_ID")
+    @TableField("CLASS_ID")
     private String classId;
 
-    /** LESSON_NAME 课程名称 */
-    @TableField(value = "LESSON_NAME")
-    private String lessonName;
 
     /** 是否有效 是否有效 */
     @TableField(value = "IS_VALID ")
     private Long isValid;
 
-    public String getUserId() {
-        return userId;
+    public String getStuId() {
+        return stuId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setStuId(String stuId) {
+        this.stuId = stuId;
     }
 
     public String getClassId() {
@@ -47,14 +43,6 @@ public class SysTeacherClass {
 
     public void setClassId(String classId) {
         this.classId = classId;
-    }
-
-    public String getLessonName() {
-        return lessonName;
-    }
-
-    public void setLessonName(String lessonName) {
-        this.lessonName = lessonName;
     }
 
     public Long getIsValid() {

@@ -1,7 +1,14 @@
 package com.yi.service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.IService;
+import com.google.common.collect.Lists;
 import com.yi.entity.SysRole;
+import com.yi.entity.SysUser;
+import com.yi.entity.SysUserRole;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -10,5 +17,5 @@ import com.yi.entity.SysRole;
  */
 public interface ISysRoleService extends IService<SysRole> {
 
-
+     List<SysUser> getSysUsers(String roleId);
 }

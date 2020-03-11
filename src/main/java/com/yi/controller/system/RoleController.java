@@ -193,23 +193,13 @@ public class RoleController extends BaseController {
 	 */
 	@RequestMapping("/getUsers")  
 	public String getUsers(String roleId,Model model){
-		
-		List<SysUserRole> sysUserRoles = sysUserRoleService.selectList(new EntityWrapper<SysUserRole>().eq("roleId", roleId));
-		
-		List<String> userIds = Lists.transform(sysUserRoles,input -> input.getUserId());
-		
-		List<SysUser> users  = new ArrayList<SysUser>();
-		
-		if(userIds.size() > 0){
-			EntityWrapper<SysUser> ew = new EntityWrapper<SysUser>();
-			ew.in("id", userIds);
-			users= sysUserService.selectList(ew);
-		}
-		
+
+		List<SysUser> users = sysRoleService.getSysUsers(roleId);
+
 		model.addAttribute("users",users);
 		return "system/role/users";
 	}
-	
+
 	/**
 	 * 获取指定角色的用户数量
 	 */

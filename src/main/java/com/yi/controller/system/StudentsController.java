@@ -7,12 +7,14 @@ import com.yi.entity.SysStudents;
 import com.yi.entity.SysUser;
 import com.yi.service.ISysStudentsService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @Author:
@@ -40,7 +42,7 @@ public class StudentsController extends BaseController {
                        SysStudents sysStudents, Model model){
         Page<SysStudents> page = this.getPage(pageNo, pageSize);
         Page<SysStudents> pageRecord = studentsService.findByPage(sysStudents, page);
-        model.addAttribute("pageRecord",pageRecord);
+        model.addAttribute("pageData",pageRecord);
         return PREFIX + "list";
     }
 
@@ -49,6 +51,7 @@ public class StudentsController extends BaseController {
      * @param id 如果有id则说明是修改
      * @return
      */
+    @RequiresPermissions("system:stu:add")
     @RequestMapping("/toAdd")
     public String toAdd(String id,Model model){
         SysStudents sysStudents = new SysStudents();
@@ -67,8 +70,20 @@ public class StudentsController extends BaseController {
      * @param sysUser
      * @return
      */
+    @RequiresPermissions("system:stu:add")
     @RequestMapping("/doAdd")
     public Rest doAdd(SysStudents students, SysUser sysUser,String[] roleIds){
         return studentsService.save(students,sysUser,roleIds);
+    }
+
+    /**
+     * 检查学号是否重复
+     * @param no
+     * @return
+     */
+    @RequestMapping("/checkNo/{no}")
+    @ResponseBody
+    public Rest checkNo(@PathVariable String no){
+        return studentsService.checkNo(no);
     }
 }

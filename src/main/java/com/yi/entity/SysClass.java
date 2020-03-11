@@ -31,7 +31,7 @@ public class SysClass {
 
     /** 是否有效 是否有效 */
     @TableField(value = "IS_VALID ")
-    private Long isValid;
+    private Long isValid = 1L;
 
     /** 有效期截至时间 有效期截至时间 */
     @TableField(value = "VALID_END_TIME")

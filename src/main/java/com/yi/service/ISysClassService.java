@@ -25,4 +25,6 @@ public interface ISysClassService extends IService<SysClass> {
      * @return
      */
     List<SysUser> selectUserByRole(String roleName);
+
+    void del(String id,Long isValid);
 }
