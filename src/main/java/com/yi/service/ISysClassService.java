@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.service.IService;
 import com.yi.common.bean.Rest;
 import com.yi.entity.SysClass;
 import com.yi.entity.SysUser;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,4 +28,11 @@ public interface ISysClassService extends IService<SysClass> {
     List<SysUser> selectUserByRole(String roleName);
 
     void del(String id,Long isValid);
+
+    /**
+     * 通过excel导入学生
+     * @param file
+     * @return
+     */
+    Rest importStuExcel(MultipartFile file);
 }

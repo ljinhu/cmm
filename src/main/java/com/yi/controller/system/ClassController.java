@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,5 +110,16 @@ public class ClassController extends BaseController {
      */
     public String mineClass(){
         return "";
+    }
+
+
+    /**
+     * 通过excel导入
+     * @return
+     */
+    @RequestMapping("/import")
+    @ResponseBody
+    public Rest importStu(@RequestParam MultipartFile file){
+        return sysClassService.importStuExcel(file);
     }
 }

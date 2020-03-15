@@ -1,0 +1,69 @@
+<#include "/common/layout_dl.html">
+<@header>
+</@header>
+<@body>
+<form class="form-horizontal layui-form layui-form-pane" method="POST"  enctype="multipart/form-data" id="form1" action="/system/student/import">
+    <div class="box-body">
+        <div class="form-group">
+            <label for="systemLogo"  class="col-sm-2 control-label">上传excel文件</label>
+            <div class="col-sm-10">
+                <input name="file" type="file"  class="file-loading" id="systemLogo" multiple accept=".xls,.xlsx">
+            </div>
+        </div>
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"></label>
+            <div class="col-sm-10">
+                <button type="submit" onclick="" class="btn btn-success" lay-submit lay-filter="submit"><i class="fa fa-save"></i>  提 交</button>
+                <a  class="btn btn-default" href="javascript:parent.layer.closeAll('iframe');"><i class="fa fa-close"></i>  取消</a>
+            </div>
+        </div>
+    </div>
+</form>
+</@body>
+<@footer>
+</@footer>
+<script src="/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
+<script>
+    //初始化fileinput控件（第一次初始化）
+    function initFileInput(ctrlName, uploadUrl) {
+        var control = $('#' + ctrlName);
+
+        control.fileinput({
+            language: 'zh', //设置语言
+            uploadUrl: uploadUrl, //上传的地址
+            uploadAsync: true, //默认异步上传
+            showCaption: true,//是否显示标题
+            showUpload: true, //是否显示上传按钮
+            browseClass: "btn btn-primary", //按钮样式
+            allowedFileExtensions: ["xls", "xlsx"], //接收的文件后缀
+            maxFileCount: 10,//最大上传文件数限制
+            previewFileIcon: '<i class="glyphicon glyphicon-file"></i>',
+            showPreview: true, //是否显示预览
+            previewFileIconSettings: {
+                'docx': '<i ass="fa fa-file-word-o text-primary"></i>',
+                'xlsx': '<i class="fa fa-file-excel-o text-success"></i>',
+                'xls': '<i class="fa fa-file-excel-o text-success"></i>',
+                'pptx': '<i class="fa fa-file-powerpoint-o text-danger"></i>',
+                'jpg': '<i class="fa fa-file-photo-o text-warning"></i>',
+                'pdf': '<i class="fa fa-file-archive-o text-muted"></i>',
+                'zip': '<i class="fa fa-file-archive-o text-muted"></i>',
+            },
+            uploadExtraData: function () {
+                var extraValue = "test";
+                return {"excelType": extraValue};
+            }
+        });
+    }
+
+    initFileInput("systemLogo", "/system/student/import");
+</script>
+<style>
+    .file-drop-zone-title{
+        display: none !important;
+    }
+
+    .file-drop-zone{
+        display: none !important;
+    }
+</style>

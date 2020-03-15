@@ -3,6 +3,7 @@ package com.yi.controller.system;
 import java.util.List;
 import java.util.Map;
 
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,8 +128,9 @@ public class UserController extends BaseController {
      */
     @RequestMapping("/checkName")  
     @ResponseBody
-    public Rest checkName(String userName){
-    	List<SysUser> list = sysUserService.selectList(new EntityWrapper<SysUser>().eq("userName", userName));
+    public Rest checkName(String userName,String parentName){
+		Wrapper<SysUser> wrapper = new EntityWrapper<SysUser>().eq("userName", userName).or().eq("userName", parentName);
+		List<SysUser> list = sysUserService.selectList(wrapper);
     	if(list.size() > 0){
     		return Rest.failure("用户名已存在");
     	}

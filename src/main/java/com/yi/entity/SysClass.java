@@ -54,6 +54,9 @@ public class SysClass {
     /** 年级 年级 */
     private String grade;
 
+    @TableField("CLASS_NO")
+    private String classNo;
+
     public String getId() {
         return id;
     }
@@ -140,5 +143,13 @@ public class SysClass {
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    public String getClassNo() {
+        return classNo;
+    }
+
+    public void setClassNo(String classNo) {
+        this.classNo = classNo;
     }
 }

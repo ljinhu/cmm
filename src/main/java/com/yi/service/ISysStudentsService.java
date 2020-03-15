@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.service.IService;
 import com.yi.common.bean.Rest;
 import com.yi.entity.SysStudents;
 import com.yi.entity.SysUser;
+import com.yi.entity.vo.StudentVo;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @Author:
@@ -21,7 +23,7 @@ public interface ISysStudentsService extends IService<SysStudents> {
      */
     Page<SysStudents> findByPage(SysStudents sysStudents,Page<SysStudents> page);
 
-    Rest save(SysStudents sysStudents, SysUser sysUser,String[] roleIds);
+    Rest save(StudentVo studentVo);
 
     /**
      * 检查学号是否重复
@@ -29,4 +31,6 @@ public interface ISysStudentsService extends IService<SysStudents> {
      * @return
      */
     Rest checkNo(String no);
+
+    Rest importExcel(MultipartFile multipartFile) throws Exception;
 }

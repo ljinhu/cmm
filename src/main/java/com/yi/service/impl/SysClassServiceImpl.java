@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.yi.common.bean.Rest;
+import com.yi.common.util.ImportExcelUtil;
 import com.yi.entity.SysClass;
 import com.yi.entity.SysStudentClass;
 import com.yi.entity.SysTeacherClass;
@@ -15,11 +16,13 @@ import com.yi.mapper.SysTeacherClassMapper;
 import com.yi.mapper.SysUserMapper;
 import com.yi.service.ISysClassService;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
@@ -119,5 +122,18 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
             }
         }
         this.updateById(sysClass);
+    }
+
+    @Override
+    public Rest importStuExcel(MultipartFile file) {
+        String originalFilename = file.getOriginalFilename();
+        try {
+            List<List<Object>> list = ImportExcelUtil.getBankListByExcel(file.getInputStream(), originalFilename);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Rest rest = Rest.failure("导入发生异常");
+            return rest;
+        }
+        return Rest.ok();
     }
 }
