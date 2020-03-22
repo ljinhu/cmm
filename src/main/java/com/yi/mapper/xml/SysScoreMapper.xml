@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yi.mapper.SysScoreMapper">
+
+    <select id="getScore" parameterType="com.yi.entity.vo.SysScoreVo" resultType="com.yi.entity.SysScore">
+        select t1.name as stuName,t1.no as stuNo,t1.parent_id as parentId,t1.CLASS_NAME as className,
+        t2.comment,t2.id,t2.score,t1.CLASS_ID,t2.exam_id,t2.exam_title,t2.lesson_code,t2.lesson_name from sys_students t1 left join sys_score t2 on t1.NO=t2.stu_no
+        <where>
+            <if test="classId != null and classId !=''">
+                t1.class_id=#{classId}
+            </if>
+            <if test="examId != null and examId !=''">
+                and t2.exam_id=#{examId}
+            </if>
+            <if test="stuNo != null and stuNo !=''">
+                and t2.stu_no = #{stuNo}
+            </if>
+            <if test="lessonCode != null and lessonCode !=''">
+                and t2.lesson_code = #{lessonCode}
+            </if>
+            <if test="lessonCodes != null and lessonCodes.size >0">
+                and t2.lesson_code in
+                <foreach collection="lessonCodes" item="code" close=")" open="(" separator=",">
+                    #{code}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -33,4 +33,13 @@ public interface ISysStudentsService extends IService<SysStudents> {
     Rest checkNo(String no);
 
     Rest importExcel(MultipartFile multipartFile) throws Exception;
+
+    Rest delete(String id);
+
+    /**
+     * 根据家长用户id查询学生
+     * @param pid
+     * @return
+     */
+    SysStudents getByPid(String pid);
 }

@@ -6,15 +6,13 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.yi.common.bean.Rest;
 import com.yi.common.util.ImportExcelUtil;
-import com.yi.entity.SysClass;
-import com.yi.entity.SysStudentClass;
-import com.yi.entity.SysTeacherClass;
-import com.yi.entity.SysUser;
+import com.yi.entity.*;
 import com.yi.mapper.SysClassMapper;
 import com.yi.mapper.SysStudentClassMapper;
 import com.yi.mapper.SysTeacherClassMapper;
 import com.yi.mapper.SysUserMapper;
 import com.yi.service.ISysClassService;
+import com.yi.service.ISysStudentsService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.shiro.SecurityUtils;
@@ -26,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author:
@@ -135,5 +134,81 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
             return rest;
         }
         return Rest.ok();
+    }
+
+    @Autowired
+    private ISysStudentsService studentsService;
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean removeStudent(String stuId, String classNo) throws Exception{
+        Wrapper<SysClass> classWrapper = new EntityWrapper<>();
+        classWrapper.eq("class_no",classNo);
+        SysClass sysClass = this.selectOne(classWrapper);
+
+        Wrapper<SysStudents> studentsWrapper = new EntityWrapper<>();
+        studentsWrapper.eq("id",stuId);
+        studentsWrapper.and().eq("CLASS_ID",classNo);
+        SysStudents sysStudents = studentsService.selectOne(studentsWrapper);
+        sysStudents.setClassId("");
+        sysStudents.setChargeUname("");
+        sysStudents.setClassName("");
+        studentsService.updateById(sysStudents);
+        //去除关联关系
+//        Wrapper<SysStudentClass> scWrapper = new EntityWrapper<>();
+//        scWrapper.eq("STU_ID",stuId);
+//        scWrapper.and().eq("CLASS_ID",sysClass.getId());
+        SysStudentClass sysStudentClass = new SysStudentClass();
+        sysStudentClass.setStuId(stuId);
+        sysStudentClass.setClassId(sysClass.getId());
+        SysStudentClass studentClassDb = studentClassMapper.selectOne(sysStudentClass);
+        studentClassDb.setIsValid(-1L);
+        //设置关联关系失效
+        studentClassMapper.updateById(studentClassDb);
+        return true;
+    }
+
+    @Override
+    public SysClass getByClassNo(String classNo) {
+        if(StringUtils.isNotEmpty(classNo)){
+            Wrapper<SysClass> wrapper = new EntityWrapper<>();
+            wrapper.eq("CLASS_NO",classNo);
+            SysClass sysClass = this.selectOne(wrapper);
+            return sysClass;
+        }
+        return null;
+    }
+
+    @Override
+    public List<SysClass> getClassesByPid(String pid, Long isValid) {
+        if(StringUtils.isNotEmpty(pid)){
+            //先查对应的学生
+            Wrapper<SysStudents> wrapper = new EntityWrapper<>();
+            wrapper.eq("PARENT_ID",pid);
+            SysStudents student = studentsService.selectOne(wrapper);
+
+            if(null != student){
+                //去查学生-班级关联表
+                Wrapper<SysStudentClass> scWrp = new EntityWrapper<>();
+                scWrp.eq("STU_ID",student.getId());
+                if(null != isValid){
+                    scWrp.and().eq("IS_VALID",isValid);
+                }
+                List<SysStudentClass> studentClassList = studentClassMapper.selectList(scWrp);
+
+                if(!CollectionUtils.isEmpty(studentClassList)){
+                    //获取所有的班级id
+                    List<String> collect = studentClassList.stream().map(SysStudentClass::getClassId).collect(Collectors.toList());
+                    if(!CollectionUtils.isEmpty(collect)){
+                        //去查班级
+                        Wrapper<SysClass> classWrapper = new EntityWrapper<>();
+                        classWrapper.in("id", collect);
+                        List<SysClass> classes = this.selectList(classWrapper);
+                        return classes;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 }

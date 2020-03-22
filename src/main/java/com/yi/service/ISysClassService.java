@@ -35,4 +35,22 @@ public interface ISysClassService extends IService<SysClass> {
      * @return
      */
     Rest importStuExcel(MultipartFile file);
+
+    /**
+     * 将学生移出班级
+     * @param stuId
+     * @param classId
+     * @return
+     */
+    boolean removeStudent(String stuId,String classId) throws Exception;
+
+    SysClass getByClassNo(String classNo);
+
+    /**
+     * 获取家长对应的班级
+     * @param pid
+     * @param isValid 是否失效，null的话查询所有状态的
+     * @return
+     */
+    List<SysClass> getClassesByPid(String pid,Long isValid);
 }

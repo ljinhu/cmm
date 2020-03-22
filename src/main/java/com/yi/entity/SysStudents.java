@@ -28,7 +28,7 @@ public class SysStudents {
     private String name;
 
     /** 创建时间 */
-    @TableField(value = "CREATED_TIME")
+    @TableField(value = "created_time")
     private Date createdTime;
 
     /** 更新人 */
@@ -42,6 +42,8 @@ public class SysStudents {
     /** 班级ID */
     @TableField(value = "CLASS_ID")
     private String classId;
+    @TableField(value = "class_no")
+    private String classNo;
 
     /** 家长用户id */
     @TableField(value = "PARENT_ID")
@@ -161,5 +163,13 @@ public class SysStudents {
 
     public void setNo(String no) {
         this.no = no;
+    }
+
+    public String getClassNo() {
+        return classNo;
+    }
+
+    public void setClassNo(String classNo) {
+        this.classNo = classNo;
     }
 }

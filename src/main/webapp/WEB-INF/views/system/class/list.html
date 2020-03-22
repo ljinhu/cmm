@@ -23,7 +23,7 @@
 	            </div>
             </@shiro.hasPermission>
              <div class="input-group">
-               <input type="text" name="name" value="${search!}" class="form-control" placeholder="Search">
+               <input type="text" name="name" value="${name!}" class="form-control" placeholder="输入班级名称查询">
                <div class="input-group-btn">
                  <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
                  <a href="/system/class/list/1" class="btn btn-default"><i class="fa fa-refresh"></i></a>
@@ -42,7 +42,7 @@
                 <th>班主任</th>
                 <th>所属年级</th>
                 <th>状态</th>
-                <th width="140px">操作</th>
+                <th width="320px">操作</th>
               </tr>
               <#list pageData.getRecords() as record>
               	  <tr>
@@ -58,6 +58,18 @@
 	                	<@shiro.hasPermission name="system:class:add">
 	                		<a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="编辑班级" data-url="/system/class/toAdd?id=${(record.id)!}",data-width="800" data-height="450" > <i class="fa fa-pencil-square-o"></i> 编辑</a>
 	                	</@shiro.hasPermission>
+	                	<@shiro.hasPermission name="system:class:manage">
+	                		<a href="/system/notice/list/1?classNo=${(record.classNo)!}" > <i class="fa fa-pencil-square-o"></i> 公告管理</a>
+	                	</@shiro.hasPermission>
+                        <@shiro.hasPermission name="system:class:manage">
+                            <a href="/system/class/manage/student/${(record.id)!}/1" > <i class="fa fa-pencil-square-o"></i> 学生管理</a>
+                        </@shiro.hasPermission>
+                        <@shiro.hasPermission name="system:class:manage">
+                            <a href="/system/class/manage/teacher/${(record.id)!}" > <i class="fa fa-pencil-square-o"></i> 教师管理</a>
+                        </@shiro.hasPermission>
+                        <@shiro.hasPermission name="system:exam:manage">
+                            <a href="/system/exam/list/1?classId=${(record.id)!}" > <i class="fa fa-pencil-square-o"></i> 成绩管理</a>
+                        </@shiro.hasPermission>
 
                       <@shiro.hasPermission name="system:class:del">
                       <#if record.isValid==1>

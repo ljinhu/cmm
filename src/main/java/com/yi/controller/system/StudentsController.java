@@ -47,6 +47,7 @@ public class StudentsController extends BaseController {
         Page<SysStudents> page = this.getPage(pageNo, pageSize);
         Page<SysStudents> pageRecord = studentsService.findByPage(sysStudents, page);
         model.addAttribute("pageData",pageRecord);
+        model.addAttribute("no",sysStudents.getNo());
         return PREFIX + "list";
     }
 
@@ -108,4 +109,18 @@ public class StudentsController extends BaseController {
 
         return Rest.ok();
     }
+
+    @RequestMapping("/imp")
+    @ResponseBody
+    public Rest importExcel()throws Exception{
+        return Rest.ok("上传完成");
+    }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    @RequiresPermissions("system:stu:del")
+    public Rest delete(String id){
+        return studentsService.delete(id);
+    }
+
 }

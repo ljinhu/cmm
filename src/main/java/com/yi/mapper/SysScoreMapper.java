@@ -1,7 +1,10 @@
 package com.yi.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.plugins.Page;
 import com.yi.entity.SysScore;
+
+import java.util.List;
 
 /**
  * @Author: zwt
@@ -9,4 +12,6 @@ import com.yi.entity.SysScore;
  * @Description: 
  */
 public interface SysScoreMapper extends BaseMapper<SysScore> {
+
+    List<SysScore> getScore(Page<SysScore> page, SysScore score);
 }

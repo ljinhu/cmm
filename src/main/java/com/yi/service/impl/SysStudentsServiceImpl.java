@@ -7,15 +7,14 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.yi.common.bean.Rest;
 import com.yi.common.util.ImportExcelUtil;
 import com.yi.common.util.ShiroUtil;
-import com.yi.entity.SysClass;
-import com.yi.entity.SysStudents;
-import com.yi.entity.SysUser;
-import com.yi.entity.SysUserRole;
+import com.yi.entity.*;
 import com.yi.entity.vo.StudentVo;
 import com.yi.mapper.SysStudentsMapper;
 import com.yi.mapper.SysUserMapper;
 import com.yi.mapper.SysUserRoleMapper;
+import com.yi.service.ISysClassService;
 import com.yi.service.ISysStudentsService;
+import com.yi.service.SysStudentClassService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -42,18 +41,28 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
     private SysUserMapper userMapper;
     @Autowired
     private SysUserRoleMapper userRoleMapper;
+    @Autowired
+    private ISysClassService classService;
+
+    @Autowired
+    private SysStudentClassService studentClassService;
     private final String parentRoleId = "a3e54005aa7243078b11791a600f40b9";
 
     @Override
     public Page<SysStudents> findByPage(SysStudents sysStudents, Page<SysStudents> page) {
         //构建查询条件
         Wrapper<SysStudents> wrapper = new EntityWrapper<>();
+        wrapper.eq("1","1");
         if (StringUtils.isNotEmpty(sysStudents.getName())) {
             wrapper.like("name", sysStudents.getName());
         }
 
         if (StringUtils.isNotEmpty(sysStudents.getClassId())) {
             wrapper.and().eq("CLASS_ID", sysStudents.getClassId());
+        }
+
+        if(StringUtils.isNotEmpty(sysStudents.getNo())){
+            wrapper.and().like("no",sysStudents.getNo());
         }
 
         //执行查询
@@ -67,9 +76,9 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
         try {
             SysStudents sysStudents = new SysStudents();
             SysUser principal = (SysUser) SecurityUtils.getSubject().getPrincipal();
+            BeanUtils.copyProperties(studentVo, sysStudents);
             sysStudents.setCreatedBy(principal.getUserName());
             sysStudents.setCreatedTime(new Date());
-            BeanUtils.copyProperties(studentVo, sysStudents);
             //如果sysStudents含有id，时修改，不再保存user即家长信息了
             if (!StringUtils.isNotEmpty(studentVo.getId())) {
                 //构建家长信息
@@ -130,7 +139,7 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
                             case 1:
                                 studentVo.setNo(String.valueOf(objectList.get(i)));break;
                             case 2:
-                                studentVo.setClassId(String.valueOf(objectList.get(i)));break;
+                                studentVo.setClassNo(String.valueOf(objectList.get(i)));break;
                             case 3:
                                 studentVo.setParentName(String.valueOf(objectList.get(i))); break;
                             case 4:
@@ -140,10 +149,76 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
                 }
 
                 if(!StringUtils.isEmpty(studentVo.getName()) && StringUtils.isNotEmpty(studentVo.getPassword())){
-                    this.save(studentVo);
+                    saveStuClass(studentVo);
                 }
             }
         }
-        return Rest.ok();
+        return Rest.ok("上传成功");
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Rest delete(String id) {
+        if(StringUtils.isEmpty(id)){
+            return Rest.failure("传参有误");
+        }
+        SysStudents sysStudents = this.selectById(id);
+        if(null != sysStudents){
+            try {
+                this.deleteById(id);
+                userMapper.deleteById(sysStudents.getParentId());
+                Wrapper<SysStudentClass> scWrapper = new EntityWrapper<>();
+                scWrapper.eq("STU_ID", id);
+                studentClassService.delete(scWrapper);
+            }catch (Exception e){
+                e.printStackTrace();
+                return Rest.failure("删除出错");
+            }
+        }
+        return Rest.ok("删除成功");
+    }
+
+    @Override
+    public SysStudents getByPid(String pid) {
+        if(StringUtils.isNotEmpty(pid)){
+            Wrapper<SysStudents> wrapper = new EntityWrapper<>();
+            wrapper.eq("PARENT_ID",pid);
+            SysStudents sysStudents = this.selectOne(wrapper);
+            return sysStudents;
+        }
+        return null;
+    }
+
+    private void saveStuClass(StudentVo studentVo) {
+        //先检查学生编号有没有重复
+        Rest rest = this.checkNo(studentVo.getNo());
+        if(rest.getCode() != 200L){
+            //有重复直接返回
+            return;
+        }
+        //如果含有班级编号则设置班级信息
+        if(StringUtils.isNoneEmpty(studentVo.getClassNo())){
+            Wrapper<SysClass> wrapper = new EntityWrapper<>();
+            wrapper.eq("class_no", studentVo.getClassNo());
+            SysClass sysClass = classService.selectOne(wrapper);
+            //设置当前信息
+            studentVo.setClassName(sysClass.getName());
+            studentVo.setChargeUname(sysClass.getChargeUname());
+            studentVo.setGrade(sysClass.getGrade());
+            studentVo.setClassNo(sysClass.getClassNo());
+            this.save(studentVo);
+            //保存后续操作
+            Wrapper<SysStudents> studentsWrapper = new EntityWrapper<>();
+            studentsWrapper.eq("no",studentVo.getNo());
+            SysStudents stu = this.selectOne(studentsWrapper);
+            if(null != sysClass){
+                //保存关联关系
+                SysStudentClass sc = new SysStudentClass();
+                sc.setClassId(sysClass.getId());
+                sc.setIsValid(sysClass.getIsValid());
+                sc.setStuId(stu.getId());
+                studentClassService.insert(sc);
+            }
+        }
     }
 }

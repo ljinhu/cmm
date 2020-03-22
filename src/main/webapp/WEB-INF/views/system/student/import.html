@@ -2,7 +2,7 @@
 <@header>
 </@header>
 <@body>
-<form class="form-horizontal layui-form layui-form-pane" method="POST"  enctype="multipart/form-data" id="form1" action="/system/student/import">
+<form class="form-horizontal layui-form layui-form-pane" method="POST"   id="form1" action="/system/student/imp">
     <div class="box-body">
         <div class="form-group">
             <label for="systemLogo"  class="col-sm-2 control-label">上传excel文件</label>
@@ -13,7 +13,7 @@
         <div class="form-group">
             <label   class="col-sm-2 control-label"></label>
             <div class="col-sm-10">
-                <button type="submit" onclick="" class="btn btn-success" lay-submit lay-filter="submit"><i class="fa fa-save"></i>  提 交</button>
+                <button type="submit" onclick="" style="display: none" id="commit" class="btn btn-success" lay-submit lay-filter="submit"><i class="fa fa-save"></i>  完成 </button>
                 <a  class="btn btn-default" href="javascript:parent.layer.closeAll('iframe');"><i class="fa fa-close"></i>  取消</a>
             </div>
         </div>
@@ -57,6 +57,13 @@
     }
 
     initFileInput("systemLogo", "/system/student/import");
+
+
+    //上传成功回调函数
+    $('#systemLogo').on("fileuploaded", function(event, data, previewId, index) {
+        var result = data.response;
+        $("#commit").click();
+    });
 </script>
 <style>
     .file-drop-zone-title{

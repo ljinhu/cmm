@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.yi.entity.SysUser;
+import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,17 @@ import com.yi.common.util.HttpUtil;
 public class BaseController {
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	/**
+	 * 系统中学生用户id
+	 */
+	private final String stu_id = "6b008d1d88da4c488f05c9a634651cae";
+
+	private final String teach_id = "6d0a4b3f820b4b39aa158ff7cfc3001a";
+
+	private final String charge_id = "a1d79fef008c4e40bb3d4398e170ada1";
+
+	private final String parent_id = "a3e54005aa7243078b11791a600f40b9";
 
 	@Autowired
 	protected HttpServletRequest request;
@@ -107,8 +120,7 @@ public class BaseController {
 	 * 
 	 * @param object
 	 *            转换对象
-	 * @param features
-	 *            序列化特点
+	 * @param
 	 * @return
 	 */
 	protected String toJson( Object object, String format ) {
@@ -116,6 +128,22 @@ public class BaseController {
 			return toJson(object);
 		}
 		return JSON.toJSONStringWithDateFormat(object, format, SerializerFeature.WriteDateUseDateFormat);
+	}
+
+	protected boolean isParent(){
+		return SecurityUtils.getSubject().hasRole(parent_id);
+	}
+
+	protected boolean isTeacher(){
+		return SecurityUtils.getSubject().hasRole(teach_id);
+	}
+	protected boolean isCharge(){
+		return SecurityUtils.getSubject().hasRole(charge_id);
+	}
+
+	protected SysUser cuurenUser(){
+		SysUser sysUser = (com.yi.entity.SysUser) SecurityUtils.getSubject().getPrincipal();
+		return sysUser;
 	}
 
 }

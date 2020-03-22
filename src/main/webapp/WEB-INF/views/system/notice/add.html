@@ -1,0 +1,104 @@
+<#include "/common/layout_dl.html">
+<@header>
+</@header>
+<@body>
+<form class="form-horizontal layui-form layui-form-pane" method="POST"   id="form1" action="/system/notice/add">
+    <div class="box-body">
+        <div class="form-group">
+            <label for="name"  class="col-sm-2 control-label">标题</label>
+            <div class="col-sm-10">
+                <input type="text" id="name" name="name" class="form-control" placeholder="请输入公告标题"  lay-verify="required">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">所属班级</label>
+            <div class="col-sm-10">
+                <select name="classNo" class="form-control select2" lay-ignore style="width: 100%;" lay-verify="required">
+                    <#list classes as class>
+                    <!--${(charge.id ==sysClass.chargeUid)?string('selected="selected"',"")}-->
+                    <option value="${(class.classNo)!}" >${(class.name)!}</option>
+                </#list>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="detail"  class="col-sm-2 control-label">公告信息</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" id="detail" name="detail"  rows="3" placeholder="请输入公告信息，最多300个字符 ..." ></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="systemLogo"  class="col-sm-2 control-label">上传附件</label>
+            <div class="col-sm-10">
+                <input name="file" type="file"  class="file-loading" id="systemLogo" multiple>
+            </div>
+        </div>
+        <input type="hidden" name="affixName" id="affixName">
+        <input type="hidden" name="affix" id="affix">
+        <div class="form-group">
+            <label   class="col-sm-2 control-label"></label>
+            <div class="col-sm-10">
+                <button type="submit" onclick=""  id="commit" class="btn btn-success" lay-submit lay-filter="submit"><i class="fa fa-save"></i>  确定 </button>
+                <a  class="btn btn-default" href="javascript:parent.layer.closeAll('iframe');"><i class="fa fa-close"></i>  取消</a>
+            </div>
+        </div>
+    </div>
+</form>
+</@body>
+<@footer>
+</@footer>
+<script src="/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
+<script>
+    //初始化fileinput控件（第一次初始化）
+    function initFileInput(ctrlName, uploadUrl) {
+        var control = $('#' + ctrlName);
+
+        control.fileinput({
+            language: 'zh', //设置语言
+            uploadUrl: uploadUrl, //上传的地址
+            uploadAsync: true, //默认异步上传
+            showCaption: true,//是否显示标题
+            showUpload: true, //是否显示上传按钮
+            browseClass: "btn btn-primary", //按钮样式
+            allowedFileExtensions: ["doc", "png","sql","txt"], //接收的文件后缀
+            maxFileCount: 10,//最大上传文件数限制
+            previewFileIcon: '<i class="glyphicon glyphicon-file"></i>',
+            showPreview: true, //是否显示预览
+            previewFileIconSettings: {
+                'docx': '<i ass="fa fa-file-word-o text-primary"></i>',
+                'xlsx': '<i class="fa fa-file-excel-o text-success"></i>',
+                'xls': '<i class="fa fa-file-excel-o text-success"></i>',
+                'pptx': '<i class="fa fa-file-powerpoint-o text-danger"></i>',
+                'jpg': '<i class="fa fa-file-photo-o text-warning"></i>',
+                'pdf': '<i class="fa fa-file-archive-o text-muted"></i>',
+                'zip': '<i class="fa fa-file-archive-o text-muted"></i>',
+            },
+            uploadExtraData: function () {
+                var extraValue = "test";
+                return {"excelType": extraValue};
+            }
+        });
+    }
+
+    initFileInput("systemLogo", "/file/upload");
+
+
+    //上传成功回调函数
+    $('#systemLogo').on("fileuploaded", function(event, data, previewId, index) {
+        var result = data.response;
+        debugger;
+        $("#affixName").val(data.response.fileName);
+        $("#affix").val(data.response.urls[0]);
+        // $("#commit").click();
+    });
+</script>
+<style>
+    .file-drop-zone-title{
+        display: none !important;
+    }
+
+    .file-drop-zone{
+        display: none !important;
+    }
+</style>

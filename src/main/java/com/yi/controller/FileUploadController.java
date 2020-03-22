@@ -59,8 +59,9 @@ public class FileUploadController extends BaseController {
 			            String realPath = request.getSession().getServletContext().getRealPath("/upload")+ File.separator +cdate; 
 			            FileUtils.copyInputStreamToFile(myfile.getInputStream(), new File(realPath, reName)); 
 			            urls.add("/upload/"+cdate+"/"+reName);
-			        }  
-			    }
+						result.put("fileName",myfile.getOriginalFilename());
+					}
+			}
 			result.put("status", "success");
 			result.put("urls",urls);
 			return result;

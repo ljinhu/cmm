@@ -1,0 +1,71 @@
+package com.yi.service.impl;
+
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.yi.entity.SysScore;
+import com.yi.entity.SysStudents;
+import com.yi.entity.SysTeacherClass;
+import com.yi.entity.SysUser;
+import com.yi.entity.vo.SysScoreVo;
+import com.yi.mapper.SysScoreMapper;
+import com.yi.service.ISysStudentsService;
+import com.yi.service.SysScoreService;
+import com.yi.service.SysTeacherClassService;
+import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+
+@Service
+public class SysScoreServiceImpl extends ServiceImpl<SysScoreMapper, SysScore> implements SysScoreService {
+    @Autowired
+    private ISysStudentsService sysStudentsService;
+    @Autowired
+    private SysScoreMapper sysScoreMapper;
+    @Autowired
+    private SysTeacherClassService teacherClassService;
+
+    @Override
+    public Page<SysScore> getScore(SysScoreVo score, Page<SysScore> page, String roleName) {
+        SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
+        Wrapper<SysStudents> studentsWrapper = new EntityWrapper<>();
+        if ("manager".equals(roleName)) {
+            //是班主任直接根据class_id查询所有
+            Wrapper<SysScore> scoreWrapper = new EntityWrapper<>();
+            scoreWrapper.eq("class_id", score.getClassId());
+            return this.selectPage(page, scoreWrapper);
+
+        } else if ("teacher".equals(roleName)) {
+            //是教师需要知道这个老师是哪门课程
+            Wrapper<SysTeacherClass> stwrp = new EntityWrapper<>();
+            stwrp.eq("CLASS_ID", score.getClassId());
+            stwrp.and().eq("user_Id", user.getId());
+            List<SysTeacherClass> ts = teacherClassService.selectList(stwrp);
+            if (!CollectionUtils.isEmpty(ts)) {
+                List<String> collect = ts.stream().map(SysTeacherClass::getLessonCode).collect(Collectors.toList());
+                Wrapper<SysScore> scoreWrapper = new EntityWrapper<>();
+                scoreWrapper.eq("class_id", score.getClassId());
+                scoreWrapper.in("lesson_Code", collect);
+               return this.selectPage(page, scoreWrapper);
+            }
+
+        } else {
+            //是家长，先查学生,直接通过stu_no查询
+            SysStudents students = sysStudentsService.getByPid(user.getId());
+            if (null != students) {
+                score.setStuNo(students.getNo());
+            }
+            Wrapper<SysScore> scoreWrapper = new EntityWrapper<>();
+            scoreWrapper.eq("class_id", score.getClassId());
+            scoreWrapper.eq("stu_no", score.getStuNo());
+            return this.selectPage(page, scoreWrapper);
+        }
+        return page;
+    }
+}

@@ -29,9 +29,20 @@ public class SysTeacherClass {
     @TableField(value = "LESSON_NAME")
     private String lessonName;
 
-    /** 是否有效 是否有效 */
+    /** 是否有效 是否有效 1有效-1失效*/
     @TableField(value = "IS_VALID ")
     private Long isValid;
+
+    @TableField("lesson_code")
+    private String lessonCode;
+
+    public String getLessonCode() {
+        return lessonCode;
+    }
+
+    public void setLessonCode(String lessonCode) {
+        this.lessonCode = lessonCode;
+    }
 
     public String getUserId() {
         return userId;

@@ -25,7 +25,7 @@ public class SysStudentClass {
     private String classId;
 
 
-    /** 是否有效 是否有效 */
+    /** 是否有效 是否有效 -1失效*/
     @TableField(value = "IS_VALID ")
     private Long isValid;
 
