@@ -77,7 +77,7 @@ public class SysExamsCtroller extends BaseController {
         List<SysClass> classes = classService.selectList(sysClassWrapper);
         model.addAttribute("classes", classes);
         List<Dict> lessons = dictService.findByTypeCode("lesson");
-        model.addAttribute("lessons",lessons);
+        model.addAttribute("lessons", lessons);
         return prefix + "add";
     }
 
@@ -102,6 +102,22 @@ public class SysExamsCtroller extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             return Rest.failure("创建失败");
+        }
+    }
+
+    @RequestMapping("/delete")
+    @ResponseBody
+    public Rest delete(String examId) {
+        try {
+            boolean delete = this.examsService.delete(examId);
+            if (delete) {
+                return Rest.ok("删除成功");
+            } else {
+                return Rest.failure("删除失败");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Rest.failure("删除失败");
         }
     }
 }

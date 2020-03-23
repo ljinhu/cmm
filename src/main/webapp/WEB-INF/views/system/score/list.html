@@ -59,8 +59,8 @@
 	                <td>${(record.score)!'未录入'}</td>
 	                <td>${(record.className)!'--'}</td>
 	                <td>
-	                	<@shiro.hasPermission name="system:stu:add">
-	                		<a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="编辑学生" data-url="/system/class/toAdd?id={(record.id)!}",data-width="800" data-height="400" > <i class="fa fa-pencil-square-o"></i> 编辑</a>
+	                	<@shiro.hasPermission name="system:score:add">
+	                		<a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="录入成绩" data-url="/system/score/toAdd?id=${(record.id)!}",data-width="800" data-height="400" > <i class="fa fa-pencil-square-o"></i> 录入成绩</a>
 	                	</@shiro.hasPermission>
 	                	<@shiro.hasPermission name="system:stu:del">
 		                	<a class="btn btn-danger btn-xs"

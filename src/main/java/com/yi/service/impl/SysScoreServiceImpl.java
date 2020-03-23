@@ -14,10 +14,14 @@ import com.yi.service.ISysStudentsService;
 import com.yi.service.SysScoreService;
 import com.yi.service.SysTeacherClassService;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,6 +43,9 @@ public class SysScoreServiceImpl extends ServiceImpl<SysScoreMapper, SysScore> i
             //是班主任直接根据class_id查询所有
             Wrapper<SysScore> scoreWrapper = new EntityWrapper<>();
             scoreWrapper.eq("class_id", score.getClassId());
+            if(!StringUtils.isEmpty(score.getExamId())){
+                scoreWrapper.eq("exam_id", score.getExamId());
+            }
             return this.selectPage(page, scoreWrapper);
 
         } else if ("teacher".equals(roleName)) {
@@ -52,6 +59,9 @@ public class SysScoreServiceImpl extends ServiceImpl<SysScoreMapper, SysScore> i
                 Wrapper<SysScore> scoreWrapper = new EntityWrapper<>();
                 scoreWrapper.eq("class_id", score.getClassId());
                 scoreWrapper.in("lesson_Code", collect);
+                if(!StringUtils.isEmpty(score.getExamId())){
+                    scoreWrapper.eq("exam_id", score.getExamId());
+                }
                return this.selectPage(page, scoreWrapper);
             }
 
@@ -64,8 +74,32 @@ public class SysScoreServiceImpl extends ServiceImpl<SysScoreMapper, SysScore> i
             Wrapper<SysScore> scoreWrapper = new EntityWrapper<>();
             scoreWrapper.eq("class_id", score.getClassId());
             scoreWrapper.eq("stu_no", score.getStuNo());
+            if(!StringUtils.isEmpty(score.getExamId())){
+                scoreWrapper.eq("exam_id", score.getExamId());
+            }
             return this.selectPage(page, scoreWrapper);
         }
         return page;
     }
+
+    @Override
+    public boolean save(SysScore sysScore, SysUser sysUser) {
+        try {
+            if (org.apache.commons.lang3.StringUtils.isNotEmpty(sysScore.getId())) {
+                SysScore scoreDb = this.selectById(sysScore.getId());
+                scoreDb.setScore(sysScore.getScore());
+                scoreDb.setComment(sysScore.getComment());
+                scoreDb.setCreatedBy(sysUser.getUserName());
+                scoreDb.setCreatedTime(new Date());
+                scoreDb.setCreatedId(sysUser.getId());
+                this.updateById(scoreDb);
+                return true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
+
 }

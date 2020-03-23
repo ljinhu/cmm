@@ -16,4 +16,6 @@ public interface SysExamsService extends IService<SysExams> {
     Page<SysExams> mineExams(SysExams exams,Page<SysExams> page,String roleName);
 
     boolean save(SysExams sysExams);
+
+    boolean delete(String id);
 }

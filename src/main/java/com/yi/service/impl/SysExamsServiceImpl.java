@@ -148,6 +148,19 @@ public class SysExamsServiceImpl extends ServiceImpl<SysExamsMapper, SysExams> i
         return false;
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean delete(String id) {
+        if(org.apache.commons.lang3.StringUtils.isNotEmpty(id)){
+            this.deleteById(id);
+            //删除关联的成绩
+            Wrapper<SysScore> scoreWrapper = new EntityWrapper<>();
+            scoreWrapper.eq("exam_id",id);
+            sysScoreService.delete(scoreWrapper);
+        }
+        return true;
+    }
+
     private void saveScore(Dict lesson, SysExams exams, SysClass sysClass, SysStudents stu) {
         SysScore sysScore = new SysScore();
         sysScore.setExamId(exams.getId());

@@ -2,6 +2,7 @@ package com.yi.controller.system;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.yi.common.bean.Rest;
 import com.yi.common.controller.BaseController;
 import com.yi.entity.SysExams;
 import com.yi.entity.SysScore;
@@ -9,10 +10,12 @@ import com.yi.entity.vo.SysScoreVo;
 import com.yi.service.SysScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/system/score")
@@ -27,8 +30,9 @@ public class SysScoreController extends BaseController {
      * @return
      */
     @RequestMapping("/toAdd")
-    public String toAdd(Model model, String examId) {
-
+    public String toAdd(Model model, String id) {
+        SysScore sysScore = sysScoreService.selectById(id);
+        model.addAttribute("score",sysScore);
         return prefix + "add";
     }
 
@@ -47,4 +51,15 @@ public class SysScoreController extends BaseController {
         model.addAttribute("pageData",scorePage);
         return prefix + "list";
     }
+
+    @RequestMapping("/add")
+    @ResponseBody
+    public Rest add(SysScore sysScore){
+        if(sysScoreService.save(sysScore,cuurenUser())){
+            return Rest.ok("录入成功");
+        }else{
+            return Rest.failure("录入失败");
+        }
+    }
+
 }

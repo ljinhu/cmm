@@ -54,17 +54,11 @@
 	                <td>${(record.grade)!'--'}</td>
 	                <td>
                         <@shiro.hasPermission name="system:exam:manage">
-                        <a href="/system/score/list/1?classId=${(record.classId)!}&examId=${(record.Id)}" > <i class="fa fa-pencil-square-o"></i> 成绩录入</a>
+                        <a href="/system/score/list/1?classId=${(record.classId)!}&examId=${(record.id)}" > <i class="fa fa-pencil-square-o"></i> 成绩录入</a>
                         </@shiro.hasPermission>
-	                	<@shiro.hasPermission name="system:class:manage">
-	                		<a href="/system/notice/list/1?classNo=${(record.classNo)!}" > <i class="fa fa-pencil-square-o"></i> 公告管理</a>
+	                	<@shiro.hasPermission name="system:exam:manage">
+	                		<a href="/system/exam/delete?examId=${(record.id)}" > <i class="fa fa-pencil-square-o"></i> 删除</a>
 	                	</@shiro.hasPermission>
-                        <@shiro.hasPermission name="system:class:manage">
-                            <a href="/system/class/manage/student/${(record.id)!}/1" > <i class="fa fa-pencil-square-o"></i> 学生管理</a>
-                        </@shiro.hasPermission>
-                        <@shiro.hasPermission name="system:class:manage">
-                            <a href="/system/class/manage/teacher/${(record.id)!}" > <i class="fa fa-pencil-square-o"></i> 教师管理</a>
-                        </@shiro.hasPermission>
 	                </td>
 	              </tr>
               </#list>

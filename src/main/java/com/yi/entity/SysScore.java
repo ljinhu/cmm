@@ -61,6 +61,9 @@ public class SysScore {
     @TableField("lesson_code")
     private String lessonCode;
 
+    @TableField("created_id")
+    private String createdId;
+
     public String getCreatedBy() {
         return createdBy;
     }
@@ -187,5 +190,13 @@ public class SysScore {
 
     public void setLessonCode(String lessonCode) {
         this.lessonCode = lessonCode;
+    }
+
+    public String getCreatedId() {
+        return createdId;
+    }
+
+    public void setCreatedId(String createdId) {
+        this.createdId = createdId;
     }
 }
