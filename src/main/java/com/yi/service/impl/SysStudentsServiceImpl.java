@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author:
@@ -49,7 +50,7 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
     private final String parentRoleId = "a3e54005aa7243078b11791a600f40b9";
 
     @Override
-    public Page<SysStudents> findByPage(SysStudents sysStudents, Page<SysStudents> page) {
+    public Page<SysStudents> findByPage(SysStudents sysStudents, Page<SysStudents> page,List<SysClass> classes) {
         //构建查询条件
         Wrapper<SysStudents> wrapper = new EntityWrapper<>();
         wrapper.eq("1","1");
@@ -63,6 +64,10 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
 
         if(StringUtils.isNotEmpty(sysStudents.getNo())){
             wrapper.and().like("no",sysStudents.getNo());
+        }
+        if(!CollectionUtils.isEmpty(classes)){
+            List<String> collect = classes.stream().map(SysClass::getId).collect(Collectors.toList());
+            wrapper.and().in("class_Id",collect);
         }
 
         //执行查询
@@ -206,6 +211,7 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
             studentVo.setChargeUname(sysClass.getChargeUname());
             studentVo.setGrade(sysClass.getGrade());
             studentVo.setClassNo(sysClass.getClassNo());
+            studentVo.setClassId(sysClass.getId());
             this.save(studentVo);
             //保存后续操作
             Wrapper<SysStudents> studentsWrapper = new EntityWrapper<>();

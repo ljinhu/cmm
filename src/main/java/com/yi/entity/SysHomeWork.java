@@ -40,6 +40,15 @@ public class SysHomeWork {
     /** 附件，存放文件地址 */
     private String affix;
 
+    @TableField("class_name")
+    private String className;
+
+    @TableField("lesson_name")
+    private String lessonName;
+
+    @TableField("lesson_code")
+    private String lessonCode;
+
     public String getId() {
         return id;
     }
@@ -94,5 +103,29 @@ public class SysHomeWork {
 
     public void setAffix(String affix) {
         this.affix = affix;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getLessonName() {
+        return lessonName;
+    }
+
+    public void setLessonName(String lessonName) {
+        this.lessonName = lessonName;
+    }
+
+    public String getLessonCode() {
+        return lessonCode;
+    }
+
+    public void setLessonCode(String lessonCode) {
+        this.lessonCode = lessonCode;
     }
 }

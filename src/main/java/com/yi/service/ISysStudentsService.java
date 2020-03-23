@@ -3,10 +3,13 @@ package com.yi.service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.yi.common.bean.Rest;
+import com.yi.entity.SysClass;
 import com.yi.entity.SysStudents;
 import com.yi.entity.SysUser;
 import com.yi.entity.vo.StudentVo;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * @Author:
@@ -21,7 +24,7 @@ public interface ISysStudentsService extends IService<SysStudents> {
      * @param page
      * @return
      */
-    Page<SysStudents> findByPage(SysStudents sysStudents,Page<SysStudents> page);
+    Page<SysStudents> findByPage(SysStudents sysStudents, Page<SysStudents> page, List<SysClass> classes);
 
     Rest save(StudentVo studentVo);
 

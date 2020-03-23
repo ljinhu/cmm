@@ -1,12 +1,16 @@
 package com.yi.controller.system;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.yi.common.bean.Rest;
 import com.yi.common.controller.BaseController;
 import com.yi.common.util.ImportExcelUtil;
+import com.yi.entity.SysClass;
 import com.yi.entity.SysStudents;
 import com.yi.entity.SysUser;
 import com.yi.entity.vo.StudentVo;
+import com.yi.service.ISysClassService;
 import com.yi.service.ISysStudentsService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -14,11 +18,15 @@ import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+
 
 /**
  * @Author:
@@ -32,6 +40,8 @@ public class StudentsController extends BaseController {
     private final String PREFIX = "system/student/";
     @Autowired
     private ISysStudentsService studentsService;
+    @Autowired
+    private ISysClassService sysClassService;
 
     /**
      * 分页查询
@@ -45,7 +55,19 @@ public class StudentsController extends BaseController {
     public String list(@PathVariable Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize,
                        SysStudents sysStudents, Model model){
         Page<SysStudents> page = this.getPage(pageNo, pageSize);
-        Page<SysStudents> pageRecord = studentsService.findByPage(sysStudents, page);
+        List<SysClass> classes = null;
+        if (isCharge()) {
+            String id = cuurenUser().getId();
+            Wrapper<SysClass> wrapper = new EntityWrapper();
+            wrapper.eq("CHARGE_UID",id);
+            classes = sysClassService.selectList(wrapper);
+            if(CollectionUtils.isEmpty(classes)){
+                SysClass sysClass = new SysClass();
+                sysClass.setId("-1");
+                classes.add(sysClass);
+            }
+        }
+        Page<SysStudents> pageRecord = studentsService.findByPage(sysStudents, page,classes);
         model.addAttribute("pageData",pageRecord);
         model.addAttribute("no",sysStudents.getNo());
         return PREFIX + "list";

@@ -53,12 +53,14 @@
 	                <td>${(record.begin?string('yyyy/MM/dd HH:mm:ss'))!'--'} - ${(record.end?string('yyyy/MM/dd HH:mm:ss'))!'--'}</td>
 	                <td>${(record.grade)!'--'}</td>
 	                <td>
-                        <@shiro.hasPermission name="system:exam:manage">
-                        <a href="/system/score/list/1?classId=${(record.classId)!}&examId=${(record.id)}" > <i class="fa fa-pencil-square-o"></i> 成绩录入</a>
-                        </@shiro.hasPermission>
+                        <a href="/system/score/list/1?classId=${(record.classId)!}&examId=${(record.id)}" > <i class="fa fa-pencil-square-o"></i> 查看成绩</a>
 	                	<@shiro.hasPermission name="system:exam:manage">
-	                		<a href="/system/exam/delete?examId=${(record.id)}" > <i class="fa fa-pencil-square-o"></i> 删除</a>
+                        <a class="btn btn-danger btn-xs"
+                           data-tiggle="ajax"
+                           data-submit-url="/system/exam/delete?examId=${(record.id)}"
+                           data-confirm="您确定删除该次考试吗?"><i class="fa fa-times"></i> 删除</a>
 	                	</@shiro.hasPermission>
+
 	                </td>
 	              </tr>
               </#list>

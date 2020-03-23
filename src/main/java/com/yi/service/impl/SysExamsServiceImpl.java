@@ -76,6 +76,9 @@ public class SysExamsServiceImpl extends ServiceImpl<SysExamsMapper, SysExams> i
             if (!CollectionUtils.isEmpty(classIds)) {
                 wrapper.in("class_id", classIds);
             }
+            if(CollectionUtils.isEmpty(classIds)){
+                return page;
+            }
         } else {
             if ("teacher".equals(roleName)) {
                 Wrapper<SysTeacherClass> stwp = new EntityWrapper<>();
@@ -143,6 +146,7 @@ public class SysExamsServiceImpl extends ServiceImpl<SysExamsMapper, SysExams> i
                         });
                     }
                 }
+                return true;
             }
         }
         return false;
