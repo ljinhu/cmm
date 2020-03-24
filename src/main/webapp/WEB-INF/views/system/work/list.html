@@ -1,0 +1,84 @@
+<#include "/common/layout.html">
+<@header>
+</@header>
+<@body>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <small>系统管理 > 作业管理</small>
+    </h1>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <!-- Your Page Content Here -->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+         <form action="/system/class/list/1" method="post" class="form-inline">
+          <div class="box-header">
+            <@shiro.hasPermission name="system:work:add">
+	            <div class="input-group">
+	            	<a class="btn btn-primary dialog" href="javascript:;" data-title="发布作业" data-url="/system/homework/toAdd" data-width="800" data-height="480"><i class="fa fa-plus"></i> 发布考试</a>
+	            </div>
+            </@shiro.hasPermission>
+             <!--<div class="input-group">-->
+               <!--<input type="text" name="name" value="${name!}" class="form-control" placeholder="输入班级名称查询">-->
+               <!--<div class="input-group-btn">-->
+                 <!--<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>-->
+                 <!--<a href="/system/class/list/1" class="btn btn-default"><i class="fa fa-refresh"></i></a>-->
+               <!--</div>-->
+            <!--</div>-->
+          </div><!-- /.box-header -->
+          </form>
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tr>
+                <th  width="100px">行号</th>
+                <th>作业标题</th>
+                <th>班级名称</th>
+                <th>创建时间</th>
+                <th>课程</th>
+                <th>附件</th>
+                <th width="320px">操作</th>
+              </tr>
+              <#list pageData.getRecords() as record>
+              	  <tr>
+	                <td>${((pageData.current-1)*pageData.size +record_index+1)!}</td>
+	                <td>${(record.title)!}</td>
+	                <td>${(record.className)!}</td>
+	                <td>${(record.createdTime?string('yyyy/MM/dd HH:mm:ss'))!'--'}</td>
+	                <td>${(record.lessonName)!'--'}</td>
+	                <td><#if record.fileName><a href="${(record.affix)}">${(record.fileName)}</a><#else>无附件</#if></td>
+	                <td>
+                        <a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="编辑班级" data-url="/system/homework/detail/${(record.id)!}",data-width="800" data-height="450" > <i class="fa fa-pencil-square-o"></i> 详情</a>
+	                	<@shiro.hasPermission name="system:exam:manage">
+                        <a class="btn btn-danger btn-xs"
+                           data-tiggle="ajax"
+                           data-submit-url="/system/exam/delete?examId=${(record.id)}"
+                           data-confirm="您确定删除该次作业吗?"><i class="fa fa-times"></i> 删除</a>
+	                	</@shiro.hasPermission>
+
+	                </td>
+	              </tr>
+              </#list>
+            </table>
+          </div><!-- /.box-body -->
+          <div class="box-footer row">
+            <div class="col-md-6">
+         	  <#include "/common/paginateBar.html" />
+	  		  <@paginate pageData=pageData actionUrl="/system/dept/list/" urlParas="?search=${search!}"  />
+            </div>
+            <div class="col-md-6 pull-left">
+	             <#include "/common/paginate.html" />
+	  			 <@paginate currentPage=pageData.getCurrent() totalPage=pageData.getPages() actionUrl="/system/dept/list/" urlParas="?search=${search!}&pageSize=${pageSize!}"  />
+            </div>
+          </div>
+        </div><!-- /.box -->
+      </div>
+    </div>
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+</@body>
+<@footer>
+</@footer>

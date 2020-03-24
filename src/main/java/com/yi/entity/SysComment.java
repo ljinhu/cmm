@@ -7,6 +7,9 @@ import com.baomidou.mybatisplus.enums.IdType;
 
 import java.util.Date;
 
+/**
+ * 个人表现
+ */
 @TableName("sys_comment")
 public class SysComment {
 

@@ -40,6 +40,12 @@ public class SysHomeWork {
     /** 附件，存放文件地址 */
     private String affix;
 
+    /**
+     * 附件名称，文件原名
+     */
+    @TableField("file_name")
+    private String fileName;
+
     @TableField("class_name")
     private String className;
 
@@ -127,5 +133,13 @@ public class SysHomeWork {
 
     public void setLessonCode(String lessonCode) {
         this.lessonCode = lessonCode;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

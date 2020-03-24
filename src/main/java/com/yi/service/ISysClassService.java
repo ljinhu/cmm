@@ -53,4 +53,6 @@ public interface ISysClassService extends IService<SysClass> {
      * @return
      */
     List<SysClass> getClassesByPid(String pid,Long isValid);
+
+    List<SysClass> getClassByChargeUid(String pid,Long isValid);
 }

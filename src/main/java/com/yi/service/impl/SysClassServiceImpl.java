@@ -39,6 +39,7 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
     private SysTeacherClassMapper sysTeacherClassMapper;
     @Autowired
     private SysStudentClassMapper studentClassMapper;
+
     @Override
     public Page<SysClass> findPage(SysClass sysClass, Page<SysClass> page) {
         Wrapper<SysClass> wrapper = new EntityWrapper<>();
@@ -48,7 +49,7 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
         if (StringUtils.isNotEmpty(sysClass.getChargeUid())) {
             wrapper.and().eq("CHARGE_UID", sysClass.getChargeUid());
         }
-        wrapper.orderBy("CREATED_TIME",false);
+        wrapper.orderBy("CREATED_TIME", false);
         Page<SysClass> sysClassPage = this.selectPage(page, wrapper);
         return sysClassPage;
     }
@@ -68,12 +69,12 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
         SysUser sysUser = sysUserMapper.selectById(sysClass.getChargeUid());
         sysClass.setChargeUname(sysUser.getUserName());
         //判断有没有id，有id说明时更新操作
-        if(StringUtils.isNotEmpty(sysClass.getId())){
+        if (StringUtils.isNotEmpty(sysClass.getId())) {
             SysClass oldClass = this.selectById(sysClass.getId());
             sysClass.setCreatedTime(oldClass.getCreatedTime());
             sysClass.setCreatedBy(oldClass.getCreatedBy());
             result = this.updateById(sysClass);
-        }else{
+        } else {
             //设置创建时间，创建人
             SysUser currentUser = (SysUser) SecurityUtils.getSubject().getPrincipal();
             sysClass.setCreatedBy(currentUser.getUserName());
@@ -95,15 +96,15 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void del(String id,Long isValid) {
+    public void del(String id, Long isValid) {
         SysClass sysClass = this.selectById(id);
         sysClass.setIsValid(isValid);
         //同时设置教师-班级关联关系状态
         Wrapper<SysTeacherClass> teacherClassWrapper = new EntityWrapper<>();
-        teacherClassWrapper.eq("CLASS_ID",id);
+        teacherClassWrapper.eq("CLASS_ID", id);
         List<SysTeacherClass> sysTeacherClasses = sysTeacherClassMapper.selectList(teacherClassWrapper);
-        if(!CollectionUtils.isEmpty(sysTeacherClasses)){
-            for (SysTeacherClass teacherClass : sysTeacherClasses){
+        if (!CollectionUtils.isEmpty(sysTeacherClasses)) {
+            for (SysTeacherClass teacherClass : sysTeacherClasses) {
                 //设置
                 teacherClass.setIsValid(isValid);
                 //更新
@@ -112,10 +113,10 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
         }
         //更新学生-班级关联表 状态改变
         Wrapper<SysStudentClass> studentClassWrapper = new EntityWrapper<>();
-        studentClassWrapper.eq("CLASS_ID",id);
+        studentClassWrapper.eq("CLASS_ID", id);
         List<SysStudentClass> sysStudentClasses = studentClassMapper.selectList(studentClassWrapper);
-        if(!CollectionUtils.isEmpty(sysStudentClasses)){
-            for(SysStudentClass sysStudentClass : sysStudentClasses){
+        if (!CollectionUtils.isEmpty(sysStudentClasses)) {
+            for (SysStudentClass sysStudentClass : sysStudentClasses) {
                 sysStudentClass.setIsValid(isValid);
                 studentClassMapper.updateById(sysStudentClass);
             }
@@ -138,16 +139,17 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
 
     @Autowired
     private ISysStudentsService studentsService;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean removeStudent(String stuId, String classNo) throws Exception{
+    public boolean removeStudent(String stuId, String classNo) throws Exception {
         Wrapper<SysClass> classWrapper = new EntityWrapper<>();
-        classWrapper.eq("class_no",classNo);
+        classWrapper.eq("class_no", classNo);
         SysClass sysClass = this.selectOne(classWrapper);
 
         Wrapper<SysStudents> studentsWrapper = new EntityWrapper<>();
-        studentsWrapper.eq("id",stuId);
-        studentsWrapper.and().eq("CLASS_ID",classNo);
+        studentsWrapper.eq("id", stuId);
+        studentsWrapper.and().eq("CLASS_ID", classNo);
         SysStudents sysStudents = studentsService.selectOne(studentsWrapper);
         sysStudents.setClassId("");
         sysStudents.setChargeUname("");
@@ -169,9 +171,9 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
 
     @Override
     public SysClass getByClassNo(String classNo) {
-        if(StringUtils.isNotEmpty(classNo)){
+        if (StringUtils.isNotEmpty(classNo)) {
             Wrapper<SysClass> wrapper = new EntityWrapper<>();
-            wrapper.eq("CLASS_NO",classNo);
+            wrapper.eq("CLASS_NO", classNo);
             SysClass sysClass = this.selectOne(wrapper);
             return sysClass;
         }
@@ -180,25 +182,25 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
 
     @Override
     public List<SysClass> getClassesByPid(String pid, Long isValid) {
-        if(StringUtils.isNotEmpty(pid)){
+        if (StringUtils.isNotEmpty(pid)) {
             //先查对应的学生
             Wrapper<SysStudents> wrapper = new EntityWrapper<>();
-            wrapper.eq("PARENT_ID",pid);
+            wrapper.eq("PARENT_ID", pid);
             SysStudents student = studentsService.selectOne(wrapper);
 
-            if(null != student){
+            if (null != student) {
                 //去查学生-班级关联表
                 Wrapper<SysStudentClass> scWrp = new EntityWrapper<>();
-                scWrp.eq("STU_ID",student.getId());
-                if(null != isValid){
-                    scWrp.and().eq("IS_VALID",isValid);
+                scWrp.eq("STU_ID", student.getId());
+                if (null != isValid) {
+                    scWrp.and().eq("IS_VALID", isValid);
                 }
                 List<SysStudentClass> studentClassList = studentClassMapper.selectList(scWrp);
 
-                if(!CollectionUtils.isEmpty(studentClassList)){
+                if (!CollectionUtils.isEmpty(studentClassList)) {
                     //获取所有的班级id
                     List<String> collect = studentClassList.stream().map(SysStudentClass::getClassId).collect(Collectors.toList());
-                    if(!CollectionUtils.isEmpty(collect)){
+                    if (!CollectionUtils.isEmpty(collect)) {
                         //去查班级
                         Wrapper<SysClass> classWrapper = new EntityWrapper<>();
                         classWrapper.in("id", collect);
@@ -210,5 +212,15 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
         }
 
         return null;
+    }
+
+    @Override
+    public List<SysClass> getClassByChargeUid(String pid, Long isValid) {
+        Wrapper<SysClass> wrapper = new EntityWrapper<>();
+        wrapper.eq("CHARGE_UID", pid);
+        if (null != isValid) {
+            wrapper.and().eq("IS_VALID", isValid);
+        }
+        return this.selectList(wrapper);
     }
 }
