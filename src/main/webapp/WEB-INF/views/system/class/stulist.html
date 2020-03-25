@@ -48,7 +48,7 @@
                 <th>班主任</th>
                 <th>所属年级</th>
                 <th>家长姓名</th>
-                <th width="220px">操作</th>
+                <th width="260px">操作</th>
               </tr>
               <#list pageData.getRecords() as record>
               	  <tr>
@@ -70,7 +70,7 @@
 		                	 data-submit-url="/system/class/remove/student/${(record.id)!}/${(class.classNo)!}"
 		                	 data-confirm="您确定剔除学生吗?"><i class="fa fa-times"></i> 移出班级</a>
 	                	 </@shiro.hasPermission>
-                        <a href="/system/comment/list/1?stuId=${record.id}" > <i class="fa fa-pencil-square-o"></i> 查看表现</a>
+                        <a href="/system/comment/list/1?stuNo=${(record.no)!}" > <i class="fa fa-pencil-square-o"></i> 查看表现</a>
 	                </td>
 	              </tr>
               </#list>

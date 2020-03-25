@@ -2,23 +2,23 @@
 <@header>
 </@header>
 <@body>
-<form class="form-horizontal layui-form layui-form-pane" method="POST"   id="form1" action="/system/notice/add">
+<form class="form-horizontal layui-form layui-form-pane" method="POST"   id="form1" action="/system/comment/doAdd">
     <input type="hidden" name="id" value="${(sysComment.id)}">
     <input type="hidden" name="stuNo" value="${(student.no)}">
     <div class="box-body">
         <div class="form-group">
             <label for="name"  class="col-sm-2 control-label">学生名称</label>
             <div class="col-sm-10">
-                <input type="text" id="name" name="title" readonly class="form-control" placeholder="" value="student.name" lay-verify="required">
+                <input type="text" id="name" name="title" readonly class="form-control" placeholder="" value="${student.name}" lay-verify="required">
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label">所属课程</label>
             <div class="col-sm-10">
-                <select name="classNo" class="form-control select2" lay-ignore style="width: 100%;" lay-verify="required">
+                <select name="classId" class="form-control select2" lay-ignore style="width: 100%;" lay-verify="required">
                     <#list lessons as l>
                     <!--${(charge.id ==sysClass.chargeUid)?string('selected="selected"',"")}-->
-                    <option value="${(l.lessonCode)!}" ${(l.lessonCode ==sysComment.lessonCode)?string('selected="selected"',"")}>${(l.lessonName)!}</option>
+                    <option value="${(l.id)!}" ${(l.lessonCode ==sysComment.lessonCode)?string('selected="selected"',"")}>${(l.lessonName)!}</option>
                 </#list>
                 </select>
             </div>
