@@ -1,0 +1,174 @@
+<#include "/common/layout.html">
+<@header>
+<link rel="stylesheet" href="/plugins/bootstrap-fileinput/css/fileinput.min.css">
+</@header>
+<@body>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <small>系统管理 > 班级图片墙</small>
+    </h1>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+	  <div class="row">
+	  <div class="col-md-6">
+		  <div class="box box-primary">
+			  <div class="box-header with-border">
+				  <h3 class="box-title">照片墙第一张图片</h3>
+			  </div>
+			  <!-- /.box-header -->
+			  <!-- form start -->
+			  <form role="form">
+				  <div class="box-body">
+					  <div class="form-group">
+						  <label for="11">描述</label>
+						  <input type="email" class="form-control" id="11" placeholder="Enter email">
+					  </div>
+					  <div class="form-group">
+						  <label for="systemLogo1">图片</label>
+						  <input name="file" type="file" class="file-loading1" id="systemLogo1">
+					  </div>
+					  </div>
+				  <!-- /.box-body -->
+
+				  <div class="box-footer">
+					  <button type="submit" class="btn btn-primary">提交</button>
+				  </div>
+			  </form>
+		  </div>
+	  </div>
+	  <div class="col-md-6">
+		  <div class="box box-primary">
+			  <div class="box-header with-border">
+				  <h3 class="box-title">照片墙第一张图片</h3>
+			  </div>
+			  <!-- /.box-header -->
+			  <!-- form start -->
+			  <form role="form">
+				  <div class="box-body">
+					  <div class="form-group">
+						  <label for="12">描述</label>
+						  <input type="email" class="form-control" id="12" placeholder="Enter email">
+					  </div>
+					  <div class="form-group">
+						  <label for="systemLogo1">图片</label>
+						  <input name="file" type="file" class="file-loading1" id="systemLogo2">
+					  </div>
+					  </div>
+				  <!-- /.box-body -->
+
+				  <div class="box-footer">
+					  <button type="submit" class="btn btn-primary">提交</button>
+				  </div>
+			  </form>
+		  </div>
+	  </div>
+	  <div class="col-md-6">
+		  <div class="box box-primary">
+			  <div class="box-header with-border">
+				  <h3 class="box-title">照片墙第一张图片</h3>
+			  </div>
+			  <!-- /.box-header -->
+			  <!-- form start -->
+			  <form role="form">
+				  <div class="box-body">
+					  <div class="form-group">
+						  <label for="10">描述</label>
+						  <input type="email" class="form-control" id="10" placeholder="Enter email">
+					  </div>
+					  <div class="form-group">
+						  <label for="systemLogo1">图片</label>
+						  <input name="file" type="file" class="file-loading1" id="systemLogo3">
+					  </div>
+					  </div>
+				  <!-- /.box-body -->
+
+				  <div class="box-footer">
+					  <button type="submit" class="btn btn-primary">提交</button>
+				  </div>
+			  </form>
+		  </div>
+	  </div>
+	  <div class="col-md-6">
+		  <div class="box box-primary">
+			  <div class="box-header with-border">
+				  <h3 class="box-title">照片墙第一张图片</h3>
+			  </div>
+			  <!-- /.box-header -->
+			  <!-- form start -->
+			  <form role="form">
+				  <div class="box-body">
+					  <div class="form-group">
+						  <label for="13">描述</label>
+						  <input type="email" class="form-control" id="13" placeholder="Enter email">
+					  </div>
+					  <div class="form-group">
+						  <label for="systemLogo1">图片</label>
+						  <input name="file" type="file" class="file-loading1" id="systemLogo4">
+					  </div>
+					  </div>
+				  <!-- /.box-body -->
+
+				  <div class="box-footer">
+					  <button type="submit" class="btn btn-primary">提交</button>
+				  </div>
+			  </form>
+		  </div>
+	  </div>
+	  </div>
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+</@body>
+<@footer>
+<script src="/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
+<script src="/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
+<script>
+//初始化fileinput控件（第一次初始化）
+function initFileInput(ctrlName, uploadUrl) {    
+    var control = $('#' + ctrlName); 
+
+    control.fileinput({
+    	
+    	 initialPreview: [
+             '${(sysUser.userImg)!}'
+         ],
+         initialPreviewAsData: true,
+         initialPreviewConfig: [
+             {caption: "${(sysUser.userImg)!}", size: 930321, width: "120px", key: '${(sysUser.id)!}', showDelete: false}
+         ],
+         deleteUrl: "/file/delete",
+    	
+        language: 'zh', //设置语言
+        uploadUrl: uploadUrl, //上传的地址
+        allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
+        showUpload: false, //是否显示上传按钮
+        showCaption: false,//是否显示标题
+        browseClass: "btn btn-primary"       
+    });
+}
+	
+initFileInput("systemLogo1", "/file/upload");
+initFileInput("systemLogo2", "/file/upload");
+initFileInput("systemLogo3", "/file/upload");
+initFileInput("systemLogo4", "/file/upload");
+
+//上传成功回调函数
+$('#systemLogo1').on("fileuploaded", function(event, data, previewId, index) {
+    var result = data.response;
+    console.log(result.status);
+    console.log(result.urls);
+    $('#userImg').val(result.urls[0]);
+});
+
+</script>
+<style>
+	.file-drop-zone-title {
+		color: #aaa;
+		font-size: 1.6em;
+		padding: 10px 10px!important;
+		cursor: default;
+	}
+</style>
+</@footer>
