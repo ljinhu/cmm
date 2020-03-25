@@ -54,7 +54,7 @@ public class SysExamsCtroller extends BaseController {
         Page<SysExams> sysExamsPage = examsService.mineExams(sysExams, page, role);
         model.addAttribute("pageData", sysExamsPage);
         model.addAttribute("name", name);
-        model.addAttribute("classNo", classId);
+        model.addAttribute("classId", classId);
         return prefix + "list";
     }
 

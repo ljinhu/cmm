@@ -1,12 +1,15 @@
 package com.yi.controller.system;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.yi.common.RoleNames;
 import com.yi.common.bean.Rest;
 import com.yi.common.controller.BaseController;
 import com.yi.entity.SysClass;
 import com.yi.entity.SysHomeWork;
+import com.yi.entity.SysTeacherClass;
 import com.yi.entity.SysUser;
 import com.yi.service.ISysClassService;
 import com.yi.service.ISysStudentsService;
@@ -20,6 +23,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +65,7 @@ public class SysHomeWorkController extends BaseController {
         }
         if (isTeacher()) {
             classes = teacherClassService.getTeacherClass(cuurenUser().getId(), 1L);
+            sysHomeWork.setCreatedBy(cuurenUser().getId());
         }
         if(!CollectionUtils.isEmpty(classes)){
             classIds = classes.stream().map(SysClass::getId).collect(Collectors.toList());
@@ -75,21 +80,44 @@ public class SysHomeWorkController extends BaseController {
     @RequiresPermissions("system:work:add")
     public String toAdd(Model model){
         SysUser sysUser = cuurenUser();
-        List<SysClass> classes = teacherClassService.getTeacherClass(sysUser.getId(), 1L);
-        model.addAttribute("classes",classes);
+        //如果教师教多门课程，需要获取
+        Wrapper<SysTeacherClass> wrapper = new EntityWrapper<>();
+        wrapper.eq("USER_ID",sysUser.getId());
+        wrapper.and().eq("IS_VALID",1L);
+        List<SysTeacherClass> sysTeacherClasses = teacherClassService.selectList(wrapper);
+        model.addAttribute("classes",sysTeacherClasses);
         return prefix + "add";
     }
-
-    public Rest doAdd(SysHomeWork work) throws Exception{
-        homeWorkService.save(work);
+    @RequestMapping("/add")
+    @ResponseBody
+    public Rest doAdd(SysHomeWork work) {
+        try {
+            work.setCreatedBy(cuurenUser().getId());
+            work.setCreateName(cuurenUser().getUserName());
+            homeWorkService.save(work);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Rest.failure("发布失败");
+        }
         return Rest.ok("发布成功");
     }
 
     @RequestMapping("/detail/{id}")
-    public String detail(String id,Model model){
+    public String detail(@PathVariable String id,Model model){
         SysHomeWork sysHomeWork = homeWorkService.selectById(id);
         model.addAttribute("work",sysHomeWork);
         return prefix+"detail";
+    }
+    @RequestMapping("/delete/{id}")
+    @ResponseBody
+    public Rest delete(@PathVariable String id){
+        try {
+            homeWorkService.deleteById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Rest.failure("删除失败");
+        }
+        return Rest.ok();
     }
 
 }

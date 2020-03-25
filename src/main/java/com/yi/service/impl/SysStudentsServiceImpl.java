@@ -196,10 +196,14 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
 
     private void saveStuClass(StudentVo studentVo) {
         //先检查学生编号有没有重复
-        Rest rest = this.checkNo(studentVo.getNo());
-        if(rest.getCode() != 200L){
-            //有重复直接返回
+        if(StringUtils.isEmpty(studentVo.getNo())){
             return;
+        }
+        Wrapper<SysStudents> swrapper = new EntityWrapper<>();
+        swrapper.eq("no", studentVo.getNo());
+        SysStudents studentDb = this.selectOne(swrapper);
+        if(null != studentDb){
+            studentVo.setId(studentDb.getId());
         }
         //如果含有班级编号则设置班级信息
         if(StringUtils.isNoneEmpty(studentVo.getClassNo())){
@@ -223,7 +227,7 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
                 sc.setClassId(sysClass.getId());
                 sc.setIsValid(sysClass.getIsValid());
                 sc.setStuId(stu.getId());
-                studentClassService.insert(sc);
+                studentClassService.insertOrUpdate(sc);
             }
         }
     }

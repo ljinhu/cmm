@@ -69,11 +69,11 @@
           <div class="box-footer row">
             <div class="col-md-6">
          	  <#include "/common/paginateBar.html" />
-	  		  <@paginate pageData=pageData actionUrl="/system/dept/list/" urlParas="?search=${search!}"  />
+	  		  <@paginate pageData=pageData actionUrl="/system/exam/list/" urlParas="?classId=${classId!}"  />
             </div>
             <div class="col-md-6 pull-left">
 	             <#include "/common/paginate.html" />
-	  			 <@paginate currentPage=pageData.getCurrent() totalPage=pageData.getPages() actionUrl="/system/dept/list/" urlParas="?search=${search!}&pageSize=${pageSize!}"  />
+	  			 <@paginate currentPage=pageData.getCurrent() totalPage=pageData.getPages() actionUrl="/system/exam/list/" urlParas="?classId=${classId!}&pageSize=${pageSize!}"  />
             </div>
           </div>
         </div><!-- /.box -->

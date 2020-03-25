@@ -174,7 +174,7 @@ public class ClassController extends BaseController {
         model.addAttribute("class", sysClass);
         Page<SysStudents> page = getPage(pageNo, pageSize);
         Wrapper<SysStudents> stuWrapper = new EntityWrapper<>();
-        stuWrapper.eq("class_id", sysClass.getClassNo());
+        stuWrapper.eq("class_no", sysClass.getClassNo());
         if (StringUtils.isNotEmpty(no)) {
             stuWrapper.and().like("no", no);
         }

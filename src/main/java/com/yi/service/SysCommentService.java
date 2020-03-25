@@ -1,5 +1,6 @@
 package com.yi.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.yi.entity.SysComment;
 
@@ -9,4 +10,13 @@ import com.yi.entity.SysComment;
  * @Description: 
  */
 public interface SysCommentService extends IService<SysComment> {
+
+    /**
+     * 查看学生表现
+     * @param page
+     * @param comment
+     * @param roleName
+     * @return
+     */
+    Page<SysComment> getByPage(Page<SysComment> page,SysComment comment,String roleName);
 }

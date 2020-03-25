@@ -70,6 +70,7 @@
 		                	 data-submit-url="/system/class/remove/student/${(record.id)!}/${(class.classNo)!}"
 		                	 data-confirm="您确定剔除学生吗?"><i class="fa fa-times"></i> 移出班级</a>
 	                	 </@shiro.hasPermission>
+                        <a href="/system/comment/list/1?stuId=${record.id}" > <i class="fa fa-pencil-square-o"></i> 查看表现</a>
 	                </td>
 	              </tr>
               </#list>

@@ -2,6 +2,8 @@ package com.yi.controller.system;
 
 import com.yi.common.controller.BaseController;
 import com.yi.entity.SysComment;
+import com.yi.service.SysCommentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +21,9 @@ public class SysCommentController extends BaseController {
 
     private final String prefix = "/system/comment/";
 
+    @Autowired
+    private SysCommentService commentService;
+
     /**
      * 教师通过班级列表进入查看所教课程班级所有学生表现
      * 班主任通过班级列表进入查看所有表现
@@ -29,7 +34,7 @@ public class SysCommentController extends BaseController {
      * @return
      */
     @RequestMapping("/list/{pageNo}")
-    public String list(Model model, @PathVariable Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize, SysComment sysComment) {
+    public String list(Model model, @PathVariable Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize,String stuId) {
 
         return prefix + "list";
     }

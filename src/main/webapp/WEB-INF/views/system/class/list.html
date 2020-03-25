@@ -61,7 +61,7 @@
 	                	<@shiro.hasPermission name="system:class:manage">
 	                		<a href="/system/notice/list/1?classNo=${(record.classNo)!}" > <i class="fa fa-pencil-square-o"></i> 公告管理</a>
 	                	</@shiro.hasPermission>
-                        <@shiro.hasPermission name="system:class:manage">
+                        <@shiro.hasPermission name="system:class:stu">
                             <a href="/system/class/manage/student/${(record.id)!}/1" > <i class="fa fa-pencil-square-o"></i> 学生管理</a>
                         </@shiro.hasPermission>
                         <@shiro.hasPermission name="system:class:manage">

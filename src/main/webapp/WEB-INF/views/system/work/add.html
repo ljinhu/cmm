@@ -2,7 +2,7 @@
 <@header>
 </@header>
 <@body>
-<form class="form-horizontal layui-form layui-form-pane" method="POST"   id="form1" action="/system/notice/add">
+<form class="form-horizontal layui-form layui-form-pane" method="POST"   id="form1" action="/system/homework/add">
     <div class="box-body">
         <div class="form-group">
             <label for="name"  class="col-sm-2 control-label">标题</label>
@@ -13,16 +13,16 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">所属班级</label>
             <div class="col-sm-10">
-                <select name="classNo" class="form-control select2" lay-ignore style="width: 100%;" lay-verify="required">
+                <select name="classId" class="form-control select2" lay-ignore style="width: 100%;" lay-verify="required">
                     <#list classes as class>
                     <!--${(charge.id ==sysClass.chargeUid)?string('selected="selected"',"")}-->
-                    <option value="${(class.classNo)!}" >${(class.name)!}</option>
+                    <option value="${(class.id)!}" >${(class.className)!}-${class.lessonName}</option>
                 </#list>
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <label for="detail"  class="col-sm-2 control-label">公告信息</label>
+            <label for="detail"  class="col-sm-2 control-label">作业内容</label>
             <div class="col-sm-10">
                 <textarea class="form-control" id="detail" name="detail"  rows="3" placeholder="请输入公告信息，最多300个字符 ..." ></textarea>
             </div>
@@ -33,7 +33,7 @@
                 <input name="file" type="file"  class="file-loading" id="systemLogo" multiple>
             </div>
         </div>
-        <input type="hidden" name="affixName" id="affixName">
+        <input type="hidden" name="fileName" id="fileName">
         <input type="hidden" name="affix" id="affix">
         <div class="form-group">
             <label   class="col-sm-2 control-label"></label>
@@ -88,7 +88,7 @@
     $('#systemLogo').on("fileuploaded", function(event, data, previewId, index) {
         var result = data.response;
         debugger;
-        $("#affixName").val(data.response.fileName);
+        $("#fileName").val(data.response.fileName);
         $("#affix").val(data.response.urls[0]);
         // $("#commit").click();
     });

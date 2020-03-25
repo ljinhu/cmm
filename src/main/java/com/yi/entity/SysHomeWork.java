@@ -54,6 +54,8 @@ public class SysHomeWork {
 
     @TableField("lesson_code")
     private String lessonCode;
+    @TableField("create_name")
+    private String createName;
 
     public String getId() {
         return id;
@@ -141,5 +143,13 @@ public class SysHomeWork {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    public String getCreateName() {
+        return createName;
+    }
+
+    public void setCreateName(String createName) {
+        this.createName = createName;
     }
 }
