@@ -21,6 +21,9 @@ public class SysComment {
     @TableField("CREATED_TIME")
     private Date createdTime;
 
+    @TableField("create_id")
+    private String createId;
+
     private String comment;
 
     @TableField("stu_no")
@@ -37,6 +40,15 @@ public class SysComment {
 
     @TableField("lesson_code")
     private String lessonCode;
+    @TableField("class_name")
+    private String className;
+
+    /**
+     * 评价类型
+     * 待改进
+     * 表扬
+     */
+    private String type;
 
     public String getId() {
         return id;
@@ -108,5 +120,29 @@ public class SysComment {
 
     public void setLessonCode(String lessonCode) {
         this.lessonCode = lessonCode;
+    }
+
+    public String getCreateId() {
+        return createId;
+    }
+
+    public void setCreateId(String createId) {
+        this.createId = createId;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

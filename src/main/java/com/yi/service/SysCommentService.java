@@ -11,12 +11,7 @@ import com.yi.entity.SysComment;
  */
 public interface SysCommentService extends IService<SysComment> {
 
-    /**
-     * 查看学生表现
-     * @param page
-     * @param comment
-     * @param roleName
-     * @return
-     */
-    Page<SysComment> getByPage(Page<SysComment> page,SysComment comment,String roleName);
+    Page<SysComment> getByPage(SysComment comment,Page<SysComment> page);
+
+    boolean save(SysComment sysComment);
 }
