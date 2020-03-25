@@ -151,6 +151,7 @@ public class ClassController extends BaseController {
             return PREFIX + "list";
         } else if (isParent()) {
             //是家长
+
             return PREFIX + "mine";
         } else {
             List<SysClass> classes = teacherClassService.getTeacherClass(currentUser.getId(), 1L);

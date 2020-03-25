@@ -7,15 +7,18 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.yi.common.bean.Rest;
 import com.yi.common.util.ImportExcelUtil;
 import com.yi.entity.*;
+import com.yi.entity.vo.SysClassVo;
 import com.yi.mapper.SysClassMapper;
 import com.yi.mapper.SysStudentClassMapper;
 import com.yi.mapper.SysTeacherClassMapper;
 import com.yi.mapper.SysUserMapper;
 import com.yi.service.ISysClassService;
 import com.yi.service.ISysStudentsService;
+import com.yi.service.PhotoWallService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +42,8 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
     private SysTeacherClassMapper sysTeacherClassMapper;
     @Autowired
     private SysStudentClassMapper studentClassMapper;
+    @Autowired
+    private PhotoWallService photoWallService;
 
     @Override
     public Page<SysClass> findPage(SysClass sysClass, Page<SysClass> page) {
@@ -222,5 +227,17 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
             wrapper.and().eq("IS_VALID", isValid);
         }
         return this.selectList(wrapper);
+    }
+
+    @Override
+    public SysClassVo detail(String id) {
+        SysClassVo sysClassVo = new SysClassVo();
+        //先查询基本信息
+        SysClass sysClass = this.selectById(id);
+        BeanUtils.copyProperties(sysClass, sysClassVo);
+        //查询照片
+        List<PhotoWall> byClassId = photoWallService.findByClassId(sysClass.getId());
+        sysClassVo.setPhotos(byClassId);
+        return sysClassVo;
     }
 }
