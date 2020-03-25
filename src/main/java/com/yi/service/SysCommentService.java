@@ -1,5 +1,6 @@
 package com.yi.service;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
 import com.yi.entity.SysComment;
 
@@ -9,4 +10,8 @@ import com.yi.entity.SysComment;
  * @Description: 
  */
 public interface SysCommentService extends IService<SysComment> {
+
+    Page<SysComment> getByPage(SysComment comment,Page<SysComment> page);
+
+    boolean save(SysComment sysComment);
 }

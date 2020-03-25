@@ -45,4 +45,6 @@ public interface ISysStudentsService extends IService<SysStudents> {
      * @return
      */
     SysStudents getByPid(String pid);
+
+    SysStudents getByNo(String no);
 }

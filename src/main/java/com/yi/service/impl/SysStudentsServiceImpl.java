@@ -194,6 +194,13 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
         return null;
     }
 
+    @Override
+    public SysStudents getByNo(String no) {
+        Wrapper<SysStudents> studentsWrapper = new EntityWrapper<>();
+        studentsWrapper.eq("no",no);
+        return this.selectOne(studentsWrapper);
+    }
+
     private void saveStuClass(StudentVo studentVo) {
         //先检查学生编号有没有重复
         Rest rest = this.checkNo(studentVo.getNo());

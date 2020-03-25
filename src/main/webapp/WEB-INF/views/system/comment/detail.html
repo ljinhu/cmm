@@ -7,39 +7,19 @@
         <div class="form-group">
             <label for="name"  class="col-sm-2 control-label">标题</label>
             <div class="col-sm-10">
-                <input type="text" id="name" name="title" class="form-control" placeholder="请输入公告标题"  lay-verify="required">
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label">所属班级</label>
-            <div class="col-sm-10">
-                <select name="classNo" class="form-control select2" lay-ignore style="width: 100%;" lay-verify="required">
-                    <#list classes as class>
-                    <!--${(charge.id ==sysClass.chargeUid)?string('selected="selected"',"")}-->
-                    <option value="${(class.classNo)!}"  >${(class.name)!}</option>
-                </#list>
-                </select>
+                <input type="text" id="name" name="name" readonly class="form-control" value="${work.title}" placeholder="请输入公告标题"  lay-verify="required">
             </div>
         </div>
         <div class="form-group">
             <label for="detail"  class="col-sm-2 control-label">公告信息</label>
             <div class="col-sm-10">
-                <textarea class="form-control" id="detail" name="detail"  rows="3" placeholder="请输入公告信息，最多300个字符 ..." ></textarea>
+                <textarea class="form-control" id="detail" readonly name="detail"  rows="3" placeholder="请输入公告信息，最多300个字符 ..." >${work.detail}</textarea>
             </div>
         </div>
-        <div class="form-group">
-            <label for="systemLogo"  class="col-sm-2 control-label">上传附件</label>
-            <div class="col-sm-10">
-                <input name="file" type="file"  class="file-loading" id="systemLogo" multiple>
-            </div>
-        </div>
-        <input type="hidden" name="affixName" id="affixName">
-        <input type="hidden" name="affix" id="affix">
         <div class="form-group">
             <label   class="col-sm-2 control-label"></label>
             <div class="col-sm-10">
-                <button type="submit" onclick=""  id="commit" class="btn btn-success" lay-submit lay-filter="submit"><i class="fa fa-save"></i>  确定 </button>
-                <a  class="btn btn-default" href="javascript:parent.layer.closeAll('iframe');"><i class="fa fa-close"></i>  取消</a>
+                <a  class="btn btn-default" href="javascript:parent.layer.closeAll('iframe');"><i class="fa fa-close"></i>  确定</a>
             </div>
         </div>
     </div>
