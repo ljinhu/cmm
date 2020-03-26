@@ -59,6 +59,11 @@ public class SysTeacherClassServiceImpl extends ServiceImpl<SysTeacherClassMappe
         if (StringUtils.isEmpty(sysTeacherClass.getClassId())) {
             return false;
         }
+        if(StringUtils.isEmpty(sysTeacherClass.getClassId())){
+            return false;
+        }
+        SysClass sysClass = classService.selectById(sysTeacherClass.getId());
+        sysTeacherClass.setClassName(sysClass.getName());
         if (StringUtils.isEmpty(sysTeacherClass.getLessonCode())) {
             return false;
         }

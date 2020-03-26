@@ -41,7 +41,7 @@ public class SysCommentServiceImpl extends ServiceImpl<SysCommentMapper, SysComm
             wrapper.eq("stu_no",comment.getStuNo());
         }
         if(StringUtils.isNotEmpty(comment.getCreateId())){
-            wrapper.eq("create_id",comment.getClassId());
+            wrapper.eq("create_id",comment.getCreateId());
         }
         return this.selectPage(page,wrapper);
     }

@@ -7,10 +7,12 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.yi.entity.Dict;
 import com.yi.entity.SysClass;
 import com.yi.entity.SysHomeWork;
+import com.yi.entity.SysTeacherClass;
 import com.yi.mapper.SysHomeWorkMapper;
 import com.yi.service.DictService;
 import com.yi.service.ISysClassService;
 import com.yi.service.SysHomeWorkService;
+import com.yi.service.SysTeacherClassService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,8 @@ public class SysHomeWorkServiceImpl extends ServiceImpl<SysHomeWorkMapper, SysHo
     private ISysClassService classService;
     @Autowired
     private DictService dictService;
+    @Autowired
+    private SysTeacherClassService teacherClassService;
 
     @Override
     public Page<SysHomeWork> getPageList(SysHomeWork work, Page<SysHomeWork> page, List<String> classIds) {
@@ -39,6 +43,9 @@ public class SysHomeWorkServiceImpl extends ServiceImpl<SysHomeWorkMapper, SysHo
                 workWrapper.eq("CLASS_ID", "-1");
             }
         }
+        if(StringUtils.isNotEmpty(work.getCreatedBy())){
+            workWrapper.and().eq("CREATED_BY",work.getCreatedBy());
+        }
         return this.selectPage(page, workWrapper);
     }
 
@@ -48,13 +55,21 @@ public class SysHomeWorkServiceImpl extends ServiceImpl<SysHomeWorkMapper, SysHo
         if (classId == null) {
             return false;
         }
+        //先查教师-班级关联表
+        SysTeacherClass sysTeacherClass = teacherClassService.selectById(classId);
+        if(null == sysTeacherClass){
+            throw  new Exception("无法查到相关信息");
+        }
+        classId = sysTeacherClass.getClassId();
+        work.setClassId(classId);
         //获取班级信息
         SysClass sysClass = classService.selectById(classId);
         if (null == sysClass) {
             throw new Exception("保存作业时，班级不存在");
         }
         work.setClassName(sysClass.getName());
-        String lessonCode = work.getLessonCode();
+        String lessonCode = sysTeacherClass.getLessonCode();
+        work.setLessonCode(lessonCode);
         if (StringUtils.isEmpty(lessonCode)) {
             throw new Exception("保存作业时，无法查询到所对应的课程");
         }

@@ -61,6 +61,8 @@ public class SysCommentController extends BaseController {
         } else if (isTeacher()) {
             sysComment.setCreateId(cuurenUser().getId());
         }
+        SysStudents students = studentsService.getByNo(sysComment.getStuNo());
+        model.addAttribute("student",students);
         Page<SysComment> page = this.commentService.getByPage(sysComment, getPage(pageNo, pageSize));
         model.addAttribute("pageData",page);
         return prefix + "list";

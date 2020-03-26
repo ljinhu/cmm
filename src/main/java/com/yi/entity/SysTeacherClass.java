@@ -36,6 +36,9 @@ public class SysTeacherClass {
     @TableField("lesson_code")
     private String lessonCode;
 
+    @TableField("class_name")
+    private String className;
+
     public String getLessonCode() {
         return lessonCode;
     }
@@ -82,5 +85,13 @@ public class SysTeacherClass {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
     }
 }
