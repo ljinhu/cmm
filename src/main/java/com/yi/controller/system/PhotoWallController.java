@@ -40,8 +40,12 @@ public class PhotoWallController extends BaseController {
 
     @RequestMapping("/add")
     @ResponseBody
-    public Rest doAdd(PhotoWallPoJo photoWallPoJo){
-        return Rest.ok();
+    public Rest doAdd(PhotoWall photoWall){
+        if(photoWallService.save(photoWall)){
+            return Rest.ok();
+        }else{
+            return Rest.failure("保存失败");
+        }
     }
 
 }

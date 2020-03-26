@@ -16,4 +16,5 @@ public interface PhotoWallService extends IService<PhotoWall> {
     List<PhotoWall> findByClassId(String classId);
 
     boolean save(PhotoWallPoJo photoWallPoJo);
+    boolean save(PhotoWall photoWall);
 }

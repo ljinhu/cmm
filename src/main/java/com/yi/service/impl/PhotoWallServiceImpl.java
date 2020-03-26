@@ -10,6 +10,7 @@ import com.yi.service.PhotoWallService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class PhotoWallServiceImpl extends ServiceImpl<PhotoWallMapper, PhotoWall
         return photoWalls;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean save(PhotoWallPoJo photoWallPoJo) {
         try {
@@ -43,5 +44,24 @@ public class PhotoWallServiceImpl extends ServiceImpl<PhotoWallMapper, PhotoWall
             return false;
         }
         return true;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public boolean save(PhotoWall photoWall) {
+        if(!StringUtils.isEmpty(photoWall.getClassId())){
+            String classId = photoWall.getClassId();
+            if(!StringUtils.isEmpty(photoWall.getIndex())){
+                String index = photoWall.getIndex();
+                Wrapper<PhotoWall> wrapper = new EntityWrapper<>();
+                wrapper.eq("index",index);
+                wrapper.eq("class_id",classId);
+                PhotoWall photoWallDb = this.selectOne(wrapper);
+                photoWall.setId(photoWallDb.getId());
+            }
+            this.insertOrUpdate(photoWall);
+            return true;
+        }
+        return false;
     }
 }
