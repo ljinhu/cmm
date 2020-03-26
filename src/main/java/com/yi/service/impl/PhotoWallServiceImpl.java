@@ -17,14 +17,14 @@ import java.util.List;
 /**
  * @Author:
  * @Date: 2020/3/25 16:23
- * @Description: 
+ * @Description:
  */
 @Service
 public class PhotoWallServiceImpl extends ServiceImpl<PhotoWallMapper, PhotoWall> implements PhotoWallService {
     @Override
     public List<PhotoWall> findByClassId(String classId) {
         Wrapper<PhotoWall> wrapper = new EntityWrapper<>();
-        wrapper.eq("class_id",classId);
+        wrapper.eq("class_id", classId);
         List<PhotoWall> photoWalls = this.selectList(wrapper);
         return photoWalls;
     }
@@ -39,7 +39,7 @@ public class PhotoWallServiceImpl extends ServiceImpl<PhotoWallMapper, PhotoWall
                     this.insertOrUpdate(photoWall);
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -49,15 +49,17 @@ public class PhotoWallServiceImpl extends ServiceImpl<PhotoWallMapper, PhotoWall
     @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean save(PhotoWall photoWall) {
-        if(!StringUtils.isEmpty(photoWall.getClassId())){
+        if (!StringUtils.isEmpty(photoWall.getClassId())) {
             String classId = photoWall.getClassId();
-            if(!StringUtils.isEmpty(photoWall.getIndex())){
-                String index = photoWall.getIndex();
+            if (!StringUtils.isEmpty(photoWall.getIndexOrder())) {
+                String index = photoWall.getIndexOrder();
                 Wrapper<PhotoWall> wrapper = new EntityWrapper<>();
-                wrapper.eq("index",index);
-                wrapper.eq("class_id",classId);
+                wrapper.eq("index_order", index);
+                wrapper.and().eq("class_id", classId);
                 PhotoWall photoWallDb = this.selectOne(wrapper);
-                photoWall.setId(photoWallDb.getId());
+                if (null != photoWallDb) {
+                    photoWall.setId(photoWallDb.getId());
+                }
             }
             this.insertOrUpdate(photoWall);
             return true;

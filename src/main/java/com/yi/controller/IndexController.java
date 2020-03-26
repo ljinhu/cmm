@@ -34,6 +34,7 @@ public class IndexController extends BaseController {
         SysUser sysUser = cuurenUser();
         if(isCharge()){
             //是班主任
+
         }else if(isTeacher()){
             //查询班级公告
             //查询教师所在的所有班级

@@ -24,12 +24,13 @@ import java.util.List;
 @RequestMapping("/system/photo")
 public class PhotoWallController extends BaseController {
 
-    private final String prefix = "/system/photo";
+    private final String prefix = "/system/photo/";
     @Autowired
     private PhotoWallService photoWallService;
     @Autowired
     private ISysClassService classService;
 
+    @RequestMapping("/toAdd")
     public String toAdd(String classId, Model model){
         List<PhotoWall> photoWalls = photoWallService.findByClassId(classId);
         SysClass sysClass = classService.selectById(classId);
@@ -38,14 +39,16 @@ public class PhotoWallController extends BaseController {
         return prefix + "add";
     }
 
+//    @RequestMapping("/list")
+//    public String list(String classId, Model model){
+//        model.addAttribute()
+//        return prefix + "list";
+//    }
+
     @RequestMapping("/add")
-    @ResponseBody
-    public Rest doAdd(PhotoWall photoWall){
-        if(photoWallService.save(photoWall)){
-            return Rest.ok();
-        }else{
-            return Rest.failure("保存失败");
-        }
+    public String doAdd(PhotoWall photoWall){
+        photoWallService.save(photoWall);
+        return "redirect:/system/photo/toAdd?classId="+photoWall.getClassId();
     }
 
 }

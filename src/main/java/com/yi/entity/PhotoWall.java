@@ -14,8 +14,8 @@ import com.baomidou.mybatisplus.enums.IdType;
 public class PhotoWall {
     @TableId(type = IdType.UUID)
     private String id;
-
-    private String index;
+    @TableField("index_order")
+    private String indexOrder;
     @TableField("file_name")
     private String fileName;
 
@@ -31,14 +31,6 @@ public class PhotoWall {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getIndex() {
-        return index;
-    }
-
-    public void setIndex(String index) {
-        this.index = index;
     }
 
     public String getFileName() {
@@ -71,5 +63,13 @@ public class PhotoWall {
 
     public void setClassId(String classId) {
         this.classId = classId;
+    }
+
+    public String getIndexOrder() {
+        return indexOrder;
+    }
+
+    public void setIndexOrder(String indexOrder) {
+        this.indexOrder = indexOrder;
     }
 }

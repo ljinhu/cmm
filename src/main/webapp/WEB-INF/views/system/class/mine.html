@@ -29,25 +29,23 @@
 						  <!-- Profile Image -->
 						  <div class="box box-primary">
 							  <div class="box-body box-profile">
-								  <img class="profile-user-img img-responsive img-circle" src="../../dist/img/user4-128x128.jpg" alt="User profile picture">
 
-								  <h3 class="profile-username text-center">Nina Mcintire</h3>
+								  <h3 class="profile-username text-center">${(detail.name)!}</h3>
 
-								  <p class="text-muted text-center">Software Engineer</p>
+								  <p class="text-muted text-center">${(detail.classNo)!}</p>
 
 								  <ul class="list-group list-group-unbordered">
 									  <li class="list-group-item">
-										  <b>Followers</b> <a class="pull-right">1,322</a>
+										  <b>学生数</b> <a class="pull-right">${(detail.students)!}</a>
 									  </li>
 									  <li class="list-group-item">
-										  <b>Following</b> <a class="pull-right">543</a>
+										  <b>教师数</b> <a class="pull-right">${(detail.teachers)!}</a>
 									  </li>
 									  <li class="list-group-item">
-										  <b>Friends</b> <a class="pull-right">13,287</a>
+										  <b>班主任联系方式</b> <a class="pull-right"></a>
 									  </li>
 								  </ul>
 
-								  <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
 							  </div>
 							  <!-- /.box-body -->
 						  </div>
@@ -60,35 +58,35 @@
 							  </div>
 							  <!-- /.box-header -->
 							  <div class="box-body">
-								  <strong><i class="fa fa-book margin-r-5"></i> Education</strong>
+								  <strong><i class="fa fa-book margin-r-5"></i> 学生编号</strong>
 
 								  <p class="text-muted">
-									  B.S. in Computer Science from the University of Tennessee at Knoxville
+									 ${stu.no}
 								  </p>
 
 								  <hr>
 
-								  <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+								  <strong><i class="fa fa-map-marker margin-r-5"></i> 班级位置</strong>
 
-								  <p class="text-muted">Malibu, California</p>
+								  <p class="text-muted">${detail.location}</p>
 
 								  <hr>
 
-								  <strong><i class="fa fa-pencil margin-r-5"></i> Skills</strong>
+								  <strong><i class="fa fa-pencil margin-r-5"></i> 所在年级</strong>
 
 								  <p>
-									  <span class="label label-danger">UI Design</span>
-									  <span class="label label-success">Coding</span>
-									  <span class="label label-info">Javascript</span>
-									  <span class="label label-warning">PHP</span>
-									  <span class="label label-primary">Node.js</span>
+									  <!--<span class="label label-danger">UI Design</span>-->
+									  <span class="label label-success">${stu.grade}</span>
+									  <!--<span class="label label-info">Javascript</span>-->
+									  <!--<span class="label label-warning">PHP</span>-->
+									  <!--<span class="label label-primary">Node.js</span>-->
 								  </p>
 
 								  <hr>
 
-								  <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
+								  <strong><i class="fa fa-file-text-o margin-r-5"></i> 班级描述</strong>
 
-								  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+								  <p>${detail.description}</p>
 							  </div>
 							  <!-- /.box-body -->
 						  </div>
@@ -106,10 +104,10 @@
 									  <div class="post">
 										  <div class="user-block">
 											  <span class="username">
-                          <a href="#">Adam Jones</a>
+                          <a href="#">班级名称：${detail.name}</a>
                           <a href="#" class="pull-right btn-box-tool"><i class="fa fa-times"></i></a>
                         </span>
-											  <span class="description">Posted 5 photos - 5 days ago</span>
+											  <span class="description"></span>
 										  </div>
 										  <!-- /.user-block -->
 										  <div class="row margin-bottom">
@@ -117,60 +115,68 @@
 											  <div class="col-sm-8">
 												  <div class="row" class="photo-wall">
 													  <div class="col-sm-6">
+														  <#if detail.photos?? && (detail.photos?size >=1)>
 														  <div class="wallbox">
-															  <img src="/upload/2020-03-24/user3-128x128.jpg" class="img-responsive"/>
+															  <img src="${(detail.photos[0].path)!}" class="img-responsive"/>
 															  <div class="text">
 																  <div class="blank">
 																  </div>
 																  <div class="wallh3">
 																	  <p class="details">
-																		  吉安国际酒店是集餐饮
+																		  ${(detail.photos[0].detail)!}
 																	  </p>
 																  </div>
 															  </div>
 														  </div>
+													  </#if>
 														  <br>
+													  <#if detail.photos?? && (detail.photos?size >=2)>
 														  <div class="wallbox" style="margin: 10px">
-															  <img src="/upload/2020-03-24/user3-128x128.jpg"/>
+															  <img src="${(detail.photos[1].path)!}"/>
 															  <div class="text">
 																  <div class="blank">
 																  </div>
 																  <div class="wallh3">
 																	  <p class="details">
-																		  吉安国际酒店是集餐饮
+																		  ${(detail.photos[1].detail)!}
 																	  </p>
 																  </div>
 															  </div>
 														  </div>
+												  </#if>
 													  </div>
 													  <!-- /.col -->
 													  <div class="col-sm-6" style="">
+														  <#if detail.photos?? && (detail.photos?size >=3)>
 														  <div class="wallbox">
-															  <img src="/upload/2020-03-24/user3-128x128.jpg"/>
+															  <img src="${(detail.photos[2].path)!}"/>
 															  <div class="text">
 																  <div class="blank">
 																  </div>
 																  <div class="wallh3">
 																	  <p class="details">
-																		  吉安国际酒店是集餐饮
+																		  ${(detail.photos[2].detail)!}
 																	  </p>
 																  </div>
 															  </div>
 														  </div>
+													  </#if>
 														  <br>
+											  <#if detail.photos?? && (detail.photos?size >=4)>
 														  <div class="wallbox">
-															  <img src="/upload/2020-03-24/user3-128x128.jpg"/>
+															  <img src="${(detail.photos[3].path)!}"/>
 															  <div class="text">
 																  <div class="blank">
 																  </div>
 																  <div class="wallh3">
 																	  <p class="details">
-																		  吉安国际酒店是集餐饮
+																		  ${(detail.photos[3].detail)!}
 																	  </p>
 																  </div>
 															  </div>
 														  </div>
 													  </div>
+									  </#if>
 													  <!-- /.col -->
 												  </div>
 												  <!-- /.row -->
@@ -209,42 +215,8 @@
 <script src="/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
 <script>
 //初始化fileinput控件（第一次初始化）
-function initFileInput(ctrlName, uploadUrl) {    
-    var control = $('#' + ctrlName); 
-
-    control.fileinput({
-    	
-    	 initialPreview: [
-             '${(sysUser.userImg)!}'
-         ],
-         initialPreviewAsData: true,
-         initialPreviewConfig: [
-             {caption: "${(sysUser.userImg)!}", size: 930321, width: "120px", key: '${(sysUser.id)!}', showDelete: false}
-         ],
-         deleteUrl: "/file/delete",
-    	
-        language: 'zh', //设置语言
-        uploadUrl: uploadUrl, //上传的地址
-        allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
-        showUpload: false, //是否显示上传按钮
-        showCaption: false,//是否显示标题
-        browseClass: "btn btn-primary"       
-    });
-}
-	
-initFileInput("systemLogo1", "/file/upload");
-initFileInput("systemLogo2", "/file/upload");
-initFileInput("systemLogo3", "/file/upload");
-initFileInput("systemLogo4", "/file/upload");
-
-//上传成功回调函数
-$('#systemLogo1').on("fileuploaded", function(event, data, previewId, index) {
-    var result = data.response;
-    console.log(result.status);
-    console.log(result.urls);
-    $('#userImg').val(result.urls[0]);
-});
-
+$(function () {
+})
 </script>
 <style>
 	.file-drop-zone-title {

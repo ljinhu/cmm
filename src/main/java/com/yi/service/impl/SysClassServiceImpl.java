@@ -25,8 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -44,6 +43,8 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
     private SysStudentClassMapper studentClassMapper;
     @Autowired
     private PhotoWallService photoWallService;
+    @Autowired
+    private ISysStudentsService sysStudentsService;
 
     @Override
     public Page<SysClass> findPage(SysClass sysClass, Page<SysClass> page) {
@@ -236,8 +237,25 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
         SysClass sysClass = this.selectById(id);
         BeanUtils.copyProperties(sysClass, sysClassVo);
         //查询照片
-        List<PhotoWall> byClassId = photoWallService.findByClassId(sysClass.getId());
-        sysClassVo.setPhotos(byClassId);
+        List<PhotoWall> photoWalls = photoWallService.findByClassId(sysClass.getId());
+        sysClassVo.setPhotos(photoWalls);
+        //查询学生数
+        Wrapper<SysStudents> stuWrp = new EntityWrapper<>();
+        stuWrp.eq("CLASS_ID", id);
+        int stus = sysStudentsService.selectCount(stuWrp);
+        sysClassVo.setStudents(stus);
+        //查询教师数
+        Wrapper<SysTeacherClass> sysTeacherClassWrapper = new EntityWrapper<>();
+        sysTeacherClassWrapper.eq("CLASS_ID", id);
+        sysTeacherClassWrapper.and().eq("IS_VALID", 1);
+//        sysTeacherClassWrapper
+        List<SysTeacherClass> sysTeacherClasses = sysTeacherClassMapper.selectList(sysTeacherClassWrapper);
+        //根据教师id进行去重
+        if (!CollectionUtils.isEmpty(sysTeacherClasses)) {
+            sysTeacherClasses = sysTeacherClasses.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() ->
+                    new TreeSet<>(Comparator.comparing(SysTeacherClass::getUserId))), ArrayList::new));
+            sysClassVo.setTeachers(sysTeacherClasses.size());
+        }
         return sysClassVo;
     }
 }

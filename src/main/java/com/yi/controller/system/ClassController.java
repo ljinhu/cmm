@@ -154,6 +154,8 @@ public class ClassController extends BaseController {
             //是家长
             SysStudents students = studentsService.getByPid(currentUser.getId());
             SysClassVo detail = sysClassService.detail(students.getClassId());
+            model.addAttribute("detail",detail);
+            model.addAttribute("stu",students);
             return PREFIX + "mine";
         } else {
             List<SysClass> classes = teacherClassService.getTeacherClass(currentUser.getId(), 1L);

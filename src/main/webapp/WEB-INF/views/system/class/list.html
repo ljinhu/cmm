@@ -70,6 +70,9 @@
                         <@shiro.hasPermission name="system:exam:manage">
                             <a href="/system/exam/list/1?classId=${(record.id)!}" > <i class="fa fa-pencil-square-o"></i> 成绩管理</a>
                         </@shiro.hasPermission>
+                        <@shiro.hasPermission name="system:exam:manage">
+                            <a href="/system/photo/toAdd?classId=${(record.id)!}" > <i class="fa fa-pencil-square-o"></i> 图片墙</a>
+                        </@shiro.hasPermission>
 
                       <@shiro.hasPermission name="system:class:del">
                       <#if record.isValid==1>
