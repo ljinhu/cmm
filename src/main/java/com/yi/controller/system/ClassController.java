@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.yi.common.bean.Rest;
 import com.yi.common.controller.BaseController;
 import com.yi.entity.*;
+import com.yi.entity.vo.SysClassVo;
 import com.yi.entity.vo.SysTeacherClassVo;
 import com.yi.service.*;
 import org.apache.commons.lang3.StringUtils;
@@ -151,7 +152,8 @@ public class ClassController extends BaseController {
             return PREFIX + "list";
         } else if (isParent()) {
             //是家长
-
+            SysStudents students = studentsService.getByPid(currentUser.getId());
+            SysClassVo detail = sysClassService.detail(students.getClassId());
             return PREFIX + "mine";
         } else {
             List<SysClass> classes = teacherClassService.getTeacherClass(currentUser.getId(), 1L);
