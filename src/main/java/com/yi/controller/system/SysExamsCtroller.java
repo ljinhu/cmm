@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 
 @Controller
@@ -92,6 +93,8 @@ public class SysExamsCtroller extends BaseController {
             Date end = dateFormat.parse(range[1]);
             exams.setBegin(begin);
             exams.setEnd(end);
+            String code = UUID.randomUUID().toString();
+            exams.setCode(code);
             exams.setCreatedId(cuurenUser().getId());
             exams.setCreateName(cuurenUser().getUserName());
             if (examsService.save(exams)) {

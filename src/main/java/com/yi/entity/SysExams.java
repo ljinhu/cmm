@@ -23,6 +23,8 @@ public class SysExams {
     @TableField("Create_name")
     private String createName;
 
+    private String code;
+
     private String title;
 
     private String detail;
@@ -30,6 +32,14 @@ public class SysExams {
     private Date begin;
 
     private Date end;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     @TableField("lesson_Name")
     private String lessonName;

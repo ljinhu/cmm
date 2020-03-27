@@ -29,11 +29,11 @@ public class BaseController {
 	 */
 	private final String stu_id = "6b008d1d88da4c488f05c9a634651cae";
 
-	private final String teach_id = "6d0a4b3f820b4b39aa158ff7cfc3001a";
+	protected final String teach_id = "6d0a4b3f820b4b39aa158ff7cfc3001a";
 
-	private final String charge_id = "a1d79fef008c4e40bb3d4398e170ada1";
+	protected final String charge_id = "a1d79fef008c4e40bb3d4398e170ada1";
 
-	private final String parent_id = "a3e54005aa7243078b11791a600f40b9";
+	protected final String parent_id = "a3e54005aa7243078b11791a600f40b9";
 
 	@Autowired
 	protected HttpServletRequest request;

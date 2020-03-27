@@ -14,8 +14,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Service
@@ -70,5 +72,16 @@ public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNotice
             }
         }
         return false;
+    }
+
+    @Override
+    public Page<SysNotice> findByClassIds(Page<SysNotice> page, List<String> classIds) {
+        Wrapper<SysNotice> wrapper = new EntityWrapper<>();
+        if(!CollectionUtils.isEmpty(classIds)){
+            wrapper.in("class_no",classIds);
+        }
+         //查询全系统的公告
+        page = this.selectPage(page,wrapper);
+        return page;
     }
 }

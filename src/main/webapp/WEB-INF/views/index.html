@@ -7,7 +7,7 @@
   <section class="content-header">
     <h1>
       	主面板
-      <small>显示系统信息</small>
+      <small>首页</small>
     </h1>
   </section>
 
@@ -19,28 +19,39 @@
          <!-- small box -->
          <div class="small-box  bg-yellow">
            <div class="inner">
-             <h3>${(sm?string(',##0.00'))!'0.00'}</h3>
-             <p>今日收款</p>
+             <h3>${(noticePage.total)!'0'}</h3>
+             <p>公告数</p>
            </div>
            <div class="icon">
              <i class="fa fa-jpy"></i>
            </div>
-           <a href="#" class="small-box-footer">详细信息 <i class="fa fa-arrow-circle-right"></i></a>
          </div>
        </div><!-- ./col -->
        
        <div class="col-lg-3 col-xs-6">
          <!-- small box -->
+           <#if role == 'charge' || role =='teacher'>
          <div class="small-box bg-aqua">
            <div class="inner">
-             <h3>${(ct)!'0'}</h3>
-             <p>今日订单数</p>
+             <h3>${(classes.size)!0}</h3>
+             <p>所在班级数</p>
            </div>
            <div class="icon">
              <i class="fa fa-cart-plus"></i>
            </div>
-           <a href="#" class="small-box-footer">详细信息 <i class="fa fa-arrow-circle-right"></i></a>
          </div>
+       </#if>
+           <#if role == 'parent'>
+         <div class="small-box bg-aqua">
+           <div class="inner">
+             <h3>${(detail.students)!0}</h3>
+             <p>所在班级数学生数</p>
+           </div>
+           <div class="icon">
+             <i class="fa fa-cart-plus"></i>
+           </div>
+         </div>
+       </#if>
        </div><!-- ./col -->
        
          <div class="col-lg-3 col-xs-6">
