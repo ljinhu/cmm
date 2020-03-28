@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.yi.common.RoleNames;
 import com.yi.entity.*;
+import com.yi.entity.vo.SysExamsVo;
 import com.yi.mapper.SysExamsMapper;
 import com.yi.service.*;
 import org.apache.shiro.SecurityUtils;
@@ -93,6 +95,49 @@ public class SysExamsServiceImpl extends ServiceImpl<SysExamsMapper, SysExams> i
         }
         Page<SysExams> sysExamsPage = this.selectPage(page, wrapper);
         return sysExamsPage;
+    }
+
+    @Override
+    public Page<SysExamsVo> mineExams(Page<SysExams> page, String roleName, SysExams exams) {
+        SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
+        Page<SysExamsVo> returnPage = new Page<>(page.getCurrent(),page.getSize());
+        List<SysClass> classes = null;
+        //是班主任
+        if(RoleNames.MANAGER.getName().equals(roleName)){
+            Wrapper<SysClass> classWrap = new EntityWrapper<>();
+            classWrap.eq("charge_uid", user.getId());
+             classes = classService.selectList(classWrap);
+
+        }
+        //是家长
+        if(RoleNames.PARENT.getName().equals(roleName)){
+            classes = classService.getClassesByPid(user.getId(), 1L);
+        }
+        if (!CollectionUtils.isEmpty(classes)) {
+            //获取所有的班级集合
+            List<String> classIds = classes.stream().map(SysClass::getId).collect(Collectors.toList());
+            Wrapper<SysExams> exWrp = new EntityWrapper<>();
+            exWrp.in("class_id",classIds);
+            exWrp.groupBy("code");
+            Page<SysExams> sysExamsPage = this.selectPage(page, exWrp);
+            returnPage.setTotal(sysExamsPage.getTotal());
+            if(page.getTotal() > 0){
+                List<SysExamsVo> examsVos = page.getRecords().stream().map(exam -> {
+                    SysExamsVo examsVo = new SysExamsVo();
+                    BeanUtils.copyProperties(exam, examsVo);
+                    Wrapper<SysExams> examsWrapper = new EntityWrapper<>();
+                    examsWrapper.eq("code", exam.getCode());
+                    List<SysExams> sysExams = this.selectList(examsWrapper);
+                    if (!CollectionUtils.isEmpty(sysExams)) {
+                        List<String> collect = sysExams.stream().map(SysExams::getLessonName).collect(Collectors.toList());
+                        examsVo.setLessons(collect);
+                    }
+                    return examsVo;
+                }).collect(Collectors.toList());
+                returnPage.setRecords(examsVos);
+            }
+        }
+        return returnPage;
     }
 
     @Transactional(rollbackFor = Exception.class)

@@ -4,20 +4,16 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.yi.entity.SysScore;
-import com.yi.entity.SysStudents;
-import com.yi.entity.SysTeacherClass;
-import com.yi.entity.SysUser;
+import com.yi.entity.*;
 import com.yi.entity.vo.SysScoreVo;
 import com.yi.mapper.SysScoreMapper;
 import com.yi.service.ISysStudentsService;
+import com.yi.service.SysExamsService;
 import com.yi.service.SysScoreService;
 import com.yi.service.SysTeacherClassService;
 import org.apache.shiro.SecurityUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -34,6 +30,8 @@ public class SysScoreServiceImpl extends ServiceImpl<SysScoreMapper, SysScore> i
     private SysScoreMapper sysScoreMapper;
     @Autowired
     private SysTeacherClassService teacherClassService;
+    @Autowired
+    private SysExamsService sysExamsService;
 
     @Override
     public Page<SysScore> getScore(SysScoreVo score, Page<SysScore> page, String roleName) {
@@ -100,6 +98,30 @@ public class SysScoreServiceImpl extends ServiceImpl<SysScoreMapper, SysScore> i
             return false;
         }
         return false;
+    }
+
+    @Override
+    public List<SysScore> getAllScoreByExamCode(String code,String stuNo) {
+        if(!StringUtils.isEmpty(code)){
+            //先根据code查询考试id
+            Wrapper<SysExams> exmWrp = new EntityWrapper<>();
+            exmWrp.eq("code", code);
+            List<SysExams> sysExams = sysExamsService.selectList(exmWrp);
+            if(!CollectionUtils.isEmpty(sysExams)){
+                List<String> examIds = sysExams.stream().map(SysExams::getId).collect(Collectors.toList());
+                if(!CollectionUtils.isEmpty(examIds)){
+                    //根据考试的id去查成绩
+                    Wrapper<SysScore> wrapper = new EntityWrapper<>();
+                    wrapper.in("exam_id",examIds);
+                    if(!StringUtils.isEmpty(stuNo)){
+                        wrapper.eq("stu_no", stuNo);
+                    }
+                    List<SysScore> sysScores = this.selectList(wrapper);
+                    return sysScores;
+                }
+            }
+        }
+        return null;
     }
 
 }

@@ -12,6 +12,6 @@ public interface SysNoticeService extends IService<SysNotice> {
 
     boolean save(SysNotice sysNotice);
 
-    Page<SysNotice> findByClassIds(Page<SysNotice> page,List<String> classNos);
+    Page<SysNotice> findByClassIds(Page<SysNotice> page,List<String> classNos,SysNotice notice);
 
 }

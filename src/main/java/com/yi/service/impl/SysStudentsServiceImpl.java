@@ -92,6 +92,7 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
                 sysUser.setCreateTime(new Date());
                 sysUser.setUserState(1);
                 sysUser.setPassword(ShiroUtil.md51024Pwd(studentVo.getPassword(), studentVo.getParentName()));
+                sysUser.setPhone(studentVo.getPhone());
                 //保存用户
                 userMapper.insert(sysUser);
 
@@ -149,6 +150,8 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
                                 studentVo.setParentName(String.valueOf(objectList.get(i))); break;
                             case 4:
                                 studentVo.setPassword(String.valueOf(objectList.get(i))); break;
+                            case 5:
+                                studentVo.setPhone(String.valueOf(objectList.get(i)));break;
                         }
                     }
                 }

@@ -8,6 +8,7 @@
   <section class="content-header">
     <h1>
       <small>系统管理 > 班级图片墙</small>
+		<small><span style="cursor: pointer"><a href="javascript:history.go(-1)">返回</a></span></small>
     </h1>
   </section>
   <!-- Main content -->
@@ -42,7 +43,10 @@
 										  <b>教师数</b> <a class="pull-right">${(detail.teachers)!}</a>
 									  </li>
 									  <li class="list-group-item">
-										  <b>班主任联系方式</b> <a class="pull-right"></a>
+										  <b>班主任姓名</b> <a class="pull-right">${(charge.userName)!}</a>
+									  </li>
+									  <li class="list-group-item">
+										  <b>班主任联系方式</b>${(charge.phone)!'未录入'}} <a class="pull-right"></a>
 									  </li>
 								  </ul>
 

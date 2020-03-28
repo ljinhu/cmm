@@ -1,5 +1,7 @@
 package com.yi.entity.vo;
 
+import com.yi.entity.SysExams;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,7 @@ import java.util.List;
  * @Date: 2020/3/27 15:37
  * @Description: 
  */
-public class SysExamsVo {
+public class SysExamsVo extends SysExams {
 
     private List<String> lessons = new ArrayList<>();
 

@@ -29,9 +29,6 @@
 	                 <a href="/system/user/list/1" class="btn btn-default"><i class="fa fa-refresh"></i></a>
 	               </div>
 	            </div>
-	            <div class="input-group pull-right">
-                 <button type="button" class="btn btn-primary btn-flat" onclick="exportTo('用户数据');"><i class="fa fa-file-excel-o"></i> 导出</button>
-            </div>
 	          </div><!-- /.box-header -->
            </form>
           <div class="box-body table-responsive no-padding">
@@ -41,7 +38,7 @@
                 <th>用户名</th>
                 <th>描述</th>
                 <th>创建时间</th>
-                <th>部门</th>
+                <th>联系电话</th>
                 <th>状态</th>
                 <th width="120px">操作</th>
               </tr>
@@ -56,7 +53,7 @@
 	                <td>${(user.userName)!}</td>
 	                <td>${(user.userDesc)!'--'}</td>
 	                <td>${(user.createTime?string('yyyy/MM/dd HH:mm:ss'))!}</td>
-	                <td>${(user.deptName)!'--'}</td>
+	                <td>${(user.phone)!'未录入'}</td>
 	                <td><#if user.userState==1>启用<#else><font color="red">禁用</font></#if></td>
 	                <td>
 	                	<@shiro.hasPermission name="editUser">

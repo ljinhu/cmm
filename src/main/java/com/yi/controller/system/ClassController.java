@@ -156,6 +156,9 @@ public class ClassController extends BaseController {
             SysClassVo detail = sysClassService.detail(students.getClassId());
             model.addAttribute("detail",detail);
             model.addAttribute("stu",students);
+            //获取班主任信息
+            SysUser user = userService.selectById(detail.getChargeUid());
+            model.addAttribute("charge",user);
             return PREFIX + "mine";
         } else {
             List<SysClass> classes = teacherClassService.getTeacherClass(currentUser.getId(), 1L);
@@ -271,5 +274,17 @@ public class ClassController extends BaseController {
     public Rest saveTeacher(SysTeacherClass sysTeacherClass){
         teacherClassService.saveOrUpdate(sysTeacherClass);
         return Rest.ok("保存成功");
+    }
+
+    @RequestMapping("/checkNo")
+    @ResponseBody
+    public Rest checkNo( String classNo){
+        Wrapper<SysClass> wrapper = new EntityWrapper<>();
+        wrapper.eq("CLASS_NO",classNo);
+        int i = sysClassService.selectCount(wrapper);
+        if(i > 0){
+            return Rest.failure("班级编号重复");
+        }
+        return Rest.ok();
     }
 }

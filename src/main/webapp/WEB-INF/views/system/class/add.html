@@ -15,7 +15,7 @@
     <div class="form-group">
       <label for="classNo"  class="col-sm-2 control-label">班级编号</label>
        <div class="col-sm-10">
-     		<input type="text" id="classNo" name="classNo" class="form-control" placeholder="请输入班级编号"  lay-verify="required" value="${(sysClass.classNo)!}">
+     		<input type="text" id="classNo" name="classNo" class="form-control" placeholder="请输入班级编号"   value="${(sysClass.classNo)!}" lay-verify="required|classNo|check" check-url="/system/class/checkNo">
     	 </div>
     </div>
     <div class="form-group">

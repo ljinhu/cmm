@@ -15,7 +15,7 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="box">
-         <form action="/system/class/list/1" method="post" class="form-inline">
+         <form action="/system/homework/list/1" method="post" class="form-inline">
           <div class="box-header">
             <@shiro.hasPermission name="system:work:add">
 	            <div class="input-group">
@@ -67,11 +67,11 @@
           <div class="box-footer row">
             <div class="col-md-6">
          	  <#include "/common/paginateBar.html" />
-	  		  <@paginate pageData=pageData actionUrl="/system/dept/list/" urlParas="?search=${search!}"  />
+	  		  <@paginate pageData=pageData actionUrl="/system/homework/list/" urlParas="?search=${search!}"  />
             </div>
             <div class="col-md-6 pull-left">
 	             <#include "/common/paginate.html" />
-	  			 <@paginate currentPage=pageData.getCurrent() totalPage=pageData.getPages() actionUrl="/system/dept/list/" urlParas="?search=${search!}&pageSize=${pageSize!}"  />
+	  			 <@paginate currentPage=pageData.getCurrent() totalPage=pageData.getPages() actionUrl="/system/homework/list" urlParas="?search=${search!}&pageSize=${pageSize!}"  />
             </div>
           </div>
         </div><!-- /.box -->

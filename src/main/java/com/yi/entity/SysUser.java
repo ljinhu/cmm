@@ -59,6 +59,8 @@ public class SysUser extends Model<SysUser> {
      */
 	private String deptId;
 
+	private String phone;
+
 
 	public String getId() {
 		return id;
@@ -129,4 +131,11 @@ public class SysUser extends Model<SysUser> {
 		return this.id;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }

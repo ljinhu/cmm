@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.yi.common.controller.BaseController;
-import com.yi.entity.SysClass;
-import com.yi.entity.SysNotice;
-import com.yi.entity.SysStudents;
-import com.yi.entity.SysUser;
+import com.yi.entity.*;
 import com.yi.entity.vo.SysClassVo;
 import com.yi.service.*;
 import org.apache.shiro.SecurityUtils;
@@ -53,8 +50,17 @@ public class IndexController extends BaseController {
             //管理的班级的公告数
             if(!StringUtils.isEmpty(classes)){
                 List<String> classNos = classes.stream().map(SysClass::getClassNo).collect(Collectors.toList());
-                Page<SysNotice> noticePage = noticeService.findByClassIds(getPage(1, 10), classNos);
+                Page<SysNotice> noticePage = noticeService.findByClassIds(getPage(1, 10), classNos,null);
                 model.addAttribute("noticePage",noticePage);
+            }
+            //管理的学生总数
+            if(!StringUtils.isEmpty(classes)){
+                List<String> classNos = classes.stream().map(SysClass::getClassNo).collect(Collectors.toList());
+                Wrapper<SysStudents> wrapper = new EntityWrapper<>();
+                wrapper.in("class_no",classNos);
+                List<SysStudents> sysStudents = studentsService.selectList(wrapper);
+                model.addAttribute("students",sysStudents);
+
             }
             model.addAttribute("role","charge");
         }else if(isTeacher()){
@@ -64,9 +70,16 @@ public class IndexController extends BaseController {
             //查询班级公告
             if(!StringUtils.isEmpty(classes)){
                 List<String> classNos = classes.stream().map(SysClass::getClassNo).collect(Collectors.toList());
-                Page<SysNotice> noticePage = noticeService.findByClassIds(getPage(1, 10), classNos);
+                Page<SysNotice> noticePage = noticeService.findByClassIds(getPage(1, 10), classNos,null);
                 model.addAttribute("noticePage",noticePage);
             }
+            //查询所带课程数
+            Wrapper<SysTeacherClass> wrapper = new EntityWrapper<>();
+            wrapper.eq("USER_ID",sysUser.getId());
+            wrapper.and().eq("IS_VALID",1L);
+            List<SysTeacherClass> sysTeacherClasses = teacherClassService.selectList(wrapper);
+            model.addAttribute("sysTeacherClasses",sysTeacherClasses);
+
             model.addAttribute("role","teacher");
         }else if(isParent()){
             SysStudents students = studentsService.getByPid(cuurenUser().getId());
@@ -74,7 +87,7 @@ public class IndexController extends BaseController {
             model.addAttribute("detail",detail);
             Page<SysNotice> page = getPage(1, 10);
             SysNotice sysNotice = new SysNotice();
-            sysNotice.setClassNo(students.getClassId());
+            sysNotice.setClassNo(students.getClassNo());
             Page<SysNotice> noticePage = noticeService.findPage(page, sysNotice);
             model.addAttribute("noticePage",noticePage);
             model.addAttribute("role","parent");
@@ -91,7 +104,7 @@ public class IndexController extends BaseController {
             List<SysUser> charges = roleService.getSysUsers(charge_id);
             model.addAttribute("charges",charges);
             //获取所有公告
-            Page<SysNotice> noticePage = noticeService.findByClassIds(getPage(1, 10), null);
+            Page<SysNotice> noticePage = noticeService.findByClassIds(getPage(1, 10), null,null);
             model.addAttribute("noticePage",noticePage);
             model.addAttribute("role","admin");
         }

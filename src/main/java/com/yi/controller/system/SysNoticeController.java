@@ -11,18 +11,21 @@ import com.yi.entity.SysNotice;
 import com.yi.entity.SysUser;
 import com.yi.service.ISysClassService;
 import com.yi.service.SysNoticeService;
+import com.yi.service.SysTeacherClassService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -35,6 +38,8 @@ public class SysNoticeController extends BaseController {
     private SysNoticeService noticeService;
     @Autowired
     private ISysClassService classService;
+    @Autowired
+    private SysTeacherClassService teacherClassService;
 
     /**
      * 班主任分页查询公告
@@ -51,7 +56,34 @@ public class SysNoticeController extends BaseController {
         Page<SysNotice> page = getPage(pageNo, pageSize);
         SysNotice notice = new SysNotice();
         SysUser user = (SysUser) SecurityUtils.getSubject().getPrincipal();
-        notice.setCreatedBy(user.getId());
+        //分角色
+        if(isCharge()) {
+            notice.setCreatedBy(user.getId());
+        }else if(isParent()){
+            List<SysClass> classes = classService.getClassesByPid(user.getId(), 1L);
+            if(!CollectionUtils.isEmpty(classes)){
+                classNo = classes.get(0).getClassNo();
+            }
+        }
+        else if(isTeacher()){
+            //获取
+            List<SysClass> classes = teacherClassService.getTeacherClass(user.getId(), 1L);
+            if(!CollectionUtils.isEmpty(classes)){
+                List<String> classIds = classes.stream().map(SysClass::getId).collect(Collectors.toList());
+                Page<SysNotice> pageData = noticeService.findByClassIds(page, classIds,notice);
+            }
+            if(StringUtils.isNotEmpty(name)) {
+                notice.setName(name);
+                model.addAttribute("name", name);
+            }
+            if(StringUtils.isNotEmpty(classNo)){
+                notice.setClassNo(classNo);
+                model.addAttribute("classNo",classNo);
+            }
+            Page<SysNotice> noticePage = noticeService.findPage(page, notice);
+            model.addAttribute("pageData",noticePage);
+            return prefix + "list";
+        }
         if(StringUtils.isNotEmpty(name)) {
             notice.setName(name);
             model.addAttribute("name", name);

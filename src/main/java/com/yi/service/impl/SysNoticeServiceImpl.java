@@ -75,10 +75,13 @@ public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNotice
     }
 
     @Override
-    public Page<SysNotice> findByClassIds(Page<SysNotice> page, List<String> classIds) {
+    public Page<SysNotice> findByClassIds(Page<SysNotice> page, List<String> classIds,SysNotice notice) {
         Wrapper<SysNotice> wrapper = new EntityWrapper<>();
         if(!CollectionUtils.isEmpty(classIds)){
             wrapper.in("class_no",classIds);
+        }
+        if(null != notice && StringUtils.isNotEmpty(notice.getName())){
+            wrapper.like("name",notice.getName());
         }
          //查询全系统的公告
         page = this.selectPage(page,wrapper);

@@ -6,7 +6,7 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      <small>系统管理 > 考试管理</small>
+      <small>系统管理 > 考试汇总</small>
     </h1>
   </section>
   <!-- Main content -->
@@ -15,20 +15,8 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="box">
-         <form action="/system/exam/list/1" method="post" class="form-inline">
+         <form action="/system/class/list/1" method="post" class="form-inline">
           <div class="box-header">
-            <@shiro.hasPermission name="system:exam:add">
-	            <div class="input-group">
-	            	<a class="btn btn-primary dialog" href="javascript:;" data-title="发布考试" data-url="/system/exam/toAdd" data-width="800" data-height="480"><i class="fa fa-plus"></i> 发布考试</a>
-	            </div>
-            </@shiro.hasPermission>
-             <!--<div class="input-group">-->
-               <!--<input type="text" name="name" value="${name!}" class="form-control" placeholder="输入班级名称查询">-->
-               <!--<div class="input-group-btn">-->
-                 <!--<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>-->
-                 <!--<a href="/system/class/list/1" class="btn btn-default"><i class="fa fa-refresh"></i></a>-->
-               <!--</div>-->
-            <!--</div>-->
           </div><!-- /.box-header -->
           </form>
           <div class="box-body table-responsive no-padding">
@@ -38,7 +26,6 @@
                 <th>名称</th>
                 <th>班级名称</th>
                 <th>创建时间</th>
-                <th>课程</th>
                 <th>考试时间</th>
                 <th>所属年级</th>
                 <th width="320px">操作</th>
@@ -49,19 +36,15 @@
 	                <td>${(record.title)!}</td>
 	                <td>${(record.className)!}</td>
 	                <td>${(record.createdTime?string('yyyy/MM/dd HH:mm:ss'))!'--'}</td>
-	                <td>${(record.lessonName)!'--'}</td>
 	                <td>${(record.begin?string('yyyy/MM/dd HH:mm:ss'))!'--'} - ${(record.end?string('yyyy/MM/dd HH:mm:ss'))!'--'}</td>
 	                <td>${(record.grade)!'--'}</td>
 	                <td>
-                        <a href="/system/score/list/1?classId=${(record.classId)!}&examId=${(record.id)}" > <i class="fa fa-pencil-square-o"></i> 查看成绩</a>
-	                	<@shiro.hasPermission name="system:exam:manage">
-                        <a class="btn btn-danger btn-xs"
-                           data-tiggle="ajax"
-                           data-submit-url="/system/exam/delete?examId=${(record.id)}"
-                           data-confirm="您确定删除该次考试吗?"><i class="fa fa-times"></i> 删除</a>
-	                	</@shiro.hasPermission>
-
-	                </td>
+                        <#if role =='manage'>
+                            <a href="/system/exam/stulist/1?code=${(record.code)}&classId=${(record.classId)!}" > <i class="fa fa-pencil-square-o"></i> 汇总成绩</a>
+                        <#elseif role == 'parent'>
+                            <a href="/system/exam/detailList?code=${(record.code)}" > <i class="fa fa-pencil-square-o"></i> 查看成绩</a>
+                        </#if>
+                    </td>
 	              </tr>
               </#list>
             </table>

@@ -42,7 +42,7 @@
                 <th>班主任</th>
                 <th>所属年级</th>
                 <th>状态</th>
-                <th width="360px">操作</th>
+                <th width="400px">操作</th>
               </tr>
               <#list pageData.getRecords() as record>
               	  <tr>
@@ -96,11 +96,11 @@
           <div class="box-footer row">
             <div class="col-md-6">
          	  <#include "/common/paginateBar.html" />
-	  		  <@paginate pageData=pageData actionUrl="/system/dept/list/" urlParas="?search=${search!}"  />
+	  		  <@paginate pageData=pageData actionUrl="/system/class/list/" urlParas="?search=${search!}"  />
             </div>
             <div class="col-md-6 pull-left">
 	             <#include "/common/paginate.html" />
-	  			 <@paginate currentPage=pageData.getCurrent() totalPage=pageData.getPages() actionUrl="/system/dept/list/" urlParas="?search=${search!}&pageSize=${pageSize!}"  />
+	  			 <@paginate currentPage=pageData.getCurrent() totalPage=pageData.getPages() actionUrl="/system/class/list/" urlParas="?search=${search!}&pageSize=${pageSize!}"  />
             </div>
           </div>
         </div><!-- /.box -->

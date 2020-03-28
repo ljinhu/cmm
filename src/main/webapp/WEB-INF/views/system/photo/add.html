@@ -8,6 +8,7 @@
   <section class="content-header">
     <h1>
       <small>系统管理 > 班级图片墙</small>
+		<small><span style="cursor: pointer"><a href="javascript:history.go(-1)">返回</a></span></small>
     </h1>
   </section>
   <!-- Main content -->
@@ -24,11 +25,12 @@
 				  <div class="box-body">
 					  <div class="form-group">
 						  <label for="11">描述</label>
-						  <input type="text" class="form-control" name="detail" id="11" placeholder="图片描述">
+						  <input type="hidden" name="id"  value="${(photoWalls[0].id)!}">
+						  <input type="text" class="form-control" name="detail"  value="${(photoWalls[0].detail)!}" id="11" placeholder="图片描述">
 						  <input type="hidden" name="fileName" id="fileName1">
 						  <input type="hidden" value="${sysClass.id}" name="classId">
 						  <input type="hidden" name="indexOrder" value="0">
-						  <input type="hidden" name="path" id="path1">
+						  <input type="hidden" name="path" id="path1" value="${(photoWalls[0].path)!}">
 					  </div>
 					  <div class="form-group">
 						  <label for="systemLogo1">图片</label>
@@ -54,11 +56,12 @@
 				  <div class="box-body">
 					  <div class="form-group">
 						  <label for="12">描述</label>
-						  <input type="text" class="form-control" name="detail" id="12" placeholder="图片描述">
+						  <input type="hidden" name="id"  value="${(photoWalls[1].id)!}">
+						  <input type="text" class="form-control" name="detail" value="${(photoWalls[1].detail)!}" id="12" placeholder="图片描述">
 						  <input type="hidden" name="fileName" id="fileName2">
 						  <input type="hidden" value="${sysClass.id}" name="classId">
 						  <input type="hidden" name="indexOrder" value="1">
-						  <input type="hidden" name="path" id="path2">
+						  <input type="hidden" name="path" id="path2" value="${(photoWalls[1].path)!}">
 					  </div>
 					  <div class="form-group">
 						  <label for="systemLogo1">图片</label>
@@ -84,11 +87,12 @@
 				  <div class="box-body">
 					  <div class="form-group">
 						  <label for="10">描述</label>
-						  <input type="text" class="form-control" name="detail" id="10" placeholder="图片描述">
+						  <input type="hidden" name="id"  value="${(photoWalls[2].id)!}">
+						  <input type="text" class="form-control" name="detail"  value="${(photoWalls[2].detail)!}" id="10" placeholder="图片描述">
 						  <input type="hidden" name="fileName" id="fileName3">
 						  <input type="hidden" value="${sysClass.id}" name="classId">
 						  <input type="hidden" name="indexOrder" value="2">
-						  <input type="hidden" name="path" id="path3">
+						  <input type="hidden" name="path" id="path3" value="${(photoWalls[2].path)!}">
 					  </div>
 					  <div class="form-group">
 						  <label for="systemLogo1">图片</label>
@@ -114,11 +118,12 @@
 				  <div class="box-body">
 					  <div class="form-group">
 						  <label for="13">描述</label>
-						  <input type="text" class="form-control" name="detail" id="13" placeholder="图片描述">
+						  <input type="hidden" name="id"  value="${(photoWalls[3].id)!}">
+						  <input type="text" class="form-control" name="detail"  value="${(photoWalls[3].detail)!}" id="13" placeholder="图片描述">
 						  <input type="hidden" name="fileName" id="fileName4">
 						  <input type="hidden" value="${sysClass.id}" name="classId">
 						  <input type="hidden" name="indexOrder" value="3">
-						  <input type="hidden" name="path" id="path4">
+						  <input type="hidden" name="path" id="path4" value="${(photoWalls[3].path)!}">
 					  </div>
 					  <div class="form-group">
 						  <label for="systemLogo1">图片</label>
@@ -141,57 +146,61 @@
 <script src="/plugins/bootstrap-fileinput/js/fileinput.min.js"></script>
 <script src="/plugins/bootstrap-fileinput/js/locales/zh.js"></script>
 <script>
-//初始化fileinput控件（第一次初始化）
-function initFileInput(ctrlName, uploadUrl,index) {
-    var control = $('#' + ctrlName); 
-	var img = ${(photoWalls[index].path)!} +'';
-	var id = ${(photoWalls[index].id)!} +'';
-    control.fileinput({
-    	
-    	 initialPreview: [
-             img
-         ],
-         initialPreviewAsData: true,
-         initialPreviewConfig: [
-             {caption: img, size: 930321, width: "120px", key: id, showDelete: false}
-         ],
-         deleteUrl: "/file/delete",
-    	
-        language: 'zh', //设置语言
-        uploadUrl: uploadUrl, //上传的地址
-        allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
-        showUpload: false, //是否显示上传按钮
-        showCaption: false,//是否显示标题
-        browseClass: "btn btn-primary"       
-    });
-}
-	
-initFileInput("systemLogo1", "/file/upload",0);
-initFileInput("systemLogo2", "/file/upload",1);
-initFileInput("systemLogo3", "/file/upload",2);
-initFileInput("systemLogo4", "/file/upload",3);
+	$(function(){
+        //初始化fileinput控件（第一次初始化）
+        function initFileInput(ctrlName, uploadUrl,index,path) {
+            debugger;
+            var control = $('#' + ctrlName);
+            var img = ${(photoWalls[index].path)!} +'';
+            var id = ${(photoWalls[index].id)!} +'';
+            debugger;
+            control.fileinput({
+
+                initialPreview: [
+                    path
+                ],
+                initialPreviewAsData: true,
+                initialPreviewConfig: [
+                    {caption: path, size: 930321, width: "120px", key: id, showDelete: false}
+                ],
+                deleteUrl: "/file/delete",
+
+                language: 'zh', //设置语言
+                uploadUrl: uploadUrl, //上传的地址
+                allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
+                showUpload: false, //是否显示上传按钮
+                showCaption: false,//是否显示标题
+                browseClass: "btn btn-primary"
+            });
+        }
+
+        initFileInput("systemLogo1", "/file/upload",0,$('#path1').val());
+        initFileInput("systemLogo2", "/file/upload",1,$('#path2').val());
+        initFileInput("systemLogo3", "/file/upload",2,$('#path3').val());
+        initFileInput("systemLogo4", "/file/upload",3,$('#path4').val());
 
 //上传成功回调函数
-$('#systemLogo1').on("fileuploaded", function(event, data, previewId, index) {
-    var result = data.response;
-    $('#path1').val(result.urls[0]);
-    $('#fileName1').val(result.fileName);
-});
-$('#systemLogo2').on("fileuploaded", function(event, data, previewId, index) {
-    var result = data.response;
-    $('#path2').val(result.urls[0]);
-    $('#fileName2').val(result.fileName);
-});
-$('#systemLogo3').on("fileuploaded", function(event, data, previewId, index) {
-    var result = data.response;
-    $('#path3').val(result.urls[0]);
-    $('#fileName3').val(result.fileName);
-});
-$('#systemLogo4').on("fileuploaded", function(event, data, previewId, index) {
-    var result = data.response;
-    $('#path4').val(result.urls[0]);
-    $('#fileName4').val(result.fileName);
-});
+        $('#systemLogo1').on("fileuploaded", function(event, data, previewId, index) {
+            var result = data.response;
+            $('#path1').val(result.urls[0]);
+            $('#fileName1').val(result.fileName);
+        });
+        $('#systemLogo2').on("fileuploaded", function(event, data, previewId, index) {
+            var result = data.response;
+            $('#path2').val(result.urls[0]);
+            $('#fileName2').val(result.fileName);
+        });
+        $('#systemLogo3').on("fileuploaded", function(event, data, previewId, index) {
+            var result = data.response;
+            $('#path3').val(result.urls[0]);
+            $('#fileName3').val(result.fileName);
+        });
+        $('#systemLogo4').on("fileuploaded", function(event, data, previewId, index) {
+            var result = data.response;
+            $('#path4').val(result.urls[0]);
+            $('#fileName4').val(result.fileName);
+        });
+	})
 
 </script>
 <style>

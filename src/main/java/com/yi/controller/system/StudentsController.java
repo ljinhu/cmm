@@ -53,7 +53,7 @@ public class StudentsController extends BaseController {
      */
     @RequestMapping("/list/{pageNo}")
     public String list(@PathVariable Integer pageNo, @RequestParam(defaultValue = "10") Integer pageSize,
-                       SysStudents sysStudents, Model model){
+                       SysStudents sysStudents, Model model,String code){
         Page<SysStudents> page = this.getPage(pageNo, pageSize);
         List<SysClass> classes = null;
         if (isCharge()) {
@@ -70,6 +70,7 @@ public class StudentsController extends BaseController {
         Page<SysStudents> pageRecord = studentsService.findByPage(sysStudents, page,classes);
         model.addAttribute("pageData",pageRecord);
         model.addAttribute("no",sysStudents.getNo());
+        model.addAttribute("code",code);
         return PREFIX + "list";
     }
 
