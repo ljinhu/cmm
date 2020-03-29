@@ -12,6 +12,7 @@ import com.yi.entity.SysUser;
 import com.yi.entity.vo.StudentVo;
 import com.yi.service.ISysClassService;
 import com.yi.service.ISysStudentsService;
+import com.yi.service.ISysUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
@@ -42,6 +43,10 @@ public class StudentsController extends BaseController {
     private ISysStudentsService studentsService;
     @Autowired
     private ISysClassService sysClassService;
+    @Autowired
+    private ISysUserService userService;
+    @Autowired
+    private ISysClassService classService;
 
     /**
      * 分页查询
@@ -85,6 +90,17 @@ public class StudentsController extends BaseController {
         SysStudents sysStudents = new SysStudents();
         if(StringUtils.isNotEmpty(id)){
             sysStudents = this.studentsService.selectById(id);
+            //查询家长信息
+            SysUser user = userService.selectById(sysStudents.getParentId());
+            model.addAttribute("parent",user);
+        }
+        //获取所有班级供选择
+        if(isCharge()){
+            List<SysClass> classes = classService.getClassByChargeUid(cuurenUser().getId(), 1L);
+            model.addAttribute("classes",classes);
+        }else{
+            List<SysClass> classes = classService.selectList(new EntityWrapper<>());
+            model.addAttribute("classes",classes);
         }
         model.addAttribute("bean",sysStudents);
         return PREFIX +"add";

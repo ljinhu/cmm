@@ -192,6 +192,7 @@ public class SysExamsCtroller extends BaseController {
         model.addAttribute("pageData",pageRecord);
         model.addAttribute("no",sysStudents.getNo());
         model.addAttribute("code",code);
+        model.addAttribute("classId",classId);
         return prefix + "stulist";
     }
 }

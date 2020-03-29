@@ -14,9 +14,15 @@
     </div>
     <div class="form-group">
       <label for="classNo"  class="col-sm-2 control-label">班级编号</label>
-       <div class="col-sm-10">
-     		<input type="text" id="classNo" name="classNo" class="form-control" placeholder="请输入班级编号"   value="${(sysClass.classNo)!}" lay-verify="required|classNo|check" check-url="/system/class/checkNo">
-    	 </div>
+        <#if sysClass.id??>
+        <div class="col-sm-10">
+            <input type="text" id="classNo" name="classNo" readonly class="form-control" placeholder="请输入班级编号"   value="${(sysClass.classNo)!}" >
+        </div>
+        <#else>
+        <div class="col-sm-10">
+            <input type="text" id="classNo" name="classNo" class="form-control" placeholder="请输入班级编号"   value="${(sysClass.classNo)!}" lay-verify="required|classNo|check" check-url="/system/class/checkNo">
+        </div>
+    </#if>
     </div>
     <div class="form-group">
       <label for="location"  class="col-sm-2 control-label">班级位置</label>

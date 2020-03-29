@@ -3,6 +3,7 @@
 </@header>
 <@body>
 <form class="form-horizontal layui-form layui-form-pane" method="post" action="/system/student/doAdd">
+    <input type="hidden" name="id" value="${bean.id}">
     <div class="box-body">
         <div class="form-group">
             <label for="name"  class="col-sm-2 control-label">学生名称</label>
@@ -12,20 +13,49 @@
         </div>
         <div class="form-group">
             <label for="no"  class="col-sm-2 control-label">学号</label>
+            <#if bean.id ??>
+            <div class="col-sm-10">
+                <input type="text" id="no" name="no" readonly class="form-control" placeholder="请输入学生学号" value="${(bean.no)!}" >
+            </div>
+            <#else>
             <div class="col-sm-10">
                 <input type="text" id="no" name="no" class="form-control" placeholder="请输入学生学号" value="${(bean.no)!}" lay-verify="required|no|check" check-url="/system/student/checkNo">
+            </div>
+        </#if>
+
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">所在班级</label>
+            <div class="col-sm-10">
+                <select name="classId" class="form-control select2" lay-ignore style="width: 100%;" lay-verify="required">
+                    <#list classes as c>
+                    <option value="${(c.id)!}" ${(c.id ==bean.classId)?string('selected="selected"',"")}>${(c.name)!}</option>
+                </#list>
+                </select>
             </div>
         </div>
         <div class="form-group">
             <label for="parentName"  class="col-sm-2 control-label">家长账号</label>
+            <#if bean.id ??>
             <div class="col-sm-10">
-                <input type="text" id="parentName" name="parentName" class="form-control" placeholder="请输入家长账号"   value="${(bean.parentName)!}" lay-verify="required|parentName|check" check-url="/system/user/checkName">
+                <input type="text" id="parentName" name="parentName" class="form-control" placeholder="请输入家长账号"   value="${(bean.parentName)!}" lay-verify="required" check-url="/system/user/checkName">
+            </div>
+            <#else>
+            <div class="col-sm-10">
+                <input type="text" id="parentName" readonly name="parentName" class="form-control" placeholder="请输入家长账号"   value="${(bean.parentName)!}" lay-verify="required">
+            </div>
+        </#if>
+        </div>
+        <div class="form-group">
+            <label for="phone"  class="col-sm-2 control-label">家长联系电话</label>
+            <div class="col-sm-10">
+                <input type="text" id="phone" name="phone" class="form-control" placeholder="请输入家长联系电话"   value="${(parent.phone)!}" lay-verify="required" >
             </div>
         </div>
         <div class="form-group">
             <label for="password"  class="col-sm-2 control-label">家长密码</label>
             <div class="col-sm-10">
-                <input type="password" id="password" name="password" class="form-control" placeholder="请输入家长密码"  lay-verify="required" value="${(bean.password)!}">
+                <input type="password" id="password" name="password" class="form-control" placeholder="请输入家长密码"  lay-verify="required" value="${(parent.password)!}">
             </div>
         </div>
         <div class="form-group">

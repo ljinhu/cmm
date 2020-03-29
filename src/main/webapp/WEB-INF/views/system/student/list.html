@@ -70,7 +70,7 @@
                   </#if>
 	                <td>
 	                	<@shiro.hasPermission name="system:stu:add">
-	                		<a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="编辑学生" data-url="/system/class/toAdd?id={(record.id)!}",data-width="800" data-height="400" > <i class="fa fa-pencil-square-o"></i> 编辑</a>
+	                		<a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="编辑学生" data-url="/system/student/toAdd?id=${(record.id)!}",data-width="800" data-height="400" > <i class="fa fa-pencil-square-o"></i> 编辑</a>
 	                	</@shiro.hasPermission>
 	                	<@shiro.hasPermission name="system:stu:del">
 		                	<a class="btn btn-danger btn-xs"

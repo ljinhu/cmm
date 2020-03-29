@@ -103,6 +103,15 @@ public class SysStudentsServiceImpl extends ServiceImpl<SysStudentsMapper, SysSt
                 sysStudents.setParentId(sysUser.getId());
                 sysStudents.setParentName(sysUser.getUserName());
             }
+            if(studentVo.getClassId() != null){
+                SysClass sysClass = classService.selectById(studentVo.getClassId());
+                //设置当前信息
+                sysStudents.setClassName(sysClass.getName());
+                sysStudents.setChargeUname(sysClass.getChargeUname());
+                sysStudents.setGrade(sysClass.getGrade());
+                sysStudents.setClassNo(sysClass.getClassNo());
+                sysStudents.setClassId(sysClass.getId());
+            }
             this.insertOrUpdate(sysStudents);
         }catch (Exception e){
             e.printStackTrace();
