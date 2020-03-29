@@ -45,6 +45,8 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
     private PhotoWallService photoWallService;
     @Autowired
     private ISysStudentsService sysStudentsService;
+    @Autowired
+    private ISysClassService classService;
 
     @Override
     public Page<SysClass> findPage(SysClass sysClass, Page<SysClass> page) {
@@ -213,6 +215,12 @@ public class SysClassServiceImpl extends ServiceImpl<SysClassMapper, SysClass> i
                         List<SysClass> classes = this.selectList(classWrapper);
                         return classes;
                     }
+                }else{
+                    //直接根据学生表的id去查
+                    SysClass sysClass = classService.selectById(student.getClassId());
+                    List<SysClass> classes = new ArrayList<>();
+                    classes.add(sysClass);
+                    return classes;
                 }
             }
         }
