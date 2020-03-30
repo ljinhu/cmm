@@ -5,7 +5,7 @@
 	<artifactId>cmm</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1</version>
-	<name>AdminLTE-admin Maven Webapp</name>
+	<name>cmm</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>

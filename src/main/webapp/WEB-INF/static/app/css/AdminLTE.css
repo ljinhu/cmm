@@ -95,7 +95,7 @@ body {
 .content-wrapper,
 .right-side {
   min-height: 100%;
-  background-color: #ecf0f5;
+  background-color: #fff;
   z-index: 800;
 }
 .main-footer {
@@ -201,7 +201,7 @@ a:focus {
   margin-bottom: 0;
   margin-left: 230px;
   border: none;
-  min-height: 50px;
+  min-height: 80px;
   border-radius: 0;
 }
 .layout-top-nav .main-header > .navbar {
@@ -289,7 +289,7 @@ a:focus {
   transition: width 0.3s ease-in-out;
   display: block;
   float: left;
-  height: 50px;
+  height: 80px;
   font-size: 20px;
   line-height: 50px;
   text-align: center;
@@ -310,7 +310,7 @@ a:focus {
 }
 .content-header {
   position: relative;
-  padding: 15px 15px 0 15px;
+  padding: 15px 5px 0 10px;
 }
 .content-header > h1 {
   margin: 0;
@@ -565,7 +565,7 @@ a:focus {
 .sidebar-menu .treeview-menu > li > a {
   padding: 5px 5px 5px 15px;
   display: block;
-  font-size: 14px;
+  font-size: 16px;
 }
 .sidebar-menu .treeview-menu > li > a > .fa,
 .sidebar-menu .treeview-menu > li > a > .glyphicon,
@@ -1074,7 +1074,7 @@ a:focus {
   border-bottom-left-radius: 4px;
 }
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
-  height: 175px;
+  height: 155px;
   padding: 10px;
   text-align: center;
 }
@@ -2217,7 +2217,7 @@ a:focus {
   background-color: #e7e7e7;
 }
 .btn-primary {
-  background-color: #3c8dbc;
+  background-color: #00c0ef;
 }
 .btn-primary:hover,
 .btn-primary:active,
@@ -4689,6 +4689,7 @@ table.text-center th {
   .main-header,
   .content-header {
     display: none!important;
+    padding: 15px 5px 0 10px!important;
   }
   .content-wrapper,
   .right-side,

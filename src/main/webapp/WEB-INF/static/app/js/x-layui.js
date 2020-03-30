@@ -24,10 +24,11 @@ function x_admin_show(title,url,w,h){
 		type: 2,
 		area: [w+'px', h +'px'],
 		fix: false, //不固定
-		maxmin: true,
+		maxmin: false,
 		shadeClose: true,
 		shade:0.4,
 		title: title,
+		skin:'layui-layer-lan',
 		content: url
 	});
 }
