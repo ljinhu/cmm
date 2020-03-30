@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.yi.entity.SysSetting;
-import com.yi.mapper.SysSettingMapper;
+import com.yi.pojo.SysSetting;
+import com.yi.dao.SysSettingMapper;
 import com.yi.service.ISysSettingService;
 
 /**

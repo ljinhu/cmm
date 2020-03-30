@@ -2,16 +2,16 @@ package com.yi.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.google.common.collect.Lists;
-import com.yi.entity.SysUser;
-import com.yi.entity.SysUserRole;
+import com.yi.pojo.SysUser;
+import com.yi.pojo.SysUserRole;
 import com.yi.service.ISysUserRoleService;
 import com.yi.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.yi.entity.SysRole;
-import com.yi.mapper.SysRoleMapper;
+import com.yi.pojo.SysRole;
+import com.yi.dao.SysRoleMapper;
 import com.yi.service.ISysRoleService;
 
 import java.util.ArrayList;

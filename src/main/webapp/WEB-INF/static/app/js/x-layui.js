@@ -21,6 +21,7 @@ function x_admin_show(title,url,w,h){
 		h=($(window).height()-50);
 	};
 	layer.open({
+		offset:"100px",
 		type: 2,
 		area: [w+'px', h +'px'],
 		fix: false, //不固定

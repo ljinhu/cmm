@@ -11,9 +11,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.yi.entity.SysMenu;
-import com.yi.entity.SysRole;
-import com.yi.entity.SysUser;
+import com.yi.pojo.SysMenu;
+import com.yi.pojo.SysRole;
+import com.yi.pojo.SysUser;
 import com.yi.service.ISysMenuService;
 import com.yi.service.ISysRoleMenuService;
 import com.yi.service.ISysRoleService;

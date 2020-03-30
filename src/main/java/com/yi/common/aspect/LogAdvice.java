@@ -19,8 +19,8 @@ import com.google.gson.Gson;
 import com.yi.common.anno.Log;
 import com.yi.common.util.ShiroUtil;
 import com.yi.common.util.SpringUtil;
-import com.yi.entity.SysLog;
-import com.yi.entity.SysUser;
+import com.yi.pojo.SysLog;
+import com.yi.pojo.SysUser;
 import com.yi.service.ISysLogService;
 /**
  * 正常业务日志记录

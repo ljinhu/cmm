@@ -7,15 +7,14 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.yi.common.bean.Rest;
 import com.yi.common.util.ImportExcelUtil;
 import com.yi.common.util.ShiroUtil;
-import com.yi.entity.*;
-import com.yi.entity.vo.StudentVo;
-import com.yi.mapper.SysStudentsMapper;
-import com.yi.mapper.SysUserMapper;
-import com.yi.mapper.SysUserRoleMapper;
+import com.yi.pojo.*;
+import com.yi.pojo.vo.StudentVo;
+import com.yi.dao.SysStudentsMapper;
+import com.yi.dao.SysUserMapper;
+import com.yi.dao.SysUserRoleMapper;
 import com.yi.service.ISysClassService;
 import com.yi.service.ISysStudentsService;
 import com.yi.service.SysStudentClassService;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.BeanUtils;
@@ -27,7 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 

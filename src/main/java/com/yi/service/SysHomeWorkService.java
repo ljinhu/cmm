@@ -2,7 +2,7 @@ package com.yi.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
-import com.yi.entity.SysHomeWork;
+import com.yi.pojo.SysHomeWork;
 
 import java.util.List;
 

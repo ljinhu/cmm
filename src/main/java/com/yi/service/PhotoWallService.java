@@ -1,8 +1,8 @@
 package com.yi.service;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.yi.entity.PhotoWall;
-import com.yi.entity.vo.PhotoWallPoJo;
+import com.yi.pojo.PhotoWall;
+import com.yi.pojo.vo.PhotoWallPoJo;
 
 import java.util.List;
 

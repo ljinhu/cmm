@@ -2,8 +2,8 @@ package com.yi.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
-import com.yi.entity.SysExams;
-import com.yi.entity.vo.SysExamsVo;
+import com.yi.pojo.SysExams;
+import com.yi.pojo.vo.SysExamsVo;
 
 public interface SysExamsService extends IService<SysExams> {
 

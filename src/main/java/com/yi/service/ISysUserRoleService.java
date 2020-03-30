@@ -3,7 +3,7 @@ package com.yi.service;
 import java.util.Set;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.yi.entity.SysUserRole;
+import com.yi.pojo.SysUserRole;
 
 /**
  *

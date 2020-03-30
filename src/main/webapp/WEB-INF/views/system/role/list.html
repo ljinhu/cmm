@@ -44,7 +44,7 @@
           <div class="box-body table-responsive no-padding">
             <table class="table table-striped">
               <thead>
-                <th  width="100px"><input value="root" type="checkbox" class="minimal checkbox-toolbar"> 行号</th>
+			  <th  width="30px">&nbsp;</th>
                 <th>角色名称</th>
                 <th>描述</th>
                 <th>创建时间</th>
@@ -54,10 +54,6 @@
               <#list pageData.getRecords() as role>
               	  <tr>
 	                <td>
-	                	<label>
-	                	<input value="${role.id}" name="roleState" type="checkbox" class="minimal checkbox-item">
-	                	${((pageData.current-1)*pageData.size +role_index+1)!}
-	                	</label>
 	                </td>
 	                <td>${(role.roleName)!}
 	                	<a class="btn btn-xs dialog"

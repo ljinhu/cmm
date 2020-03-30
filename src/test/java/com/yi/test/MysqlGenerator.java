@@ -83,7 +83,7 @@ public class MysqlGenerator {
 		// strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
 		// 自定义实体，公共字段
 		// strategy.setSuperEntityColumns(new String[] { "test_id", "age" });
-		// 自定义 mapper 父类
+		// 自定义 dao 父类
 		// strategy.setSuperMapperClass("com.baomidou.demo.TestMapper");
 		// 自定义 service 父类
 		// strategy.setSuperServiceClass("com.baomidou.demo.TestService");
@@ -104,7 +104,7 @@ public class MysqlGenerator {
 		pc.setModuleName("yi");
 		pc.setParent("com");// 自定义包路径
 		//pc.setController("controller");// 这里是控制器包名，默认 web
-		//pc.setEntity("entity");
+		//pc.setEntity("pojo");
 		mpg.setPackageInfo(pc);
 		
 		// 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值
@@ -117,7 +117,7 @@ public class MysqlGenerator {
 			}
 		};
 		List<FileOutConfig> focList = new ArrayList<FileOutConfig>();
-		focList.add(new FileOutConfig("/template/entity.java.vm") {
+		focList.add(new FileOutConfig("/template/pojo.java.vm") {
 			@Override
 			public String outputFile(TableInfo tableInfo) {
 				// 自定义输入文件名称

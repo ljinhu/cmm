@@ -23,7 +23,6 @@ import com.yi.common.controller.BaseController;
 
 /**
  * 文件上传控制器
- * Created by Gaojun.Zhou 2017年4月28日
  */
 
 @Controller

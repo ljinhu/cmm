@@ -36,7 +36,7 @@
           <div class="box-body table-responsive no-padding">
             <table class="table table-striped">
               <thead>
-                <th  width="100px"><input name="userState" type="checkbox" class="minimal checkbox-toolbar"> 行号</th>
+			  <th  width="30px">&nbsp;</th>
                 <th>用户名</th>
                 <th>描述</th>
                 <th>创建时间</th>
@@ -47,10 +47,6 @@
               <#list pageData.getRecords() as user>
               	  <tr>
 	                <td>
-	                   <label>
-	                	<input type="checkbox" class="minimal checkbox-item">
-	                	${((pageData.current-1)*pageData.size +user_index+1)!}
-	                	</label>
 	                </td>
 	                <td>${(user.userName)!}</td>
 	                <td>${(user.userDesc)!'--'}</td>

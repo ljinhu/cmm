@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
-import com.yi.entity.SysMenu;
-import com.yi.entity.vo.TreeMenu;
-import com.yi.entity.vo.TreeMenuAllowAccess;
-import com.yi.mapper.SysMenuMapper;
-import com.yi.mapper.SysRoleMenuMapper;
+import com.yi.pojo.SysMenu;
+import com.yi.pojo.vo.TreeMenu;
+import com.yi.pojo.vo.TreeMenuAllowAccess;
+import com.yi.dao.SysMenuMapper;
+import com.yi.dao.SysRoleMenuMapper;
 import com.yi.service.ISysMenuService;
 
 /**

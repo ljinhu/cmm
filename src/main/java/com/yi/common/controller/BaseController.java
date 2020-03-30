@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.yi.entity.SysUser;
+import com.yi.pojo.SysUser;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,7 +142,7 @@ public class BaseController {
 	}
 
 	protected SysUser cuurenUser(){
-		SysUser sysUser = (com.yi.entity.SysUser) SecurityUtils.getSubject().getPrincipal();
+		SysUser sysUser = (com.yi.pojo.SysUser) SecurityUtils.getSubject().getPrincipal();
 		return sysUser;
 	}
 

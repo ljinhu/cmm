@@ -4,10 +4,9 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.yi.common.controller.BaseController;
-import com.yi.entity.*;
-import com.yi.entity.vo.SysClassVo;
+import com.yi.pojo.*;
+import com.yi.pojo.vo.SysClassVo;
 import com.yi.service.*;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +20,7 @@ import java.util.stream.Collectors;
 /**
  * 首页控制器
  * @ClassName: IndexController
- * @author Gaojun.Zhou
- * @date 2016年12月8日 下午8:42:40
+ * @author
  *
  */
 @Controller

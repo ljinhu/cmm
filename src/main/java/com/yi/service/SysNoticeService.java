@@ -2,7 +2,7 @@ package com.yi.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
-import com.yi.entity.SysNotice;
+import com.yi.pojo.SysNotice;
 
 import java.util.List;
 

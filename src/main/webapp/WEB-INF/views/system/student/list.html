@@ -21,22 +21,21 @@
           <div class="box-header">
             <@shiro.hasPermission name="system:stu:add">
 	            <div class="input-group">
-	            	<a class="btn btn-primary dialog" href="javascript:;" data-title="添加学生" data-url="/system/student/toAdd" data-width="800" data-height="400"><i class="fa fa-plus"></i> 添加学生</a>
+	            	<a class="btn btn-primary dialog" href="javascript:;" data-title="添加学生" data-url="/system/student/toAdd" data-width="800" data-height="400">添加学生</a>
 	            </div>
             </@shiro.hasPermission>
+             <@shiro.hasPermission name="system:stu:add">
+             <div class="input-group">
+                 <a class="btn btn-primary  dialog" href="javascript:;" data-title="导入学生" data-url="/system/student/toimport",
+                    data-width="800" data-height="400" >导入</a>
+             </div>
+         </@shiro.hasPermission>
              <div class="input-group">
                <input type="text" name="no" value="${no!}" class="form-control" placeholder="输入学号查询">
                <div class="input-group-btn">
-                 <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-                 <a href="/system/dept/list/1" class="btn btn-default"><i class="fa fa-refresh"></i></a>
+                 <button class="btn btn-default" type="submit">搜索</button>
                </div>
             </div>
-             <@shiro.hasPermission name="system:stu:add">
-             <div class="input-group pull-right">
-                 <a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="导入学生" data-url="/system/student/toimport",
-                    data-width="800" data-height="400" ><i class="fa fa-file-excel-o">导入</i></a>
-             </div>
-         </@shiro.hasPermission>
           </div><!-- /.box-header -->
           </form>
           <div class="box-body table-responsive no-padding">

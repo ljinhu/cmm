@@ -3,8 +3,8 @@ package com.yi.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.yi.entity.SysDept;
-import com.yi.mapper.SysDeptMapper;
+import com.yi.pojo.SysDept;
+import com.yi.dao.SysDeptMapper;
 import com.yi.service.ISysDeptService;
 
 /**

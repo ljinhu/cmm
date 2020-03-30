@@ -11,14 +11,14 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.yi.common.util.ShiroUtil;
 import com.yi.common.util.SpringUtil;
-import com.yi.entity.SysSetting;
-import com.yi.entity.SysUser;
-import com.yi.entity.vo.TreeMenu;
+import com.yi.pojo.SysSetting;
+import com.yi.pojo.SysUser;
+import com.yi.pojo.vo.TreeMenu;
 import com.yi.service.ISysMenuService;
 import com.yi.service.ISysSettingService;
 /**
  * 全局拦截器
- * @author jameszhou
+ * @author
  *
  */
 public class GlobalInterceptor extends HandlerInterceptorAdapter {

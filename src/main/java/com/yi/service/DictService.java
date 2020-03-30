@@ -1,7 +1,7 @@
 package com.yi.service;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.yi.entity.Dict;
+import com.yi.pojo.Dict;
 
 import java.util.List;
 import java.util.Map;

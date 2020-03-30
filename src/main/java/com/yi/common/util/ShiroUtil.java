@@ -4,7 +4,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 
-import com.yi.entity.SysUser;
+import com.yi.pojo.SysUser;
 
 /**
  * Shiro工具类

@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.yi.entity.SysRoleMenu;
-import com.yi.mapper.SysMenuMapper;
-import com.yi.mapper.SysRoleMenuMapper;
+import com.yi.pojo.SysRoleMenu;
+import com.yi.dao.SysMenuMapper;
+import com.yi.dao.SysRoleMenuMapper;
 import com.yi.service.ISysRoleMenuService;
 
 /**

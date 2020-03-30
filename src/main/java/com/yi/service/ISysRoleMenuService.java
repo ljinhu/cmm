@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.yi.entity.SysRoleMenu;
+import com.yi.pojo.SysRoleMenu;
 
 /**
  *

@@ -1,8 +1,8 @@
 package com.yi.service;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.yi.entity.SysClass;
-import com.yi.entity.SysTeacherClass;
+import com.yi.pojo.SysClass;
+import com.yi.pojo.SysTeacherClass;
 
 import java.util.List;
 

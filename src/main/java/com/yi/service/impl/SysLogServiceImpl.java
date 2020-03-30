@@ -6,8 +6,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.yi.entity.SysLog;
-import com.yi.mapper.SysLogMapper;
+import com.yi.pojo.SysLog;
+import com.yi.dao.SysLogMapper;
 import com.yi.service.ISysLogService;
 
 /**

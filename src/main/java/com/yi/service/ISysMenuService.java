@@ -3,9 +3,9 @@ package com.yi.service;
 import java.util.List;
 
 import com.baomidou.mybatisplus.service.IService;
-import com.yi.entity.SysMenu;
-import com.yi.entity.vo.TreeMenu;
-import com.yi.entity.vo.TreeMenuAllowAccess;
+import com.yi.pojo.SysMenu;
+import com.yi.pojo.vo.TreeMenu;
+import com.yi.pojo.vo.TreeMenuAllowAccess;
 
 /**
  *

@@ -21,12 +21,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 
 import com.google.code.kaptcha.servlet.KaptchaExtend;
 import com.yi.common.controller.BaseController;
-import com.yi.entity.SysUser;
+import com.yi.pojo.SysUser;
 import com.yi.service.ISysLogService;
 /**
  * 登录控制器
- * @author Gaojun.Zhou
- * @date 2016年12月14日 下午2:54:01
  */
 @Controller
 @RequestMapping("/login")

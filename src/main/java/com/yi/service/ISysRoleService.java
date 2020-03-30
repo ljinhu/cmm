@@ -1,13 +1,9 @@
 package com.yi.service;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.IService;
-import com.google.common.collect.Lists;
-import com.yi.entity.SysRole;
-import com.yi.entity.SysUser;
-import com.yi.entity.SysUserRole;
+import com.yi.pojo.SysRole;
+import com.yi.pojo.SysUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

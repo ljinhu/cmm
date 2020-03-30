@@ -22,8 +22,7 @@
              <div class="input-group">
                <input type="text" name="no" value="${no!}" class="form-control" placeholder="输入学号查询">
                <div class="input-group-btn">
-                 <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-                 <a href="/system/dept/list/1" class="btn btn-default"><i class="fa fa-refresh"></i></a>
+                 <button class="btn btn-default" type="submit">搜索</button>
                </div>
             </div>
              <@shiro.hasPermission name="system:stu:add">
@@ -53,13 +52,13 @@
 	                <td>${(record.className)!'--'}</td>
 	                <td>
 	                	<@shiro.hasPermission name="system:score:add">
-	                		<a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="录入成绩" data-url="/system/score/toAdd?id=${(record.id)!}",data-width="800" data-height="400" > <i class="fa fa-pencil-square-o"></i> 录入成绩</a>
+	                		<a class="dialog" href="javascript:;"style="cursor: pointer" data-title="录入成绩" data-url="/system/score/toAdd?id=${(record.id)!}",data-width="800" data-height="400" >  录入成绩</a>
 	                	</@shiro.hasPermission>
 	                	<@shiro.hasPermission name="system:stu:del">
-		                	<a class="btn btn-danger btn-xs"
+		                	<a class="" style="cursor: pointer"
 		                	 data-tiggle="ajax"
 		                	 data-submit-url="/system/student/delete?id=${(record.id)!}"
-		                	 data-confirm="您确定删除学生吗?"><i class="fa fa-times"></i> 删除</a>
+		                	 data-confirm="您确定删除学生吗?">删除</a>
 	                	 </@shiro.hasPermission>
 
 	                </td>

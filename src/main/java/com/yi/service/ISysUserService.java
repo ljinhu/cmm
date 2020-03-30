@@ -4,7 +4,7 @@ import java.util.Map;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.service.IService;
-import com.yi.entity.SysUser;
+import com.yi.pojo.SysUser;
 
 /**
  *
