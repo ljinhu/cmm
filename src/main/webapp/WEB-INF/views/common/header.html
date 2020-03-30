@@ -1,14 +1,44 @@
 <header class="main-header">
  <!-- Logo -->
- <a href="/index.html" class="logo">
-   <!-- mini logo for sidebar mini 50x50 pixels -->
-   <span class="logo-mini"><b>${(systemSubName)!'AD'}</b></span>
-   <!-- logo for regular state and mobile devices -->
-   <span class="logo-lg"><b>${(systemName)!'---'}</b></span>
- </a>
+ <!--<a href="/index2.html" class="logo">-->
+   <!--&lt;!&ndash; mini logo for sidebar mini 50x50 pixels &ndash;&gt;-->
+   <!--<span class="logo-mini"><b>${(systemSubName)!'AD'}</b></span>-->
+   <!--&lt;!&ndash; logo for regular state and mobile devices &ndash;&gt;-->
+   <!--<span class="logo-lg"><b>${(systemName)!'-&#45;&#45;'}</b></span>-->
+ <!--</a>-->
 
  <!-- Header Navbar -->
- <nav class="navbar navbar-static-top" role="navigation">
+ <nav class="navbar navbar-static-top">
+     <div class="container">
+         <div class="navbar-header">
+             <a href="../../index2.html" class="navbar-brand"><b>${(systemName)!'AD'}</b></a>
+             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                 <i class="fa fa-bars"></i>
+             </button>
+         </div>
+
+         <!-- Collect the nav links, forms, and other content for toggling -->
+         <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+             <ul class="nav navbar-nav">
+                 <li class="treeview"><a href="/index"><i class="fa fa-dashboard"></i><span>首页</span></a></li>
+                         <#if treeMenus??>
+                         <#list treeMenus as vo>
+
+                    <li class="dropdown">
+                        <a href="#"  class="dropdown-toggle" data-toggle="dropdown"></i>
+                            <span>${(vo.sysMenu.menuName)!}</span>
+                            <i class="caret"></i>
+                        </a>
+                             <ul class="dropdown-menu" role="menu">
+                                 <#list vo.children as ch>
+                                    <li><a href="${(ch.sysMenu.url)!}?p=${(vo.sysMenu.id)!}&t=${(ch.sysMenu.id)!}" style="<#if cur?? && ch.sysMenu.id==cur> color: white </#if>"> ${(ch.sysMenu.menuName)!}</a></li>
+                                 </#list>
+                            </ul>
+                    </li>
+                        </#list>
+                        </#if>
+             </ul>
+         </div>
    <!-- Sidebar toggle button-->
    <!--<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"></a>-->
    <!-- Navbar Right Menu -->

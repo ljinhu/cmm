@@ -5,9 +5,11 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      <small>系统管理 > 成绩管理</small>
-    </h1>
+      <h1>
+          <small>当前位置：<span class="label label-success">学生成绩</span>
+              <a class="label label-default" href="javascript:;" onClick="javascript :history.back(-1);"><i class="fa fa-reply"></i> 返回</a>
+          </small>
+      </h1>
   </section>
   <!-- Main content -->
   <section class="content">
@@ -30,7 +32,7 @@
           </form>
           <div class="box-body table-responsive no-padding">
             <table class="table table-striped">
-              <tr>
+              <thead>
                 <th  width="100px">行号</th>
                 <th>学生名称</th>
                 <th>学号</th>
@@ -39,7 +41,7 @@
                 <th>分数</th>
                 <th>所在班级</th>
                 <th width="120px">操作</th>
-              </tr>
+              </thead>
               <#list pageData.getRecords() as record>
               	  <tr>
 	                <td>${((pageData.current-1)*pageData.size +record_index+1)!}</td>

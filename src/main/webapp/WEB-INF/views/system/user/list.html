@@ -5,9 +5,11 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      <small>系统管理 > 角色管理</small>
-    </h1>
+	  <h1>
+		  <small>当前位置：<span class="label label-success">用户管理</span>
+			  <a class="label label-default" href="javascript:;" onClick="javascript :history.back(-1);"><i class="fa fa-reply"></i> 返回</a>
+		  </small>
+	  </h1>
   </section>
   <!-- Main content -->
   <section class="content">
@@ -33,7 +35,7 @@
            </form>
           <div class="box-body table-responsive no-padding">
             <table class="table table-striped">
-              <tr>
+              <thead>
                 <th  width="100px"><input name="userState" type="checkbox" class="minimal checkbox-toolbar"> 行号</th>
                 <th>用户名</th>
                 <th>描述</th>
@@ -41,7 +43,7 @@
                 <th>联系电话</th>
                 <th>状态</th>
                 <th width="120px">操作</th>
-              </tr>
+              </thead>
               <#list pageData.getRecords() as user>
               	  <tr>
 	                <td>
@@ -57,10 +59,10 @@
 	                <td><#if user.userState==1>启用<#else><font color="red">禁用</font></#if></td>
 	                <td>
 	                	<@shiro.hasPermission name="editUser">
-	                	  <a class="btn btn-primary btn-xs dialog" href="javascript:;" data-url="/system/user/edit/${(user.id)!}" data-title="编辑用户" data-width="850" data-height="550">编辑</a>
+	                	  <a class="dialog" href="javascript:;" style="cursor: pointer" data-url="/system/user/edit/${(user.id)!}" data-title="编辑用户" data-width="850" data-height="550">编辑</a>
 	                	</@shiro.hasPermission>
 	                	<@shiro.hasPermission name="deleteUser">
-	                	<a class="btn btn-danger btn-xs"
+	                	<a class="" style="cursor: pointer"
 	                	 data-tiggle="ajax"
 	                	 data-submit-url="/system/user/delete?id=${(user.id)!}"
 	                	 data-confirm="您确定要删除该条记录吗?">删除</a>

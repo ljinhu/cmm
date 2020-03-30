@@ -8,10 +8,10 @@
 </#macro>
 <!-- /header -->
 <#macro body>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue layout-top-nav">
 <div class="wrapper">
 	<#include "/common/header.html">
-	<#include "/common/menu.html">
+	<!--<#include "/common/menu.html">-->
 	<#nested>
 	<#include "/common/footer.html">
 	<div class="control-sidebar-bg"></div>
@@ -27,5 +27,8 @@
 <style>
 	.input-group{
 		float: right;
+	}
+	thead{
+		background-color: #d2d6de;
 	}
 </style>

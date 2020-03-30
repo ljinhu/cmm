@@ -5,10 +5,11 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      <small>系统管理 > 班级管理 > 教师管理</small>
-        <small><span style="cursor: pointer"><a href="javascript:history.go(-1)">返回</a></span></small>
-    </h1>
+      <h1>
+          <small>当前位置：<span class="label label-success">班级管理</span>>><span class="label label-success">教师管理</span>
+              <a class="label label-default" href="javascript:;" onClick="javascript :history.back(-1);"><i class="fa fa-reply"></i> 返回</a>
+          </small>
+      </h1>
   </section>
   <!-- Main content -->
   <section class="content">
@@ -20,18 +21,18 @@
           </div><!-- /.box-header -->
           <div class="box-body table-responsive no-padding">
             <table class="table table-striped">
-              <tr>
+              <thead>
                 <th>课程名称</th>
                 <th>教师名称</th>
                 <th width="120px">操作</th>
-              </tr>
+              </thead>
               <#list list as record>
               	  <tr>
 	                <td>${(record.lesson)!}</td>
 	                <td>${(record.teacherName)!'无任课老师'}</td>
 	                <td>
 	                	<@shiro.hasPermission name="system:class:manage">
-	                		<a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="编辑教师" data-url="/system/class/toAddTeacher?id=${(record.id)}&classId=${(record.classId)!}&lessonCode=${(record.lessonCode)!}",data-width="800" data-height="400" > <i class="fa fa-pencil-square-o"></i> 编辑</a>
+	                		<a class="dialog" href="javascript:;" style="cursor: pointer" data-title="编辑教师" data-url="/system/class/toAddTeacher?id=${(record.id)}&classId=${(record.classId)!}&lessonCode=${(record.lessonCode)!}",data-width="800" data-height="400" > <i class="fa fa-pencil-square-o"></i> 编辑</a>
 	                	</@shiro.hasPermission>
 	                </td>
 	              </tr>

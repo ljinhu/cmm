@@ -5,10 +5,9 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      <small>系统管理 > 学生表现</small>
-        <small><span style="cursor: pointer"><a href="javascript:history.go(-1)">返回</a></span></small>
-    </h1>
+      <small>当前位置：<span class="label label-success">学生表现</span>
+          <a class="label label-default" href="javascript:;" onClick="javascript :history.back(-1);"><i class="fa fa-reply"></i> 返回</a>
+      </small>
   </section>
   <!-- Main content -->
   <section class="content">
@@ -59,9 +58,9 @@
                           ${(record.comment)!'--'}
                       </span></td>
                       <td>
-                        <a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="个人表现" data-url="/system/comment/detail/${(record.id)!}",data-width="800" data-height="450" > <i class="fa fa-pencil-square-o"></i> 详情</a>
+                        <a class="dialog" style="cursor: pointer" href="javascript:;" data-title="个人表现" data-url="/system/comment/detail/${(record.id)!}",data-width="800" data-height="450" > <i class="fa fa-pencil-square-o"></i> 详情</a>
 	                	<@shiro.hasPermission name="system:comment:del">
-                        <a class="btn btn-danger btn-xs"
+                        <a class="" style="cursor: pointer"
                            data-tiggle="ajax"
                            data-submit-url="/system/comment/delete/${(record.id)}"
                            data-confirm="您确定删除吗?"><i class="fa fa-times"></i> 删除</a>

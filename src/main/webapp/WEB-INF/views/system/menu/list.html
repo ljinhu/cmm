@@ -5,9 +5,11 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      <small>系统管理 > 菜单管理</small>
-    </h1>
+      <h1>
+          <small>当前位置：<span class="label label-success">系统权限</span>
+              <a class="label label-default" href="javascript:;" onClick="javascript :history.back(-1);"><i class="fa fa-reply"></i> 返回</a>
+          </small>
+      </h1>
   </section>
   <!-- Main content -->
   <section class="content">
@@ -36,7 +38,7 @@
           </form>
           <div class="box-body table-responsive no-padding">
             <table class="table table-striped">
-              <tr>
+              <thead>
                 <th  width="100px"><input value="root" type="checkbox" class="minimal checkbox-toolbar"> 行号</th>
                 <th>菜单名称</th>
                 <th>编码</th>
@@ -47,7 +49,7 @@
                 <th>排序</th>
                 <th>类型</th>
                 <th width="150px">操作</th>
-              </tr>
+              </thead>
               <#list pageData.getRecords() as menu>
               	  <tr>
 	                <td>
@@ -66,11 +68,11 @@
 	                <td><#if menu.deep?? && menu.deep==1 >目录<#elseif menu.deep?? && menu.deep==2>菜单<#else>功能</#if> </td>
 	                <td>
 	                	 <@shiro.hasPermission name="editMenu">
-	                	   <a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="编辑菜单" data-url="/system/menu/edit/${(menu.id)!}" data-width="800" data-height="650"  data-toggle="tooltip" title="编辑" data-placement="bottom">编辑</a>
+	                	   <a class="dialog" href="javascript:;" style="cursor: pointer" data-title="编辑菜单" data-url="/system/menu/edit/${(menu.id)!}" data-width="800" data-height="650"  data-toggle="tooltip" title="编辑" data-placement="bottom">编辑</a>
 	                	 </@shiro.hasPermission>
 	                	<@shiro.hasPermission name="deleteMenu">
-	                	<a class="btn btn-danger btn-xs" data-toggle="tooltip" title="删除" data-placement="bottom"
-	                	 data-tiggle="ajax"
+	                	<a class="" data-toggle="tooltip" title="删除" data-placement="bottom"
+	                	 data-tiggle="ajax" style="cursor: pointer"
 	                	 data-submit-url="/system/menu/delete?id=${(menu.id)!}"
 	                	 data-confirm="您确定要删除该条记录吗?">删除</a>
 	                	 </@shiro.hasPermission>

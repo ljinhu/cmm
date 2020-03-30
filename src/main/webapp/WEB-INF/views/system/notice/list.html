@@ -5,10 +5,11 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      <small>系统管理 > 公告管理</small>
-        <small><span style="cursor: pointer"><a href="javascript:history.go(-1)">返回</a></span></small>
-    </h1>
+      <h1>
+          <small>当前位置：<span class="label label-success">公告</span>
+              <a class="label label-default" href="javascript:;" onClick="javascript :history.back(-1);"><i class="fa fa-reply"></i> 返回</a>
+          </small>
+      </h1>
   </section>
   <!-- Main content -->
   <section class="content">
@@ -34,7 +35,7 @@
           </form>
           <div class="box-body table-responsive no-padding">
             <table class="table table-striped">
-              <tr>
+              <thead>
                 <th  width="100px">行号</th>
                 <th>标题</th>
                 <th>所在班级</th>
@@ -42,7 +43,7 @@
                 <!--<th>公告内容</th>-->
                 <th>附件</th>
                 <th width="320px">操作</th>
-              </tr>
+              </thead>
               <#list pageData.getRecords() as record>
               	  <tr>
 	                <td>${((pageData.current-1)*pageData.size +record_index+1)!}</td>
@@ -51,10 +52,10 @@
 	                <td>${(record.createdTime?string('yyyy/MM/dd HH:mm:ss'))!'--'}</td>
                       <td><#if record.affixName><a href="${(record.affix)}">${(record.affixName)}</a><#else>无附件</#if></td>
 	                <td>
-                      <a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="编辑班级" data-url="/system/notice/detail/${(record.id)!}",data-width="800" data-height="450" > <i class="fa fa-pencil-square-o"></i> 详情</a>
+                      <a class="dialog" href="javascript:;" style="cursor: pointer" data-title="编辑班级" data-url="/system/notice/detail/${(record.id)!}",data-width="800" data-height="450" > <i class="fa fa-pencil-square-o"></i> 详情</a>
 
                       <@shiro.hasPermission name="system:notice:del">
-                        <a class="btn btn-danger btn-xs"
+                        <a class="" style="cursor: pointer"
                             data-tiggle="ajax"
                             data-submit-url="/system/notice/delete/${(record.id)!}"
                             data-confirm="您确定删除这条公告吗?"><i class="fa fa-times"></i> 删除</a>

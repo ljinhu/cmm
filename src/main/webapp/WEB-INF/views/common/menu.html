@@ -13,25 +13,25 @@
    <!--</div>-->
 
    <!-- Sidebar Menu -->
-   <ul class="sidebar-menu">
+   <!--<ul class="sidebar-menu">-->
      <!-- Optionally, you can add icons to the links -->
-     <li class="header">系统菜单</li>
-       <li class="treeview"><a href="/index"><i class="fa fa-dashboard"></i><span>首页</span></a></li>
-     <#if treeMenus??>
-	     <#list treeMenus as vo>
-		     <li class="treeview <#if res?? && vo.sysMenu.id==res> active </#if> ">
-		       <a href="#"><i class="fa ${(vo.sysMenu.icon)!}"></i> 
-		       <span>${(vo.sysMenu.menuName)!}</span>  
-		       <i class="fa fa-angle-left pull-right"></i>
-		       </a>
-		       <ul class="treeview-menu">
-		         <#list vo.children as ch>
-		         	<li><a href="${(ch.sysMenu.url)!}?p=${(vo.sysMenu.id)!}&t=${(ch.sysMenu.id)!}" style="<#if cur?? && ch.sysMenu.id==cur> color: white </#if>"><i class="fa ${(ch.sysMenu.icon)!}"></i> ${(ch.sysMenu.menuName)!}</a></li>
-		         </#list>
-		       </ul>
-		     </li>
-	     </#list>
-     </#if>
+     <!--<li class="header">系统菜单</li>-->
+       <!--<li class="treeview"><a href="/index"><i class="fa fa-dashboard"></i><span>首页</span></a></li>-->
+     <!--<#if treeMenus??>-->
+	     <!--<#list treeMenus as vo>-->
+		     <!--<li class="treeview <#if res?? && vo.sysMenu.id==res> active </#if> ">-->
+		       <!--<a href="#"><i class="fa ${(vo.sysMenu.icon)!}"></i>-->
+		       <!--<span>${(vo.sysMenu.menuName)!}</span>-->
+		       <!--<i class="fa fa-angle-left pull-right"></i>-->
+		       <!--</a>-->
+		       <!--<ul class="treeview-menu">-->
+		         <!--<#list vo.children as ch>-->
+		         	<!--<li><a href="${(ch.sysMenu.url)!}?p=${(vo.sysMenu.id)!}&t=${(ch.sysMenu.id)!}" style="<#if cur?? && ch.sysMenu.id==cur> color: white </#if>"><i class="fa ${(ch.sysMenu.icon)!}"></i> ${(ch.sysMenu.menuName)!}</a></li>-->
+		         <!--</#list>-->
+		       <!--</ul>-->
+		     <!--</li>-->
+	     <!--</#list>-->
+     <!--</#if>-->
      <!--<li class="header">个人中心</li>-->
      <!--<li class="treeview">-->
        <!--<a href="/system/me/info"><i class="fa fa-user"></i> -->

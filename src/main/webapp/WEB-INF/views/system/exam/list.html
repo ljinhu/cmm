@@ -5,9 +5,11 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      <small>系统管理 > 考试管理</small>
-    </h1>
+      <h1>
+          <small>当前位置：<span class="label label-success">考试管理</span>
+              <a class="label label-default" href="javascript:;" onClick="javascript :history.back(-1);"><i class="fa fa-reply"></i> 返回</a>
+          </small>
+      </h1>
   </section>
   <!-- Main content -->
   <section class="content">
@@ -33,7 +35,7 @@
           </form>
           <div class="box-body table-responsive no-padding">
             <table class="table table-striped">
-              <tr>
+              <thead>
                 <th  width="100px">行号</th>
                 <th>名称</th>
                 <th>班级名称</th>
@@ -42,7 +44,7 @@
                 <th>考试时间</th>
                 <th>所属年级</th>
                 <th width="320px">操作</th>
-              </tr>
+              </thead>
               <#list pageData.getRecords() as record>
               	  <tr>
 	                <td>${((pageData.current-1)*pageData.size +record_index+1)!}</td>
@@ -53,9 +55,9 @@
 	                <td>${(record.begin?string('yyyy/MM/dd HH:mm:ss'))!'--'} - ${(record.end?string('yyyy/MM/dd HH:mm:ss'))!'--'}</td>
 	                <td>${(record.grade)!'--'}</td>
 	                <td>
-                        <a href="/system/score/list/1?classId=${(record.classId)!}&examId=${(record.id)}" > <i class="fa fa-pencil-square-o"></i> 查看成绩</a>
+                        <a href="/system/score/list/1?classId=${(record.classId)!}&examId=${(record.id)}" style="cursor: pointer">查看成绩</a>
 	                	<@shiro.hasPermission name="system:exam:manage">
-                        <a class="btn btn-danger btn-xs"
+                        <a class="" style="cursor: pointer"
                            data-tiggle="ajax"
                            data-submit-url="/system/exam/delete?examId=${(record.id)}"
                            data-confirm="您确定删除该次考试吗?"><i class="fa fa-times"></i> 删除</a>

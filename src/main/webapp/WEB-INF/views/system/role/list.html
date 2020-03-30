@@ -5,9 +5,11 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      <small>系统管理 > 角色管理</small>
-    </h1>
+	  <h1>
+		  <small>当前位置：<span class="label label-success">系统角色</span>
+			  <a class="label label-default" href="javascript:;" onClick="javascript :history.back(-1);"><i class="fa fa-reply"></i> 返回</a>
+		  </small>
+	  </h1>
   </section>
   <!-- Main content -->
   <section class="content">
@@ -41,14 +43,14 @@
           </form>
           <div class="box-body table-responsive no-padding">
             <table class="table table-striped">
-              <tr>
+              <thead>
                 <th  width="100px"><input value="root" type="checkbox" class="minimal checkbox-toolbar"> 行号</th>
                 <th>角色名称</th>
                 <th>描述</th>
                 <th>创建时间</th>
                 <th>状态</th>
                 <th width="150px">操作</th>
-              </tr>
+              </thead>
               <#list pageData.getRecords() as role>
               	  <tr>
 	                <td>
@@ -69,14 +71,14 @@
 	                <td><#if role.roleState==1>启用<#else><font color="red">禁用</font></#if></td>
 	                <td>
 	                	<@shiro.hasPermission name="authRole">
-	                		<a class="btn btn-success btn-xs dialog" href="javascript:;" data-url="/system/role/auth/${(role.id)!}" data-title="授权" data-width="850" data-height="600" data-toggle="tooltip" title="授权" data-placement="bottom">授权</a>
+	                		<a class="dialog" href="javascript:;" style="cursor: pointer" data-url="/system/role/auth/${(role.id)!}" data-title="授权" data-width="850" data-height="600" data-toggle="tooltip" title="授权" data-placement="bottom">授权</a>
 	                	</@shiro.hasPermission>
 	                	
 	                	<@shiro.hasPermission name="editRole">
-	                		<a class="btn btn-primary btn-xs dialog" href="javascript:;" data-url="/system/role/edit/${(role.id)!}" data-title="创建新角色" data-width="850" data-height="400" data-toggle="tooltip" title="编辑" data-placement="bottom">编辑</a>
+	                		<a class="dialog" style="cursor: pointer" href="javascript:;" data-url="/system/role/edit/${(role.id)!}" data-title="创建新角色" data-width="850" data-height="400" data-toggle="tooltip" title="编辑" data-placement="bottom">编辑</a>
 	                	</@shiro.hasPermission>
 	                	<@shiro.hasPermission name="deleteRole">
-	 	               	<a class="btn btn-danger btn-xs" data-toggle="tooltip" title="删除" data-placement="bottom"
+	 	               	<a class="btn " style="cursor: pointer" data-toggle="tooltip" title="删除" data-placement="bottom"
 	                	 data-tiggle="ajax"
 	                	 data-submit-url="/system/role/delete?id=${(role.id)!}"
 	                	 data-confirm="您确定要删除该条记录吗?">删除</a>

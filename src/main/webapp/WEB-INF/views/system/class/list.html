@@ -5,9 +5,11 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      <small>系统管理 > 班级管理</small>
-    </h1>
+      <h1>
+          <small>当前位置：<span class="label label-success">班级管理</span>
+              <a class="label label-default" href="javascript:;" onClick="javascript :history.back(-1);"><i class="fa fa-reply"></i> 返回</a>
+          </small>
+      </h1>
   </section>
   <!-- Main content -->
   <section class="content">
@@ -33,7 +35,7 @@
           </form>
           <div class="box-body table-responsive no-padding">
             <table class="table table-striped">
-              <tr>
+              <thead>
                 <th  width="100px">行号</th>
                 <th>班级名称</th>
                 <th>班级编号</th>
@@ -43,7 +45,7 @@
                 <th>所属年级</th>
                 <th>状态</th>
                 <th width="400px">操作</th>
-              </tr>
+              </thead>
               <#list pageData.getRecords() as record>
               	  <tr>
 	                <td>${((pageData.current-1)*pageData.size +record_index+1)!}</td>
@@ -56,35 +58,37 @@
 	                <td><#if record.isValid==1>正常<#else><font color="red">超期</font></#if></td>
 	                <td>
 	                	<@shiro.hasPermission name="system:class:add">
-	                		<a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="编辑班级" data-url="/system/class/toAdd?id=${(record.id)!}",data-width="800" data-height="450" > <i class="fa fa-pencil-square-o"></i> 编辑</a>
+	                		<a class="dialog" href="javascript:;" data-title="编辑班级" data-url="/system/class/toAdd?id=${(record.id)!}",data-width="800" data-height="450" > 编辑</a>
 	                	</@shiro.hasPermission>
 	                	<@shiro.hasPermission name="system:class:manage">
-	                		<a href="/system/notice/list/1?classNo=${(record.classNo)!}" > <i class="fa fa-pencil-square-o"></i> 公告管理</a>
+	                		<a href="/system/notice/list/1?classNo=${(record.classNo)!}" style="cursor: pointer"> </i> 公告管理</a>
 	                	</@shiro.hasPermission>
                         <@shiro.hasPermission name="system:class:stu">
-                            <a href="/system/class/manage/student/${(record.id)!}/1" > <i class="fa fa-pencil-square-o"></i> 学生管理</a>
+                            <a href="/system/class/manage/student/${(record.id)!}/1" style="cursor: pointer">  学生管理</a>
                         </@shiro.hasPermission>
                         <@shiro.hasPermission name="system:class:manage">
-                            <a href="/system/class/manage/teacher/${(record.id)!}" > <i class="fa fa-pencil-square-o"></i> 教师管理</a>
+                            <a href="/system/class/manage/teacher/${(record.id)!}" style="cursor: pointer" > 教师管理</a>
                         </@shiro.hasPermission>
                         <@shiro.hasPermission name="system:exam:manage">
-                            <a href="/system/exam/list/1?classId=${(record.id)!}" > <i class="fa fa-pencil-square-o"></i> 成绩管理</a>
+                            <a href="/system/exam/list/1?classId=${(record.id)!}" style="cursor: pointer"> 成绩管理</a>
                         </@shiro.hasPermission>
                         <@shiro.hasPermission name="system:exam:manage">
-                            <a href="/system/photo/toAdd?classId=${(record.id)!}" > <i class="fa fa-pencil-square-o"></i> 图片墙</a>
+                            <a href="/system/photo/toAdd?classId=${(record.id)!}" style="cursor: pointer"> 图片墙</a>
                         </@shiro.hasPermission>
 
                       <@shiro.hasPermission name="system:class:del">
                       <#if record.isValid==1>
-                      <a class="btn btn-danger btn-xs"
+                      <a class=""
+                         style="cursor: pointer"
                          data-tiggle="ajax"
                          data-submit-url="/system/class/delete?id=${(record.id)!}&isValid=-1"
-                         data-confirm="您确定设置该班级失效吗?"><i class="fa fa-times"></i> 失效</a>
+                         data-confirm="您确定设置该班级失效吗?">失效</a>
                       <#else>
-                        <a class="btn btn-info btn-xs"
+                        <a class=""
+                           style="cursor: pointer"
                             data-tiggle="ajax"
                             data-submit-url="/system/class/delete?id=${(record.id)!}&isValid=1"
-                            data-confirm="您确定设置该班级生效吗?"><i class="fa fa-check"></i> 生效</a>
+                            data-confirm="您确定设置该班级生效吗?">生效</a>
                   </#if>
                     </@shiro.hasPermission>
 

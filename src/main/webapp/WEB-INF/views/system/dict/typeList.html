@@ -6,7 +6,7 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
       <h1>
-          <small>当前位置：<span class="label label-success">系统管理</span >>> <span class="label label-success">字典管理</span>
+          <small>当前位置： <span class="label label-success">字典管理</span>
               <a class="label label-default" href="javascript:;" onClick="javascript :history.back(-1);"><i class="fa fa-reply"></i> 返回</a>
           </small>
       </h1>
@@ -35,13 +35,13 @@
           </form>
           <div class="box-body table-responsive no-padding">
             <table class="table table-striped">
-              <tr>
+              <thead>
                 <th  width="100px">行号</th>
                 <th>字典类型名称</th>
                 <th>字典类型值</th>
                 <th>描述</th>
                 <th width="320px">操作</th>
-              </tr>
+              </thead>
               <#list pageData.getRecords() as type>
               	  <tr>
 	                <td>${((pageData.current-1)*pageData.size +type_index+1)!}</td>
@@ -50,10 +50,10 @@
 	                <td>${(type.descri)!'--'}</td>
 	                <td>
 	                	<@shiro.hasPermission name="dictEdit">
-	                		<a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="编辑" data-url="/system/dict/type/toEdit/${(type.id)!}",data-width="800" data-height="600" > <i class="fa fa-pencil-square-o"></i> 编辑</a>
+	                		<a class="dialog" style="cursor: pointer" href="javascript:;" data-title="编辑" data-url="/system/dict/type/toEdit/${(type.id)!}",data-width="800" data-height="600" > <i class="fa fa-pencil-square-o"></i> 编辑</a>
 	                	</@shiro.hasPermission>
 	                	<@shiro.hasPermission name="dictDel">
-		                	<a class="btn btn-danger btn-xs"
+		                	<a class="" style="cursor: pointer"
 		                	 data-tiggle="ajax"
 		                	 data-submit-url="/system/dict/type/del?id=${(type.id)!}"
 		                	 data-confirm="您确定要删除该条记录吗?"><i class="fa fa-times"></i> 删除</a>
