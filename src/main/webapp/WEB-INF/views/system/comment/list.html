@@ -58,12 +58,12 @@
                           ${(record.comment)!'--'}
                       </span></td>
                       <td>
-                        <a class="dialog" style="cursor: pointer" href="javascript:;" data-title="个人表现" data-url="/system/comment/detail/${(record.id)!}",data-width="800" data-height="450" > <i class="fa fa-pencil-square-o"></i> 详情</a>
+                        <a class="dialog" style="cursor: pointer" href="javascript:;" data-title="个人表现" data-url="/system/comment/detail/${(record.id)!}",data-width="800" data-height="450" >  详情</a>
 	                	<@shiro.hasPermission name="system:comment:del">
                         <a class="" style="cursor: pointer"
                            data-tiggle="ajax"
                            data-submit-url="/system/comment/delete/${(record.id)}"
-                           data-confirm="您确定删除吗?"><i class="fa fa-times"></i> 删除</a>
+                           data-confirm="您确定删除吗?"> 删除</a>
 	                	</@shiro.hasPermission>
 
 	                </td>

@@ -21,24 +21,15 @@
           <div class="box-header">
              <@shiro.hasPermission name="addRole">
 	            <div class="input-group">
-		            <a class="btn btn-primary dialog" href="javascript:;" data-url="/system/role/add" data-title="创建新角色" data-width="850" data-height="400"><i class="fa fa-plus"></i> 创建新角色</a>
-	            </div>
-	          </@shiro.hasPermission>
-	          <@shiro.hasPermission name="deleteBatchRole">
-	          	 <div class="input-group">
-		            <a class="btn btn-danger" delete-batch-url="/system/role/deleteBatch" ><i class="fa fa-remove"></i> 批量删除选中</a>
+		            <a class="btn btn-primary dialog" href="javascript:;" data-url="/system/role/add" data-title="创建新角色" data-width="850" data-height="400">创建新角色</a>
 	            </div>
 	          </@shiro.hasPermission>
              <div class="input-group">
-	               <input type="text" name="search" value="${search!}" class="form-control" placeholder="Search">
+	               <input type="text" name="search" value="${search!}" class="form-control" placeholder="">
 	               <div class="input-group-btn">
-	                 <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-	                 <a href="/system/role/list/1" class="btn btn-default"><i class="fa fa-refresh"></i></a>
+	                 <button class="btn btn-default" type="submit">搜索</button>
 	               </div>
 	          </div>
-	         <div class="input-group pull-right">
-                 <button type="button" class="btn btn-primary btn-flat" onclick="exportTo('角色数据');"><i class="fa fa-file-excel-o"></i> 导出</button>
-             </div>
           </div><!-- /.box-header -->
           </form>
           <div class="box-body table-responsive no-padding">

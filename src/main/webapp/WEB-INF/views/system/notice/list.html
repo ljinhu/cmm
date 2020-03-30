@@ -51,13 +51,13 @@
 	                <td>${(record.createdTime?string('yyyy/MM/dd HH:mm:ss'))!'--'}</td>
                       <td><#if record.affixName><a href="${(record.affix)}">${(record.affixName)}</a><#else>无附件</#if></td>
 	                <td>
-                      <a class="dialog" href="javascript:;" style="cursor: pointer" data-title="编辑班级" data-url="/system/notice/detail/${(record.id)!}",data-width="800" data-height="450" > <i class="fa fa-pencil-square-o"></i> 详情</a>
+                      <a class="dialog" href="javascript:;" style="cursor: pointer" data-title="编辑班级" data-url="/system/notice/detail/${(record.id)!}",data-width="800" data-height="450" >详情</a>
 
                       <@shiro.hasPermission name="system:notice:del">
                         <a class="" style="cursor: pointer"
                             data-tiggle="ajax"
                             data-submit-url="/system/notice/delete/${(record.id)!}"
-                            data-confirm="您确定删除这条公告吗?"><i class="fa fa-times"></i> 删除</a>
+                            data-confirm="您确定删除这条公告吗?">删除</a>
                     </@shiro.hasPermission>
 
 	                </td>

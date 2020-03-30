@@ -21,7 +21,7 @@
           <div class="box-header">
             <@shiro.hasPermission name="system:exam:add">
 	            <div class="input-group">
-	            	<a class="btn btn-primary dialog" href="javascript:;" data-title="发布考试" data-url="/system/exam/toAdd" data-width="800" data-height="480"><i class="fa fa-plus"></i> 发布考试</a>
+	            	<a class="btn btn-primary dialog" href="javascript:;" data-title="发布考试" data-url="/system/exam/toAdd" data-width="800" data-height="480">发布考试</a>
 	            </div>
             </@shiro.hasPermission>
              <!--<div class="input-group">-->
@@ -60,7 +60,7 @@
                         <a class="" style="cursor: pointer"
                            data-tiggle="ajax"
                            data-submit-url="/system/exam/delete?examId=${(record.id)}"
-                           data-confirm="您确定删除该次考试吗?"><i class="fa fa-times"></i> 删除</a>
+                           data-confirm="您确定删除该次考试吗?"> 删除</a>
 	                	</@shiro.hasPermission>
 
 	                </td>

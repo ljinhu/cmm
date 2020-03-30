@@ -21,14 +21,13 @@
           <div class="box-header">
             <@shiro.hasPermission name="dictAdd">
 	            <div class="input-group">
-	            	<a class="btn btn-primary dialog" href="javascript:;" data-title="创建字典类型" data-url="/system/dict/type/toAdd" data-width="800" data-height="400"><i class="fa fa-plus"></i> 创建字典类型</a>
+	            	<a class="btn btn-primary dialog" href="javascript:;" data-title="创建字典类型" data-url="/system/dict/type/toAdd" data-width="800" data-height="400"> 创建字典类型</a>
 	            </div>
             </@shiro.hasPermission>
              <div class="input-group">
                <input type="text" name="name" value="${name!}" class="form-control" placeholder="输入字典类型名称">
                <div class="input-group-btn">
-                 <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-                 <a href="/system/dict/type/list/1" class="btn btn-default"><i class="fa fa-refresh"></i></a>
+                 <button class="btn btn-default" type="submit">搜索</button>
                </div>
             </div>
           </div><!-- /.box-header -->
@@ -50,16 +49,16 @@
 	                <td>${(type.descri)!'--'}</td>
 	                <td>
 	                	<@shiro.hasPermission name="dictEdit">
-	                		<a class="dialog" style="cursor: pointer" href="javascript:;" data-title="编辑" data-url="/system/dict/type/toEdit/${(type.id)!}",data-width="800" data-height="600" > <i class="fa fa-pencil-square-o"></i> 编辑</a>
+	                		<a class="dialog" style="cursor: pointer" href="javascript:;" style="cursor: pointer" data-title="编辑" data-url="/system/dict/type/toEdit/${(type.id)!}",data-width="800" data-height="600" > 编辑</a>
 	                	</@shiro.hasPermission>
 	                	<@shiro.hasPermission name="dictDel">
 		                	<a class="" style="cursor: pointer"
 		                	 data-tiggle="ajax"
 		                	 data-submit-url="/system/dict/type/del?id=${(type.id)!}"
-		                	 data-confirm="您确定要删除该条记录吗?"><i class="fa fa-times"></i> 删除</a>
+		                	 data-confirm="您确定要删除该条记录吗?"> 删除</a>
 	                	 </@shiro.hasPermission>
                 <@shiro.hasPermission name="dictAdd">
-                    <a class="btn btn-primary btn-xs" href="/system/dict/list/1?typeValue=${(type.value)!}&typeName=${(type.name)!}" data-title="字典项管理" data-url="/system/dict/list/${(type.value)!}",data-width="800" data-height="400" > <i class="fa fa-pencil-square-o"></i>字典项列表</a>
+                    <a class="" style="cursor: pointer" href="/system/dict/list/1?typeValue=${(type.value)!}&typeName=${(type.name)!}" data-title="字典项管理" data-url="/system/dict/list/${(type.value)!}",data-width="800" data-height="400" >字典项列表</a>
                 </@shiro.hasPermission>
 	                </td>
 	              </tr>

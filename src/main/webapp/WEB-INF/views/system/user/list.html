@@ -21,14 +21,13 @@
 	          <div class="box-header">
 	            <div class="input-group">
 	            <@shiro.hasPermission name="addUser">
-		            <a class="btn btn-primary dialog" href="javascript:;" data-url="/system/user/add" data-title="创建新用户" data-width="850" data-height="550"><i class="fa fa-plus"></i> 创建新用户</a>
+		            <a class="btn btn-primary dialog" href="javascript:;" data-url="/system/user/add" data-title="创建新用户" data-width="850" data-height="550"> 创建新用户</a>
 	            </@shiro.hasPermission>
 	            </div>
 	            <div class="input-group">
-	               <input type="text" name="search" value="${search!}" class="form-control" placeholder="Search">
+	               <input type="text" name="search" value="${search!}" class="form-control" placeholder="">
 	               <div class="input-group-btn">
-	                 <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-	                 <a href="/system/user/list/1" class="btn btn-default"><i class="fa fa-refresh"></i></a>
+	                 <button class="btn btn-default" type="submit">搜索</button>
 	               </div>
 	            </div>
 	          </div><!-- /.box-header -->
