@@ -16,46 +16,49 @@
   <section class="content">
     <!-- Your Page Content Here -->
     <div class="row">
-      <div class="col-xs-12">
-        <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_1" data-toggle="tab">个人信息</a></li>
-            </ul>
-            <div class="tab-content">
-              <div class="tab-pane active" id="tab_1">
-               	 <div class="row">
-		         	<div class="col-md-6">
-			       	  <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="/system/me/updateUser">
-			            <div class="box-body">
-			              <input type="hidden" value="${(sysUser.id)!}" id="id" name="id">
-			              <div class="form-group">
-			                <label for="userName">用户名</label>
-			               	<input type="text" name="userName" value="${(sysUser.userName)!}" class="form-control" readonly="readonly">
-			              </div>
-			              <input type="hidden" value="${(sysUser.userImg)!}" id="userImg" name="userImg">
-			              <div class="form-group">
-		                     <label for="systemLogo">头像</label>
-		                     <input name="file" type="file" class="file-loading" id="systemLogo">
-		                   </div>
-		                  <#if info??>
-			              <div class="form-group">
-			              	<div  class="alert alert-success alert-dismissible">
-						       <h4 style="margin-bottom: 0px;"><i class="fa fa-info"></i> ${info!}</h4>
-						    </div>
-			              </div>
-			              </#if>
-			            </div><!-- /.box-body -->
-			            <div class="box-footer">
-			              <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  提 交</button>
-			            </div>
-			          </form>
-			        </div>
-	         	   </div>
-              	</div><!-- /.tab-pane -->
-              </div><!-- /.tab-pane -->
-            </div><!-- /.tab-content -->
-      </div>
-    </div>
+	</div>
+	  <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="/system/me/updateUser">
+		  <div class="col-md-6">
+		  <div class="row">
+		  <div class="box-body">
+			  <input type="hidden" value="${(sysUser.id)!}" id="id" name="id">
+			  <div class="form-group">
+				  <label for="userName">用户名</label>
+				  <input type="text" name="userName" value="${(sysUser.userName)!}" class="form-control" readonly="readonly">
+			  </div>
+			  <div class="form-group">
+				  <label for="phone">联系电话</label>
+				  <input type="text" id="phone" name="phone" value="${(sysUser.phone)!'未录入'}" class="form-control" readonly="readonly">
+			  </div>
+			  <div class="form-group">
+				  <label for="phone">创建时间</label>
+				  <input type="text" id="createTime" name="createTime" value="${(sysUser.createTime?string('yyyy/MM/dd HH:mm:ss'))!'--'}" class="form-control" readonly="readonly">
+			  </div>
+		  </div>
+		  </div>
+		  </div>
+		  <!-- /.box-body -->
+		  <div class="col-md-6">
+			  <div class="row">
+				  <div class="box-body">
+					  <input type="hidden" value="${(sysUser.userImg)!}" id="userImg" name="userImg">
+					  <div class="form-group" >
+						  <label for="systemLogo">头像</label>
+						  <input name="file" type="file" class="file-loading" id="systemLogo">
+					  </div>
+					  <#if info??>
+					  <div class="form-group">
+						  <div  class="alert alert-success alert-dismissible">
+							  <h4 style="margin-bottom: 0px;"><i class="fa fa-info"></i> ${info!}</h4>
+						  </div>
+					  </div>
+				  </#if>
+			  </div><!-- /.box-body -->
+		  </div>
+			  <div class="box-footer">
+				  <button type="submit" class="btn btn-success">提 交</button>
+			  </div>
+	  </form>
   </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 </@body>
@@ -83,7 +86,7 @@ function initFileInput(ctrlName, uploadUrl) {
         allowedFileExtensions : ['jpg', 'png','gif'],//接收的文件后缀
         showUpload: false, //是否显示上传按钮
         showCaption: false,//是否显示标题
-        browseClass: "btn btn-primary"       
+        browseClass: "btn btn-primary" ,
     });
 }
 	

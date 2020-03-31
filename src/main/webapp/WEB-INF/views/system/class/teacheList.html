@@ -32,7 +32,7 @@
 	                <td>${(record.teacherName)!'无任课老师'}</td>
 	                <td>
 	                	<@shiro.hasPermission name="system:class:manage">
-	                		<a class="dialog" href="javascript:;" style="cursor: pointer" data-title="编辑教师" data-url="/system/class/toAddTeacher?id=${(record.id)}&classId=${(record.classId)!}&lessonCode=${(record.lessonCode)!}",data-width="800" data-height="400" > <i class="fa fa-pencil-square-o"></i> 编辑</a>
+	                		<a class="dialog" href="javascript:;" style="cursor: pointer" data-title="编辑教师" data-url="/system/class/toAddTeacher?id=${(record.id)}&classId=${(record.classId)!}&lessonCode=${(record.lessonCode)!}",data-width="800" data-height="400" > 编辑</a>
 	                	</@shiro.hasPermission>
 	                </td>
 	              </tr>

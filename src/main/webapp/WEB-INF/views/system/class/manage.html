@@ -20,14 +20,13 @@
               <h3 class="box-title">班级公告</h3>
             <@shiro.hasPermission name="system:class:add">
 	            <div class="input-group">
-	            	<a class="btn btn-primary dialog" href="javascript:;" data-title="创建班级" data-url="/system/class/toAdd" data-width="800" data-height="480"><i class="fa fa-plus"></i> 创建班级</a>
+	            	<a class="btn btn-primary dialog" href="javascript:;" data-title="创建班级" data-url="/system/class/toAdd" data-width="800" data-height="480">创建班级</a>
 	            </div>
             </@shiro.hasPermission>
              <div class="input-group">
                <input type="text" name="name" value="${name!}" class="form-control" placeholder="输入班级名称查询">
                <div class="input-group-btn">
-                 <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
-                 <a href="/system/class/list/1" class="btn btn-default"><i class="fa fa-refresh"></i></a>
+                 <button class="btn btn-default" type="submit">搜索</button>
                </div>
             </div>
           </div><!-- /.box-header -->
@@ -57,23 +56,25 @@
 	                <td><#if record.isValid==1>正常<#else><font color="red">超期</font></#if></td>
 	                <td>
 	                	<@shiro.hasPermission name="system:class:add">
-	                		<a class="btn btn-primary btn-xs dialog" href="javascript:;" data-title="编辑班级" data-url="/system/class/toAdd?id=${(record.id)!}",data-width="800" data-height="450" > <i class="fa fa-pencil-square-o"></i> 编辑</a>
+	                		<a class="" style="cursor: pointer" href="javascript:;" data-title="编辑班级" data-url="/system/class/toAdd?id=${(record.id)!}",data-width="800" data-height="450" > 编辑</a>
 	                	</@shiro.hasPermission>
 	                	<@shiro.hasPermission name="system:class:manage">
-	                		<a href="/system/class/manage/${(record.id)!}" > <i class="fa fa-pencil-square-o"></i> 管理</a>
+	                		<a href="/system/class/manage/${(record.id)!}" style="cursor: pointer"> 管理</a>
 	                	</@shiro.hasPermission>
 
                       <@shiro.hasPermission name="system:class:del">
                       <#if record.isValid==1>
-                      <a class="btn btn-danger btn-xs"
+                      <a class=""
+                         style="cursor: pointer"
                          data-tiggle="ajax"
                          data-submit-url="/system/class/delete?id=${(record.id)!}&isValid=-1"
-                         data-confirm="您确定设置该班级失效吗?"><i class="fa fa-times"></i> 失效</a>
+                         data-confirm="您确定设置该班级失效吗?">失效</a>
                       <#else>
-                        <a class="btn btn-info btn-xs"
+                        <a class=""
+                           style="cursor: pointer"
                             data-tiggle="ajax"
                             data-submit-url="/system/class/delete?id=${(record.id)!}&isValid=1"
-                            data-confirm="您确定设置该班级生效吗?"><i class="fa fa-check"></i> 生效</a>
+                            data-confirm="您确定设置该班级生效吗?">生效</a>
                   </#if>
                     </@shiro.hasPermission>
 
