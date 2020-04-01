@@ -57,7 +57,7 @@
 	                <td>${(record.parentName)!'--'}</td>
 	                <td>
 	                	<@shiro.hasPermission name="system:stu:add">
-	                		<a class="dialog" style="cursor: pointer" href="javascript:;" data-title="编辑学生" data-url="/system/class/toAdd?id={(record.id)!}",data-width="800" data-height="400" >编辑</a>
+	                		<a class="dialog" style="cursor: pointer" href="javascript:;" data-title="编辑学生" data-url="/system/student/toAdd?id={(record.id)!}",data-width="800" data-height="400" >编辑</a>
 	                	</@shiro.hasPermission>
 	                	<@shiro.hasPermission name="system:stu:remove">
 		                	<a class="" style="cursor: pointer"
