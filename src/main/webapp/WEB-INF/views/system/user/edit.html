@@ -61,7 +61,7 @@
        	<div class="col-sm-10">
        	<#list sysRoles as role>
           <label title="${(role.roleDesc)!}">
-            <input type="checkbox" name="roleId" class="minimal" value="${(role.id)!}" ${(myRolds?seq_contains('${role.id}')?string('checked',''))} lay-ignore>
+            <input type="radio" name="roleId" class="minimal" value="${(role.id)!}" ${(myRolds?seq_contains('${role.id}')?string('checked',''))} lay-ignore>
             ${(role.roleName)!}
           </label>
           &nbsp;

@@ -60,7 +60,7 @@
         	 <div class="col-sm-10 checkboxDiv">
         	<#list roleList as role>
           <label title="${(role.roleDesc)!}">
-            <input type="checkbox" name="roleId" class="minimal" value="${(role.id)!}" lay-ignore>
+            <input type="radio" name="roleId" class="minimal" value="${(role.id)!}" lay-ignore>
             	${(role.roleName)!}
           </label>
           &nbsp;

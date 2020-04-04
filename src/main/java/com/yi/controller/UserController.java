@@ -72,9 +72,9 @@ public class UserController extends BaseController {
     @RequiresPermissions("addUser")
     @RequestMapping("/doAdd")  
     @ResponseBody
-    public  Rest doAdd(SysUser user,@RequestParam(value="roleId[]",required=false) String[] roleId){
-    	
-    	sysUserService.insertUser(user,roleId);
+    public  Rest doAdd(SysUser user,@RequestParam(value="roleId",required=false) String roleId){
+    	String[] roleIds = {roleId};
+    	sysUserService.insertUser(user,roleIds);
     	return Rest.ok();
     }  
     /**
@@ -116,8 +116,9 @@ public class UserController extends BaseController {
     @RequiresPermissions("editUser")
     @RequestMapping("/doEdit")  
     @ResponseBody
-    public  Rest doEdit(SysUser sysUser,@RequestParam(value="roleId[]",required=false) String[] roleId,Model model){
-    	sysUserService.updateUser(sysUser,roleId);
+    public  Rest doEdit(SysUser sysUser,@RequestParam(value="roleId",required=false) String roleId,Model model){
+    	String[] roleIds = {roleId};
+    	sysUserService.updateUser(sysUser,roleIds);
     	return Rest.ok();
     } 
     
