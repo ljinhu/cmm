@@ -71,7 +71,7 @@ public class SysNoticeController extends BaseController {
             List<SysClass> classes = teacherClassService.getTeacherClass(user.getId(), 1L);
             List<String> classIds = new ArrayList<>();
             if(!CollectionUtils.isEmpty(classes)){
-                 classIds = classes.stream().map(SysClass::getId).collect(Collectors.toList());
+                 classIds = classes.stream().map(SysClass::getClassNo).collect(Collectors.toList());
             }
             if(StringUtils.isNotEmpty(name)) {
                 notice.setName(name);
@@ -80,8 +80,6 @@ public class SysNoticeController extends BaseController {
             if(StringUtils.isNotEmpty(classNo)){
                 notice.setClassNo(classNo);
                 model.addAttribute("classNo",classNo);
-            }else{
-                notice.setClassNo("-1");
             }
 //            Page<SysNotice> noticePage = noticeService.findPage(page, notice);
             Page<SysNotice> noticePage = noticeService.findByClassIds(page, classIds,notice);
