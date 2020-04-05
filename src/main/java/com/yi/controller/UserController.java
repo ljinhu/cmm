@@ -24,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 用户控制器
@@ -60,8 +62,10 @@ public class UserController extends BaseController {
 	@RequiresPermissions("addUser")
     @RequestMapping("/add")  
     public  String add(Model model){
-    	model.addAttribute("roleList", sysRoleService.selectList(null));
-    	model.addAttribute("deptList", sysDeptService.selectList(null));
+		Wrapper<SysRole> roleWrapper = new EntityWrapper<>();
+		roleWrapper.ne("id",parent_id);
+    	model.addAttribute("roleList", sysRoleService.selectList(roleWrapper));
+//    	model.addAttribute("deptList", sysDeptService.selectList(null));
 		return "system/user/add";
     } 
     
@@ -96,14 +100,19 @@ public class UserController extends BaseController {
     @RequiresPermissions("editUser")
     public  String edit(@PathVariable String id,Model model){
     	SysUser sysUser = sysUserService.selectById(id);
-    	
-    	List<SysRole> sysRoles = sysRoleService.selectList(null);
+		Wrapper<SysRole> roleWrapper = new EntityWrapper<>();
+		roleWrapper.ne("id",parent_id);
+    	List<SysRole> sysRoles = sysRoleService.selectList(roleWrapper);
     	EntityWrapper<SysUserRole> ew = new EntityWrapper<SysUserRole>();
     	ew.eq("userId ", id);
     	List<SysUserRole> mySysUserRoles = sysUserRoleService.selectList(ew);
     	List<String> myRolds = Lists.transform(mySysUserRoles, input -> input.getRoleId());
-    	
-    	model.addAttribute("sysUser",sysUser);
+		List<String> strings = Optional.ofNullable(myRolds).orElse(new ArrayList<>());
+		long count = strings.stream().filter(s -> s.equals(parent_id)).count();
+		if(count > 0){
+			model.addAttribute("isParent",true);
+		}
+		model.addAttribute("sysUser",sysUser);
     	model.addAttribute("sysRoles",sysRoles);
     	model.addAttribute("myRolds",myRolds);
     	model.addAttribute("deptList", sysDeptService.selectList(null));

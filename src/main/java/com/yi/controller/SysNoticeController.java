@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,9 +69,9 @@ public class SysNoticeController extends BaseController {
         else if(isTeacher()){
             //获取
             List<SysClass> classes = teacherClassService.getTeacherClass(user.getId(), 1L);
+            List<String> classIds = new ArrayList<>();
             if(!CollectionUtils.isEmpty(classes)){
-                List<String> classIds = classes.stream().map(SysClass::getId).collect(Collectors.toList());
-                Page<SysNotice> pageData = noticeService.findByClassIds(page, classIds,notice);
+                 classIds = classes.stream().map(SysClass::getId).collect(Collectors.toList());
             }
             if(StringUtils.isNotEmpty(name)) {
                 notice.setName(name);
@@ -79,8 +80,11 @@ public class SysNoticeController extends BaseController {
             if(StringUtils.isNotEmpty(classNo)){
                 notice.setClassNo(classNo);
                 model.addAttribute("classNo",classNo);
+            }else{
+                notice.setClassNo("-1");
             }
-            Page<SysNotice> noticePage = noticeService.findPage(page, notice);
+//            Page<SysNotice> noticePage = noticeService.findPage(page, notice);
+            Page<SysNotice> noticePage = noticeService.findByClassIds(page, classIds,notice);
             model.addAttribute("pageData",noticePage);
             return prefix + "list";
         }

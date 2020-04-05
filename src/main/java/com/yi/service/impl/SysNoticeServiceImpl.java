@@ -79,6 +79,8 @@ public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNotice
         Wrapper<SysNotice> wrapper = new EntityWrapper<>();
         if(!CollectionUtils.isEmpty(classIds)){
             wrapper.in("class_no",classIds);
+        }else{
+            wrapper.in("class_no","-1");
         }
         if(null != notice && StringUtils.isNotEmpty(notice.getName())){
             wrapper.like("name",notice.getName());
