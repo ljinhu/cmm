@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -161,6 +163,7 @@ public class ClassController extends BaseController {
             return PREFIX + "mine";
         } else {
             List<SysClass> classes = teacherClassService.getTeacherClass(currentUser.getId(), 1L);
+            classes = Optional.ofNullable(classes).orElse(new ArrayList<SysClass>(1));
             page = new Page<>();
             page.setRecords(classes);
             page.setTotal(classes.size());
