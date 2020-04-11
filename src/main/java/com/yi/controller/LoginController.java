@@ -1,8 +1,10 @@
 package com.yi.controller;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -46,12 +48,17 @@ public class LoginController extends BaseController {
 	 * 执行登录
 	 */
     @RequestMapping(value = "/doLogin",method=RequestMethod.POST)  
-    public  String doLogin(String userName,String password, String captcha,String return_url,RedirectAttributesModelMap model){
+    public  String doLogin(String userName, String password, String captcha, String return_url, RedirectAttributesModelMap model, HttpServletRequest request){
 		
     	Subject currentUser = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
-		
-		 if (!currentUser.isAuthenticated()) {
+		String kaptchaServer = (String) request.getSession().getAttribute(com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY);
+		captcha = Optional.ofNullable(captcha).orElse("x");
+		if(!captcha.equals(kaptchaServer)){
+			model.addFlashAttribute("error", "验证码无效");
+			return redirectTo("/login");
+		}
+		if (!currentUser.isAuthenticated()) {
 	          // token.setRememberMe(true);
 	            try {
 	                currentUser.login(token);
